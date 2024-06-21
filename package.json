@@ -4,23 +4,34 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "astro dev",
-		"start": "astro dev",
+		"start": "tsx index.ts",
 		"build": "astro check && astro build",
 		"preview": "astro preview",
+		"typecheck": "astro check",
 		"astro": "astro",
-		"precommit": "biome check --write .",
+		"biome": "biome check --write .",
+		"precommit": "pnpm biome && pnpm typecheck",
 		"lint": "biome lint --write .",
 		"format": "biome format --write ."
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.7.0",
-		"@astrojs/react": "^3.5.0",
+		"@astrojs/node": "^8.3.1",
+		"@astrojs/tailwind": "^5.1.0",
+		"@fastify/middie": "^8.3.1",
+		"@fastify/static": "^7.0.4",
+		"@types/node": "^20.14.7",
 		"@types/react": "^18.3.3",
 		"@types/react-dom": "^18.3.0",
 		"astro": "^4.10.2",
+		"fastify": "^4.28.0",
+		"lucide-astro": "^0.395.0",
 		"react": "^18.3.1",
 		"react-dom": "^18.3.1",
-		"typescript": "^5.4.5"
+		"tailwindcss": "^3.4.4",
+		"tsx": "^4.15.7",
+		"typescript": "^5.4.5",
+		"wisp-server-node": "^1.1.0"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.8.1"

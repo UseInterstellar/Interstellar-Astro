@@ -1,12 +1,16 @@
+import node from "@astrojs/node";
+import tailwind from "@astrojs/tailwind";
 import { defineConfig } from "astro/config";
-
-import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
-  prefetch: {
-    defaultStrategy: "viewport",
-    prefetchAll: true
-  }
+	output: "server",
+	adapter: node({
+		mode: "middleware",
+	}),
+	integrations: [tailwind({ applyBaseStyles: false })],
+	prefetch: {
+		defaultStrategy: "viewport",
+		prefetchAll: true,
+	},
 });
