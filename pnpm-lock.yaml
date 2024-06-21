@@ -35,6 +35,9 @@ dependencies:
   lucide-astro:
     specifier: ^0.395.0
     version: 0.395.0(astro@4.10.2)
+  mime:
+    specifier: ^4.0.3
+    version: 4.0.3
   tailwindcss:
     specifier: ^3.4.4
     version: 3.4.4
@@ -3252,6 +3255,12 @@ packages:
   /mime@3.0.0:
     resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
     engines: {node: '>=10.0.0'}
+    hasBin: true
+    dev: false
+
+  /mime@4.0.3:
+    resolution: {integrity: sha512-KgUb15Oorc0NEKPbvfa0wRU+PItIEZmiv+pyAO2i0oTIVTJhlzMclU7w4RXWQrSOVH5ax/p/CkIO7KI4OyFJTQ==}
+    engines: {node: '>=16'}
     hasBin: true
     dev: false
 
