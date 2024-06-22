@@ -8,6 +8,7 @@ This is a unstable version of Interstellar rewritten from the ground up. Expect 
 pnpm i
 pnpm dev
 ```
+
 ## Production (if you're brave)
 
 ```sh

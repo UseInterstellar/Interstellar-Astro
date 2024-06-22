@@ -1,11 +1,5 @@
 ---
 import { ViewTransitions } from "astro:transitions";
-
-interface Props {
-	title: string;
-}
-
-const { title } = Astro.props;
 ---
 
 <!doctype html>
@@ -15,39 +9,95 @@ const { title } = Astro.props;
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+		<title>Interstellar</title>
 		<ViewTransitions />
+		<script>
+        function getRandomURL() {
+          const randomURLS = [
+            "https://kahoot.it",
+            "https://classroom.google.com",
+            "https://drive.google.com",
+            "https://google.com",
+            "https://docs.google.com",
+            "https://slides.google.com",
+            "https://www.nasa.gov",
+            "https://blooket.com",
+            "https://clever.com",
+            "https://edpuzzle.com",
+            "https://khanacademy.org",
+            "https://wikipedia.org",
+            "https://dictionary.com",
+          ]
+          return randomURLS[randRange(0, randomURLS.length)]
+        }
+
+        function randRange(min: number, max: number) {
+          return Math.floor(Math.random() * (max - min) + min)
+        }
+        if (!localStorage.getItem("ab")) localStorage.setItem("ab", "true")
+        if (localStorage.getItem("ab") === "true" && window !== window.top && !navigator.userAgent.includes("Firefox")) {
+          const popup = open("about:blank", "_blank")
+          if (!popup || popup.closed) {
+            alert(
+              "Please allow popups for this site. Doing so will allow us to open the site in a about:blank tab and preventing this site from showing up in your history. You can turn this off in the site settings."
+            )
+            return
+          }
+          const doc = popup.document
+          doc.title = localStorage.getItem("name") || "My Drive - Google Drive"
+          const iframe = doc.createElement("iframe")
+          Object.assign(iframe.style, {
+            width: "100%",
+            height: "100%",
+            border: "none",
+            outline: "none",
+            top: "0",
+            bottom: "0",
+            left: "0",
+            right: "0",
+            position: "fixed",
+        })
+          const link = Object.assign(doc.createElement("link"), {
+            rel: "icon",
+            href: localStorage.getItem("icon") ||
+            "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png",
+          })
+          doc.head.appendChild(link)
+          doc.body.appendChild(iframe)
+          const pLink = localStorage.getItem(encodeURI("pLink")) || getRandomURL()
+          location.replace(pLink)
+
+          const script = doc.createElement("script")
+          script.textContent = `
+          window.onbeforeunload = function (event) {
+          const confirmationMessage = 'Leave Site?';
+          (event || window.event).returnValue = confirmationMessage;
+          return confirmationMessage;
+          };
+          `
+        doc.head.appendChild(script)
+        }
+		</script>
 	</head>
 	<body>
+    	<nav class="flex flex-row justify-between items-center rounded-xl w-[80%] h-16 fixed m-4">
+            <a href="/" class="text-6xl font-bold text-white p-4">IN</a>
+    	</nav>
 		<slot />
 	</body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+@import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background-image: url('/assets/full-main.png');
+    }
+}
+body {
+    background-image: var(--background-image);
+}
 </style>

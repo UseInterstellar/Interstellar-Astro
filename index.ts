@@ -18,7 +18,9 @@ const app = Fastify({
 			.on("upgrade", (req, socket: Socket, head) =>
 				bare.shouldRoute(req)
 					? bare.routeUpgrade(req, socket, head)
-					: wisp.routeRequest(req, socket, head),
+					: req.url?.startsWith("/wisp")
+						? wisp.routeRequest(req, socket, head)
+						: socket.destroy(),
 			),
 });
 if (!fs.existsSync("dist")) {
