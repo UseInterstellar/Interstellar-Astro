@@ -1,12 +1,45 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.7.0/schema.json",
-	"organizeImports": {
-		"enabled": true
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true
-		}
-	}
+  "$schema": "https://biomejs.dev/schemas/1.8.2/schema.json",
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    },
+    "ignore": [
+      "**/pnpm-lock.yaml",
+      "**/dist/**",
+      "**/.astro/**",
+      "**/node_modules/**"
+    ]
+  },
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineEnding": "lf",
+    "lineWidth": 85,
+    "attributePosition": "auto",
+    "ignore": [
+      "**/pnpm-lock.yaml",
+      "**/dist/**",
+      "**/.astro/**",
+      "**/node_modules/**"
+    ]
+  },
+  "javascript": {
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "css": {
+    "formatter": {
+      "enabled": true,
+      "indentWidth": 3
+    },
+    "linter": {
+      "enabled": true
+    }
+  }
 }

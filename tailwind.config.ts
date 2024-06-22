@@ -4,11 +4,11 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Red Hat Display"]
+        sans: ["Red Hat Display"],
       },
       colors: {
-        background: "var(--background)"
-      }
+        background: "var(--background)",
+      },
     },
   },
   plugins: [],
