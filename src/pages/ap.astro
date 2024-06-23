@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
 import { LayoutGrid } from "lucide-astro";
+import Obfuscated from "../components/Obfuscated.astro";
 import Layout from "../layouts/Main.astro";
 import { ASSET_URL, type App } from "../lib/asset";
 const apps: App[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
-export const prerender = false;
 ---
 
 <Layout>
@@ -26,7 +26,7 @@ export const prerender = false;
                 width={145}
                 class="size-24 rounded-md"
               />
-              <p class="text-center font-semibold text-xl truncate text-ellipsis">{app.name}</p>
+              <Obfuscated class="text-center font-semibold text-xl text-wrap" text={app.name} />
             </div>
           </a>
         ))

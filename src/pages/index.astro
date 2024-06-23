@@ -5,11 +5,34 @@ import Layout from "../layouts/Main.astro";
 <script src="../lib/cloak.ts"></script>
 <Layout>
   <h3 class="flex text-8xl font-black uppercase place-content-center mt-40">Interstellar</h3>
-  <form class="flex place-content-center mt-4">
+  <div class="flex place-content-center mt-4">
     <input
-      class="h-16 border-transparent rounded-md w-1/2 py-3 px-4 text-gray-700 leading-tight focus:outline-none bg-secondary"
+      class="h-16 rounded-md w-1/2 py-3 px-4 placeholder-text-secondary leading-tight focus:outline-none bg-interactive border-border"
       placeholder="Search"
-      oninput="this.classList.add('text-white')"
+      onkeydown="inputDown"
+      id="search"
     />
-  </form>
+  </div>
 </Layout>
+<script>
+  const searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
+  const input = document.getElementById("search") as HTMLInputElement;
+  function isUrl(val = "") {
+    if (/^http(s?):\/\//.test(val) || (val.includes(".") && !val.includes(" "))) {
+      return true;
+    }
+    return false;
+  }
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      let url = input.value;
+      if (!isUrl(url)) {
+        url = searchUrl + url;
+      } else if (!(url.startsWith("https://") || url.startsWith("http://"))) {
+        url = `https://${url}`;
+      }
+      // TODO: change this logic
+      window.location.href = `/jquery/${window.__uv$config.encodeUrl(url)}`;
+    }
+  });
+</script>

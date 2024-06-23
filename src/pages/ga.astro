@@ -1,7 +1,36 @@
 ---
+import { Image } from "astro:assets";
+import { Gamepad2 } from "lucide-astro";
+import Obfuscated from "../components/Obfuscated.astro";
 import Layout from "../layouts/Main.astro";
+import { ASSET_URL } from "../lib/asset";
+const games = await (await fetch(`${ASSET_URL}/json/games.json`)).json();
 ---
 
 <Layout>
-  <div>games</div>
+  <div class="flex justify-center py-8 flex-col items-center">
+    <div class="text-4xl font-bold text-text-secondary inline-flex mb-4">
+      <Gamepad2 class="size-12 mr-2" />
+      Games
+    </div>
+    <div class="flex flex-wrap justify-center gap-4 flex-row mt-30">
+      {
+        games.map((game: any) => (
+          <a href={game.link}>
+            <div class="flex flex-col items-center p-4 bg-secondary size-48 rounded-md space-y-4 hover:bg-interactive duration-150">
+              <Image
+                loading="eager"
+                src={ASSET_URL + game.image}
+                alt={game.name}
+                height={145}
+                width={145}
+                class="size-24 rounded-md"
+              />
+              <Obfuscated class="text-center font-semibold text-xl text-wrap" text={game.name} />
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
 </Layout>

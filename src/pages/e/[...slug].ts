@@ -1,7 +1,7 @@
 import path from "node:path";
 import type { APIRoute } from "astro";
 import mime from "mime";
-
+export const prerender = false;
 export const GET: APIRoute = async ({ params }) => {
   try {
     const baseUrls = {

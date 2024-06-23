@@ -8,7 +8,7 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 import wisp from "wisp-server-node";
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "server",
   adapter: node({
     mode: "middleware",
   }),

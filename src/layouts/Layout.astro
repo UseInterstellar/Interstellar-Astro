@@ -1,4 +1,13 @@
 ---
+declare global {
+  interface Window {
+    __uv$config: {
+      prefix: string;
+      encodeUrl: (str: string) => string;
+      decodeUrl: (str: string) => string;
+    };
+  }
+}
 import "../global.css";
 
 import { ViewTransitions } from "astro:transitions";
@@ -16,6 +25,16 @@ import { ViewTransitions } from "astro:transitions";
     <script is:inline src="/assets/bundled/v.ble.js" defer></script>
     <script is:inline src="/assets/bundled/v.cfg.js" defer></script>
     <script is:inline src="/assets/ex/index.js" defer></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-WKJQ5QHQTJ");
+    </script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
     <script>
       // @ts-expect-error shut
       import { SetTransport } from "@mercuryworkshop/bare-mux";
