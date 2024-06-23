@@ -2,30 +2,40 @@
 import { AppWindow, Gamepad2, Home, LayoutGrid, Wrench } from "lucide-astro";
 import Obfuscated from "../components/Obfuscated.astro";
 import Layout from "./Layout.astro";
+const location = Astro.url.pathname;
 const navLinks = [
   { href: "/", text: "Home", Icon: Home },
   { href: "/ap", text: "Apps", Icon: LayoutGrid },
   { href: "/ga", text: "Games", Icon: Gamepad2 },
-  { href: "/to", text: "Tools",Icon: Wrench },
+  { href: "/to", text: "Tools", Icon: Wrench },
   { href: "/tb", text: "Tabs", Icon: AppWindow },
 ];
 ---
 
 <Layout>
-<nav class="flex flex-row justify-between backdrop-blur-lg bg-secondary border-none w-[98vw] h-20 p-6 rounded-xl m-4 fixed">
-  <a href="/" class="flex items-center hover:-translate-y-1 hover:scale-105 duration-150 text-6xl font-extrabold">
-   IN
-  </a>
-  <ul class="flex flex-row items-center text-2xl gap-6 font-semibold">
-    {navLinks.map((link) => (
-    <li>
-        <a href={link.href} class="flex-row inline-flex gap-2 items-center hover:scale-105 hover:-translate-y-1 duration-150">
-            <link.Icon class="size-5" />
-            <Obfuscated text={link.text} />
-        </a>
-    </li>
-    ))}
-  </ul>
-</nav>
-<slot />
+  <nav
+    class="flex flex-row justify-between backdrop-blur-lg bg-secondary border-none w-[98vw] h-20 px-6 rounded-xl mx-4 mt-4 fixed top-0"
+  >
+    <a href="/" class="flex items-center hover:-translate-y-1 hover:scale-105 duration-150 text-6xl font-extrabold">
+      IN
+    </a>
+    <ul class="flex flex-row items-center text-2xl gap-6 font-semibold">
+      {
+        navLinks.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class="flex-row inline-flex gap-2 items-center hover:scale-105 hover:-translate-y-1 duration-150"
+            >
+              <link.Icon class="size-5" />
+              <Obfuscated text={link.text} childClass={location === link.href ? "underline" : ""} />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <main class="mt-24">
+    <slot />
+  </main>
 </Layout>

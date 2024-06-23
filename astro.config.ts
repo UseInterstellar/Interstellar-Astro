@@ -1,7 +1,10 @@
 import node from "@astrojs/node";
 import tailwind from "@astrojs/tailwind";
+// @ts-expect-error shut
+import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 import { createBareServer } from "@tomphttp/bare-server-node";
 import { defineConfig } from "astro/config";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 import wisp from "wisp-server-node";
 // https://astro.build/config
 export default defineConfig({
@@ -33,7 +36,7 @@ export default defineConfig({
           server.httpServer?.on("upgrade", (req, socket, head) =>
             bare.shouldRoute(req)
               ? bare.routeUpgrade(req, socket, head)
-              : req.url?.startsWith("/wisp")
+              : req.url?.startsWith("/f")
                 ? wisp.routeRequest(req, socket, head)
                 : undefined,
           );
@@ -42,6 +45,15 @@ export default defineConfig({
           );
         },
       },
+      viteStaticCopy({
+        targets: [
+          {
+            src: `${epoxyPath}/**/*`.replace(/\\/g, "/"),
+            dest: "assets/ex",
+            overwrite: false,
+          },
+        ],
+      }),
     ],
   },
 });

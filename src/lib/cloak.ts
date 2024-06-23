@@ -60,8 +60,7 @@ if (
     location.replace(pLink);
 
     const script = doc.createElement("script");
-    script.textContent = `
-        window.onbeforeunload=function(event){const confirmationMessage = 'Leave Site?';(event || window.event).returnValue = confirmationMessage;return confirmationMessage};`;
+    script.textContent = `window.onbeforeunload=function(e){const n="Leave Site?";return(e||window.event).returnValue=n,n};`;
     doc.head.appendChild(script);
   }
 }

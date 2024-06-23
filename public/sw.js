@@ -1,3 +1,4 @@
+importScripts("/assets/ex/index.js");
 importScripts("/assets/bundled/v.ble.js");
 importScripts("/assets/bundled/v.cfg.js");
 importScripts("/assets/bundled/v.sw.js");

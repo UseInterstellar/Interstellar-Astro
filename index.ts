@@ -19,13 +19,13 @@ const app = Fastify({
       .on("upgrade", (req, socket: Socket, head) =>
         bare.shouldRoute(req)
           ? bare.routeUpgrade(req, socket, head)
-          : req.url?.startsWith("/wisp")
+          : req.url?.startsWith("/f")
             ? wisp.routeRequest(req, socket, head)
             : socket.destroy(),
       ),
 });
 if (!fs.existsSync("dist")) {
-  console.error("Interstellar's not built yet! Building now...");
+  console.log("Interstellar's not built yet! Building now...");
   await build({}).catch((err) => {
     console.error(err);
     process.exit(1);

@@ -1,0 +1,49 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+   :root {
+      --background-image: url("/assets/media/backgrounds/full-inverted.png");
+      --background: #fdfcfe;
+      /* radix 1 */
+      --background-secondary: #faf8ff;
+      /* radix 2 */
+      --interactive: #ebe4ff;
+      /* radix 4 */
+      --interactive-secondary: #e1d9ff;
+      /* radix 5 */
+      --border: #c2b5f5;
+      /* radix 7 */
+      --accent: #6e56cf;
+      /* radix 9 */
+      --text: #2f265f;
+      /* radix 12 */
+      --text-secondary: #6550b9;
+      /* radix 11 */
+   }
+
+   .dark {
+      --background-image: url("/assets/media/backgrounds/full-main.png");
+      --background: #14121f;
+      --background-secondary: #853ff916;
+      --interactive: #7d51fd50;
+      --interactive-secondary: #845ffd5f;
+      --border: #9879ff83;
+      --accent: #8668ffcc;
+      --text: #e3defffe;
+      --text-secondary: #baa7ff;
+   }
+}
+
+@layer base {
+   body {
+      /* background-image: var(--background-image); */
+      @apply h-full font-sans bg-background text-text;
+   }
+
+   * {
+      @apply border-border;
+   }
+}

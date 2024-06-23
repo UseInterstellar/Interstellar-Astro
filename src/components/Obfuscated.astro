@@ -1,9 +1,11 @@
 ---
 interface Props {
   text: string;
+  childClass?: string;
 }
-const { text } = Astro.props;
+const { text, childClass } = Astro.props;
 ---
+
 <span>
-    {[...text].map((i) => <span>{i}</span>)}
+  {[...text].map((i) => <span class:list={childClass}>{i}</span>)}
 </span>

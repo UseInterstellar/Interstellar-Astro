@@ -27,7 +27,8 @@
       "**/dist/**",
       "**/.astro/**",
       "**/node_modules/**",
-      "**/assets/bundled/**"
+      "**/assets/bundled/**",
+      "*.astro"
     ]
   },
   "javascript": {
