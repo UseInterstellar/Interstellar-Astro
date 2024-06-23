@@ -1,7 +1,36 @@
 ---
+import { Image } from "astro:assets";
+import { LayoutGrid } from "lucide-astro";
 import Layout from "../layouts/Main.astro";
+import { ASSET_URL, type App } from "../lib/asset";
+const apps: App[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
+export const prerender = false;
 ---
 
 <Layout>
-  <div>apps</div>
+  <div class="flex justify-center py-8 flex-col items-center">
+    <div class="text-4xl font-bold text-text-secondary inline-flex mb-4">
+      <LayoutGrid class="size-12 mr-2" />
+      Apps
+    </div>
+    <div class="flex flex-wrap justify-center gap-4 flex-row mt-30">
+      {
+        apps.map((app) => (
+          <a href={app.link}>
+            <div class="flex flex-col items-center p-4 bg-secondary size-48 rounded-md space-y-4 hover:bg-interactive duration-150">
+              <Image
+                loading="eager"
+                src={ASSET_URL + app.image}
+                alt={app.name}
+                height={145}
+                width={145}
+                class="size-24 rounded-md"
+              />
+              <p class="text-center font-semibold text-xl truncate text-ellipsis">{app.name}</p>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
 </Layout>

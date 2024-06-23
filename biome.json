@@ -1,7 +1,13 @@
 {
   "$schema": "https://biomejs.dev/schemas/1.8.2/schema.json",
   "organizeImports": {
-    "enabled": true
+    "enabled": true,
+    "ignore": [
+      "**/pnpm-lock.yaml",
+      "**/dist/**",
+      "**/node_modules/**",
+      "**/assets/bundled/**"
+    ]
   },
   "linter": {
     "enabled": true,
@@ -11,7 +17,6 @@
     "ignore": [
       "**/pnpm-lock.yaml",
       "**/dist/**",
-      "**/.astro/**",
       "**/node_modules/**",
       "**/assets/bundled/**"
     ]
