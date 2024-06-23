@@ -1,6 +1,6 @@
 /** @type {import("prettier").Config} */
 export default {
-  printWidth: 120,
+  printWidth: 160,
   semi: true,
   singleQuote: false,
   tabWidth: 2,

@@ -4,5 +4,12 @@ import Layout from "../layouts/Main.astro";
 
 <script src="../lib/cloak.ts"></script>
 <Layout>
-  <main>home</main>
+  <h3 class="flex text-8xl font-black uppercase place-content-center mt-40">Interstellar</h3>
+  <form class="flex place-content-center mt-4">
+    <input
+      class="h-16 border-transparent rounded-md w-1/2 py-3 px-4 text-gray-700 leading-tight focus:outline-none bg-secondary"
+      placeholder="Search"
+      oninput="this.classList.add('text-white')"
+    />
+  </form>
 </Layout>

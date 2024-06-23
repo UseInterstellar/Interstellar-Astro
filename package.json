@@ -22,7 +22,7 @@
     "@mercuryworkshop/bare-mux": "^1.1.0",
     "@mercuryworkshop/epoxy-transport": "^1.1.0",
     "@tomphttp/bare-server-node": "^2.0.3",
-    "astro": "^4.10.2",
+    "astro": "^4.11.0",
     "fastify": "^4.28.0",
     "lucide-astro": "^0.395.0",
     "mime": "^4.0.3",
