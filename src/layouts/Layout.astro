@@ -4,42 +4,47 @@ import { ViewTransitions } from "astro:transitions";
 
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="shortcut icon" href="/assets/media/favicons/default.png"/>
+    <link rel="shortcut icon" href="/assets/media/favicons/default.png" />
     <title>Interstellar</title>
     <ViewTransitions />
     <script src="/assets/scripts/global.js" is:inline defer></script>
-</head>
-<body>
-    <nav class="flex flex-row justify-between items-center rounded-xl w-[80%] h-16 fixed m-4">
-        <a href="/" class="text-6xl font-black text-white p-4">IN</a>
-    </nav>
+  </head>
+  <body>
     <slot />
-</body>
-</html>
-<style is:global>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-@tailwind base;
+  </body><style is:global>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+    @tailwind base;
     @tailwind components;
     @tailwind utilities;
-    
+
     @layer base {
-        :root {
-            --background-image: url('/assets/media/backgrounds/full-main.png');
-        }
+      :root {
+        --background-image: url("/assets/media/backgrounds/full-main.png");
+        --background: #fdfcfe; /* radix 1 */
+        --background-secondary: #faf8ff; /* radix 2 */
+        --interactive: #ebe4ff; /* radix 4 */
+        --interactive-secondary: #e1d9ff; /* radix 5 */
+        --border: #c2b5f5; /* radix 7 */
+        --accent: #6e56cf; /* radix 9 */
+        --text: #2f265f; /* radix 12 */
+        --text-secondary: #6550b9;
+      }
     }
 
- body {
-	font-family: "Inter", sans-serif;
-	text-decoration: none;
-	background: var(--background-image);
-	height: 100%;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-attachment: fixed;
-}
-    </style>
+    body {
+      font-family: "Inter", sans-serif;
+      text-decoration: none;
+      background: var(--background-image);
+      background-size: cover;
+      height: 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+    }
+  </style>
+</html>

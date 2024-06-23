@@ -8,6 +8,7 @@ import { createBareServer } from "@tomphttp/bare-server-node";
 import { build } from "astro";
 import Fastify from "fastify";
 import wisp from "wisp-server-node";
+const port = Number.parseInt(process.env.PORT as string) || 8080;
 const bare = createBareServer("/o/");
 const app = Fastify({
   serverFactory: (handler) =>
@@ -31,13 +32,17 @@ if (!fs.existsSync("dist")) {
   });
 }
 // @ts-ignore
-const ssrHandler = (await import("./dist/server/entry.mjs")).handler;
+const { handler } = await import("./dist/server/entry.mjs");
 await app
   .register(fastifyStatic, {
     root: path.join(import.meta.dirname, "dist", "client"),
   })
   .register(fastifyMiddie);
-app.use(ssrHandler);
-app.listen({ port: Number.parseInt(process.env.PORT as string) || 8080 }, () => {
-  console.log("Listening on http://localhost:8080");
+app.use(handler);
+app.listen({ port }, (err, addr) => {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log("Listening on %s", addr);
 });

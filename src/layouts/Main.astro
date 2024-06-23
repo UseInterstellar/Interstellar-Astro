@@ -1,0 +1,26 @@
+---
+import Layout from "./Layout.astro";
+---
+
+<Layout>
+<nav class="flex flex-row justify-between backdrop-blur-lg bg-background/70 border-background w-full h-16 p-4">
+  <a href="/" class="flex items-center px-4 text-white">
+    <img src="/images/logo.svg" alt="Logo" class="h-8" />
+  </a>
+  <ul class="flex flex-row items-center space-x-4">
+    <li>
+      <a href="/" class="text-white">Home</a>
+    </li>
+    <li>
+      <a href="/about" class="text-white">About</a>
+    </li>
+    <li>
+      <a href="/blog" class="text-white">Blog</a>
+    </li>
+    <li>
+      <a href="/contact" class="text-white">Contact</a>
+    </li>
+  </ul>
+</nav>
+<slot />
+</Layout>

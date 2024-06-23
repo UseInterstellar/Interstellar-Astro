@@ -14,6 +14,15 @@ export default defineConfig({
     defaultStrategy: "viewport",
     prefetchAll: true,
   },
+  image: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "raw.githubusercontent.com",
+        pathname: "/UseInterstellar/**",
+      },
+    ],
+  },
   vite: {
     plugins: [
       // this absurdity is made possible by astro not letting you use a custom http server :)
@@ -21,20 +30,16 @@ export default defineConfig({
         name: "vite-wisp-server",
         configureServer(server) {
           const bare = createBareServer("/o/");
-          server.httpServer?.on("upgrade", (req, socket, head) => {
-            if (req.url?.startsWith("/wisp")) {
-              wisp.routeRequest(req, socket, head);
-            } else if (bare.shouldRoute(req)) {
-              bare.routeUpgrade(req, socket, head);
-            }
-          });
-          server.middlewares.use((req, res, next) => {
-            if (bare.shouldRoute(req)) {
-              bare.routeRequest(req, res);
-            } else {
-              next();
-            }
-          });
+          server.httpServer?.on("upgrade", (req, socket, head) =>
+            bare.shouldRoute(req)
+              ? bare.routeUpgrade(req, socket, head)
+              : req.url?.startsWith("/wisp")
+                ? wisp.routeRequest(req, socket, head)
+                : undefined,
+          );
+          server.middlewares.use((req, res, next) =>
+            bare.shouldRoute(req) ? bare.routeRequest(req, res) : next(),
+          );
         },
       },
     ],

@@ -12,7 +12,8 @@
       "**/pnpm-lock.yaml",
       "**/dist/**",
       "**/.astro/**",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/assets/bundled/**"
     ]
   },
   "formatter": {
@@ -25,7 +26,8 @@
       "**/pnpm-lock.yaml",
       "**/dist/**",
       "**/.astro/**",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "**/assets/bundled/**"
     ]
   },
   "javascript": {
