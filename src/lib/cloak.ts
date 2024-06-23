@@ -1,5 +1,3 @@
-// Random URL Function
-// To-Do: Instead of randomly grabbing a URL to redirect to we should allow users to either choose a site or multiple sites to redirect to or use the site corresponding with their cloak (Ex. If they are using a kahoot cloak it would redirect to https://kahoot.it)
 function getRandomURL() {
   const randomURLS = [
     "https://kahoot.it",
@@ -19,7 +17,7 @@ function getRandomURL() {
   return randomURLS[randRange(0, randomURLS.length)];
 }
 
-function randRange(min, max) {
+function randRange(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
@@ -63,12 +61,7 @@ if (
 
     const script = doc.createElement("script");
     script.textContent = `
-        window.onbeforeunload = function (event) {
-          const confirmationMessage = 'Leave Site?';
-          (event || window.event).returnValue = confirmationMessage;
-          return confirmationMessage;
-        };
-      `;
+        window.onbeforeunload=function(event){const confirmationMessage = 'Leave Site?';(event || window.event).returnValue = confirmationMessage;return confirmationMessage};`;
     doc.head.appendChild(script);
   }
 }

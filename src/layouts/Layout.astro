@@ -3,7 +3,7 @@ import { ViewTransitions } from "astro:transitions";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -11,40 +11,48 @@ import { ViewTransitions } from "astro:transitions";
     <link rel="shortcut icon" href="/assets/media/favicons/default.png" />
     <title>Interstellar</title>
     <ViewTransitions />
-    <script src="/assets/scripts/global.js" is:inline defer></script>
   </head>
   <body>
     <slot />
-  </body><style is:global>
-    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
-
-    @layer base {
-      :root {
-        --background-image: url("/assets/media/backgrounds/full-main.png");
-        --background: #fdfcfe; /* radix 1 */
-        --background-secondary: #faf8ff; /* radix 2 */
-        --interactive: #ebe4ff; /* radix 4 */
-        --interactive-secondary: #e1d9ff; /* radix 5 */
-        --border: #c2b5f5; /* radix 7 */
-        --accent: #6e56cf; /* radix 9 */
-        --text: #2f265f; /* radix 12 */
-        --text-secondary: #6550b9;
-      }
-    }
-
-    body {
-      font-family: "Inter", sans-serif;
-      text-decoration: none;
-      background: var(--background-image);
-      background-size: cover;
-      height: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-attachment: fixed;
-    }
-  </style>
+  </body>
 </html>
+<style is:global>
+  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+  @layer base {
+    :root {
+      --background-image: url("/assets/media/backgrounds/full-inverted.png");
+      --background: #fdfcfe; /* radix 1 */
+      --background-secondary: #faf8ff; /* radix 2 */
+      --interactive: #ebe4ff; /* radix 4 */
+      --interactive-secondary: #e1d9ff; /* radix 5 */
+      --border: #c2b5f5; /* radix 7 */
+      --accent: #6e56cf; /* radix 9 */
+      --text: #2f265f; /* radix 12 */
+      --text-secondary: #6550b9; /* radix 11 */
+    }
+    .dark {
+        --background-image: url("/assets/media/backgrounds/full-main.png");
+        --background: #4422FF0F;
+        --background-secondary: #853FF916;
+        --interactive: #7D51FD50;
+        --interactive-secondary: #845FFD5F;
+        --border: #9879FF83;
+        --accent: #8668FFCC;
+        --text: #E3DEFFFE;
+        --text-secondary: #BAA7FF;
+    }
+  }
+ @layer base {
+    body {
+        background-image: var(--background-image);
+        @apply h-full font-sans bg-background text-text bg-cover bg-center bg-no-repeat bg-fixed;
+    }
+    * {
+        @apply border-border;
+    }
+ }
+</style>

@@ -1,25 +1,30 @@
 ---
+import { AppWindow, Gamepad2, Home, LayoutGrid, Wrench } from "lucide-astro";
+import Obfuscated from "../components/Obfuscated.astro";
 import Layout from "./Layout.astro";
+const navLinks = [
+  { href: "/", text: "Home", Icon: Home },
+  { href: "/ap", text: "Apps", Icon: LayoutGrid },
+  { href: "/ga", text: "Games", Icon: Gamepad2 },
+  { href: "/to", text: "Tools",Icon: Wrench },
+  { href: "/tb", text: "Tabs", Icon: AppWindow },
+];
 ---
 
 <Layout>
-<nav class="flex flex-row justify-between backdrop-blur-lg bg-background/70 border-background w-full h-16 p-4">
-  <a href="/" class="flex items-center px-4 text-white">
-    <img src="/images/logo.svg" alt="Logo" class="h-8" />
+<nav class="flex flex-row justify-between backdrop-blur-lg bg-secondary border-none w-[98vw] h-20 p-6 rounded-xl m-4 fixed">
+  <a href="/" class="flex items-center hover:-translate-y-1 hover:scale-105 duration-150 text-6xl font-extrabold">
+   IN
   </a>
-  <ul class="flex flex-row items-center space-x-4">
+  <ul class="flex flex-row items-center text-2xl gap-6 font-semibold">
+    {navLinks.map((link) => (
     <li>
-      <a href="/" class="text-white">Home</a>
+        <a href={link.href} class="flex-row inline-flex gap-2 items-center hover:scale-105 hover:-translate-y-1 duration-150">
+            <link.Icon class="size-5" />
+            <Obfuscated text={link.text} />
+        </a>
     </li>
-    <li>
-      <a href="/about" class="text-white">About</a>
-    </li>
-    <li>
-      <a href="/blog" class="text-white">Blog</a>
-    </li>
-    <li>
-      <a href="/contact" class="text-white">Contact</a>
-    </li>
+    ))}
   </ul>
 </nav>
 <slot />

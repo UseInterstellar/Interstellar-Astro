@@ -4,10 +4,17 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Inter"],
+        sans: ["Inter", "sans-serif"],
       },
       colors: {
         background: "var(--background)",
+        secondary: "var(--background-secondary)",
+        interactive: "var(--interactive)",
+        "interactive-secondary": "var(--interactive-secondary)",
+        border: "var(--border)",
+        accent: "var(--accent)",
+        text: "var(--text)",
+        "text-secondary": "var(--text-secondary)",
       },
     },
   },

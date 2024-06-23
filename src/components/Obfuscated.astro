@@ -1,0 +1,9 @@
+---
+interface Props {
+  text: string;
+}
+const { text } = Astro.props;
+---
+<span>
+    {[...text].map((i) => <span>{i}</span>)}
+</span>
