@@ -4,7 +4,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ["Red Hat Display"],
+        sans: ["Inter"],
       },
       colors: {
         background: "var(--background)",

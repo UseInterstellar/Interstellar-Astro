@@ -1,7 +1,7 @@
 {
-  "name": "edu",
+  "name": "interstellar",
   "type": "module",
-  "version": "0.0.1",
+  "version": "6.0.0",
   "scripts": {
     "dev": "astro dev",
     "start": "tsx index.ts",
