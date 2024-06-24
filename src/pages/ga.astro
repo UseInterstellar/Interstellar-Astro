@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import { Gamepad2 } from "lucide-astro";
 import Obfuscated from "@/components/Obfuscated.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
+import { Gamepad2 } from "lucide-astro";
 const games: Asset[] = await (await fetch(`${ASSET_URL}/json/games.json`)).json();
 ---
 

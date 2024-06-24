@@ -5,7 +5,7 @@ document.addEventListener("astro:page-load", () => {
   ) as NodeListOf<HTMLButtonElement>;
   for (const button of buttons) {
     button.addEventListener("click", () => {
-      const asset: Asset = JSON.parse(button.dataset.asset!);
+      const asset: Asset = JSON.parse(button.dataset.asset as string);
       if (asset.say) alert(asset.say);
       if (asset.link) {
         sessionStorage.setItem("goUrl", asset.link);

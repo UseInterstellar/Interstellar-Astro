@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import { LayoutGrid } from "lucide-astro";
 import Obfuscated from "@/components/Obfuscated.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
+import { LayoutGrid } from "lucide-astro";
 const apps: Asset[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
 ---
 

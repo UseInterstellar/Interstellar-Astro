@@ -9,7 +9,7 @@
     "preview": "astro preview",
     "typecheck": "astro check",
     "astro": "astro",
-    "precommit": "pnpm lint && pnpm format && pnpm typecheck",
+    "precommit": "pnpm lint && pnpm format && biome check --write . && pnpm typecheck",
     "lint": "biome lint --write .",
     "format": "prettier --write . && biome format --write ."
   },
