@@ -17,10 +17,8 @@ function getRandomURL() {
   return randomURLS[randRange(0, randomURLS.length)];
 }
 
-function randRange(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
-
+const randRange = (min: number, max: number) =>
+  Math.floor(Math.random() * (max - min) + min);
 if (!localStorage.getItem("ab")) localStorage.setItem("ab", "true");
 
 if (

@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
 import { LayoutGrid } from "lucide-astro";
-import Obfuscated from "../components/Obfuscated.astro";
-import Layout from "../layouts/Main.astro";
-import { ASSET_URL, type App } from "../lib/asset";
-const apps: App[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
+import Obfuscated from "@/components/Obfuscated.astro";
+import Layout from "@/layouts/Main.astro";
+import { ASSET_URL, type Asset } from "@/lib/asset";
+const apps: Asset[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
 ---
 
 <Layout>
@@ -16,14 +16,19 @@ const apps: App[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
     <div class="flex flex-wrap justify-center gap-4 flex-row mt-30">
       {
         apps.map((app) => (
-          <a href={app.link}>
+          <button data-asset={JSON.stringify(app)}>
             <div class="flex flex-col items-center p-4 bg-secondary size-48 rounded-md space-y-4 hover:bg-interactive duration-150">
               <Image loading="eager" src={ASSET_URL + app.image} alt={app.name} height={145} width={145} class="size-24 rounded-md" />
-              <Obfuscated class="text-center font-semibold text-xl text-wrap" text={app.name} />
+              <Obfuscated
+                class="text-center font-semibold text-xl text-wrap"
+                class:list={{ "text-red-600": app.error, "text-yellow-400": app.partial }}
+                text={app.name}
+              />
             </div>
-          </a>
+          </button>
         ))
       }
     </div>
   </div>
 </Layout>
+<script src="@/lib/asset-script.ts"></script>

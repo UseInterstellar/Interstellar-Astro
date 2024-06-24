@@ -1,8 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
-export const prerender = true;
+import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout>
-  <div>tabs</div>
+  <a href="/">home</a>
+  <iframe id="frame__1" class="w-full h-screen"></iframe>
 </Layout>
+<script>
+  const frame = document.getElementById("frame__1") as HTMLIFrameElement;
+  frame.src =
+    window.__uv$config.prefix + window.__uv$config.encodeUrl(sessionStorage.getItem("goUrl") || localStorage.getItem("engine") || "https://www.google.com");
+</script>

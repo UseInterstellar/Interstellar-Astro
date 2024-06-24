@@ -1,11 +1,11 @@
 export const ASSET_URL =
   "https://raw.githubusercontent.com/UseInterstellar/Interstellar-Assets/main";
 
-export type App = {
+export type Asset = {
   name: string;
   image: string;
   link?: string;
-  links?: { name: string; url: string };
+  links?: { name: string; url: string }[];
   say?: string;
   partial?: boolean | string;
   error?: boolean | string;

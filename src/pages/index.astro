@@ -1,38 +1,57 @@
 ---
-import Layout from "../layouts/Main.astro";
+import Layout from "@/layouts/Main.astro";
+const splashText = [
+  "Over 8 Million Users since 2023",
+  "Fastest growing proxy server",
+  "Made by xBubbo",
+  "Check out discord.gg/interstellar :)",
+  "Thanks for using the site",
+  "Follow us on Tiktok (@useinterstellar)",
+  "Subscribe to us on YouTube (@unblocking)",
+  "Subscribe to my Youtube (@xbubbo)",
+  "Check out the settings page",
+  "Check out our Patreon (https://www.patreon.com/gointerstellar)",
+];
 ---
 
-<script src="../lib/cloak.ts"></script>
+<script src="@/lib/cloak.ts"></script>
 <Layout>
-  <h3 class="flex text-8xl font-black uppercase place-content-center mt-40">Interstellar</h3>
-  <div class="flex place-content-center mt-4">
-    <input
-      class="h-16 rounded-md w-1/2 py-3 px-4 placeholder-text-secondary leading-tight focus:outline-none bg-interactive border-border"
-      placeholder="Search"
-      onkeydown="inputDown"
-      id="search"
-    />
+  <div class="flex h-full flex-col">
+    <h3 class="flex text-8xl font-black uppercase place-content-center mt-40 hover:scale-105 hover:-translate-y-1 duration-150">Interstellar</h3>
+    <div id="form" class="flex mt-4 flex-col items-center justify-center gap-4">
+      <span class="text-accent">{splashText[Math.floor(Math.random() * splashText.length)]}</span>
+      <input
+        class="h-16 rounded-md w-1/2 py-3 px-4 placeholder-text-secondary leading-tight focus:outline-none bg-interactive border-border"
+        placeholder="Search"
+        id="search"
+      />
+    </div>
   </div>
 </Layout>
 <script>
   const searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
-  const input = document.getElementById("search") as HTMLInputElement;
+  const input = document.getElementById("search") as HTMLInputElement | null;
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && !val.includes(" "))) {
       return true;
     }
     return false;
   }
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      let url = input.value;
-      if (!isUrl(url)) {
-        url = searchUrl + url;
-      } else if (!(url.startsWith("https://") || url.startsWith("http://"))) {
-        url = `https://${url}`;
-      }
-      // TODO: change this logic
-      window.location.href = `/jquery/${window.__uv$config.encodeUrl(url)}`;
+  document.addEventListener("astro:page-load", () => {
+    if (input) {
+      input.focus();
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          let url = input.value;
+          if (!isUrl(url)) {
+            url = searchUrl + url;
+          } else if (!(url.startsWith("https://") || url.startsWith("http://"))) {
+            url = `https://${url}`;
+          }
+          sessionStorage.setItem("goUrl", url);
+          location.replace("/tb");
+        }
+      });
     }
   });
 </script>
