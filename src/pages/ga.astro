@@ -18,14 +18,7 @@ const games = await (await fetch(`${ASSET_URL}/json/games.json`)).json();
         games.map((game: any) => (
           <a href={game.link}>
             <div class="flex flex-col items-center p-4 bg-secondary size-48 rounded-md space-y-4 hover:bg-interactive duration-150">
-              <Image
-                loading="eager"
-                src={ASSET_URL + game.image}
-                alt={game.name}
-                height={145}
-                width={145}
-                class="size-24 rounded-md"
-              />
+              <Image loading="eager" src={ASSET_URL + game.image} alt={game.name} height={145} width={145} class="size-24 rounded-md" />
               <Obfuscated class="text-center font-semibold text-xl text-wrap" text={game.name} />
             </div>
           </a>

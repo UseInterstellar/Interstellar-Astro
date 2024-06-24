@@ -18,14 +18,7 @@ const tools = await (await fetch(`${ASSET_URL}/json/tools.json`)).json();
         tools.map((tool: any) => (
           <a href={tool.link}>
             <div class="flex flex-col items-center p-4 bg-secondary size-48 rounded-md space-y-4 hover:bg-interactive duration-150">
-              <Image
-                loading="eager"
-                src={ASSET_URL + tool.image}
-                alt={tool.name}
-                height={145}
-                width={145}
-                class="size-24 rounded-md"
-              />
+              <Image loading="eager" src={ASSET_URL + tool.image} alt={tool.name} height={145} width={145} class="size-24 rounded-md" />
               <Obfuscated class="text-center font-semibold text-xl text-wrap" text={tool.name} />
             </div>
           </a>

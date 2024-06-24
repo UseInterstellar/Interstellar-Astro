@@ -5,13 +5,17 @@ const whitelistedDomains = ["gointerstellar.app"];
 const failFile = fs.readFileSync(`${process.cwd()}/failed.html`, "utf-8");
 export const onRequest = async (context: APIContext, next: MiddlewareNext) => {
   if (
-    !process.env.MASQR ||
     whitelistedDomains.includes(context.url.host) ||
     context.url.pathname.startsWith("/_astro") ||
     context.url.pathname.startsWith("/_image")
   ) {
     return next();
   }
+  if (context.request.headers.get("referer")?.includes("google.com")) {
+    return Response.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ", 307);
+  }
+  if (!process.env.MASQR) return next();
+
   if (context.cookies.get("authcheck")?.value === "true") {
     return next();
   }
