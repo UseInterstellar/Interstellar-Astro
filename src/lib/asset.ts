@@ -7,6 +7,7 @@ export type Asset = {
   link?: string;
   links?: { name: string; url: string }[];
   say?: string;
+  custom?: boolean;
   partial?: boolean | string;
   error?: boolean | string;
   blank?: boolean | string;

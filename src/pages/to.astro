@@ -1,6 +1,5 @@
 ---
-import { Image } from "astro:assets";
-import Obfuscated from "@/components/Obfuscated.astro";
+import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
 import { Wrench } from "lucide-astro";
@@ -14,16 +13,7 @@ const tools: Asset[] = await (await fetch(`${ASSET_URL}/json/tools.json`)).json(
       Tools
     </div>
     <div class="flex flex-wrap justify-center gap-4 flex-row mt-30">
-      {
-        tools.map((tool) => (
-          <button>
-            <div class="flex flex-col items-center p-4 bg-secondary size-48 rounded-md space-y-4 hover:bg-interactive duration-150">
-              <Image loading="eager" src={ASSET_URL + tool.image} alt={tool.name} height={145} width={145} class="size-24 rounded-md" />
-              <Obfuscated class="text-center font-semibold text-xl text-wrap" text={tool.name} />
-            </div>
-          </button>
-        ))
-      }
+      {tools.map((tool) => <AssetCard asset={tool} />)}
     </div>
   </div>
 </Layout>
