@@ -18,7 +18,7 @@ const customApps = (Astro.cookies.get("asset.app")?.json() as Asset[]) ?? [];
       Add App
     </button>
     <div class="flex flex-wrap justify-center gap-4 flex-row mt-30">
-      {[...customApps, ...apps].map((app) => <AssetCard asset={app} />)}
+      {[...customApps, ...apps].sort((a, b) => (a.name > b.name ? 1 : -1)).map((app) => <AssetCard asset={app} />)}
     </div>
   </div>
 </Layout>

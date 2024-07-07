@@ -13,7 +13,7 @@ const tools: Asset[] = await (await fetch(`${ASSET_URL}/json/tools.json`)).json(
       Tools
     </div>
     <div class="flex flex-wrap justify-center gap-4 flex-row mt-30">
-      {tools.map((tool) => <AssetCard asset={tool} />)}
+      {tools.sort((a, b) => (a.name > b.name ? 1 : -1)).map((tool) => <AssetCard asset={tool} />)}
     </div>
   </div>
 </Layout>

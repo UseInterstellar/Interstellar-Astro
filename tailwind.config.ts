@@ -1,5 +1,4 @@
-import type { Config } from "tailwindcss";
-const config: Config = {
+module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
@@ -18,6 +17,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
-};
-export default config;
+  daisyui: {
+    prefix: "ds-",
+  },
+  plugins: [
+   // require("daisyui") 
+  ],
+}

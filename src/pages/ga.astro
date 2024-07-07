@@ -18,7 +18,7 @@ const customGames = (Astro.cookies.get("asset.game")?.json() as Asset[]) ?? [];
       Add Game
     </button>
     <div class="flex flex-wrap justify-center gap-4 flex-row mt-30">
-      {[...customGames, ...games].map((game) => <AssetCard asset={game} />)}
+      {[...customGames, ...games].sort((a, b) => (a.name > b.name ? 1 : -1)).map((game) => <AssetCard asset={game} />)}
     </div>
   </div>
 </Layout>

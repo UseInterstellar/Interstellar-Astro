@@ -16,7 +16,7 @@ const splashText = [
 
 <script src="@/lib/cloak.ts"></script>
 <Layout>
-  <div class="flex h-full flex-col">
+  <div class="flex h-full flex-col overflow-hidden">
     <h3 class="flex text-8xl font-black uppercase place-content-center mt-40 hover:scale-105 hover:-translate-y-1 duration-150">Interstellar</h3>
     <div id="form" class="flex mt-4 flex-col items-center justify-center gap-4">
       <span class="text-accent">{splashText[Math.floor(Math.random() * splashText.length)]}</span>
