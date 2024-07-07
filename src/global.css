@@ -5,26 +5,18 @@
 
 @layer base {
    :root {
-      --background-image: url("/assets/media/backgrounds/full-inverted.png");
-      --background: #fdfcfe;
-      /* radix 1 */
-      --background-secondary: #faf8ff;
-      /* radix 2 */
-      --interactive: #ebe4ff;
-      /* radix 4 */
-      --interactive-secondary: #e1d9ff;
-      /* radix 5 */
-      --border: #c2b5f5;
-      /* radix 7 */
-      --accent: #6e56cf;
-      /* radix 9 */
-      --text: #2f265f;
-      /* radix 12 */
-      --text-secondary: #6550b9;
-      /* radix 11 */
+      /* --background-image: url("/assets/media/backgrounds/full-inverted.png"); */
+      --background: #111;
+      --background-secondary: #222;
+      --interactive: #333;
+      --interactive-secondary: #777;
+      --border: #555;
+      --accent: #555;
+      --text: #fff;
+      --text-secondary: #fff;
    }
 
-   .dark {
+   /* .dark {
       --background-image: url("/assets/media/backgrounds/full-main.png");
       --background: #14121f;
       --background-secondary: #853ff916;
@@ -34,7 +26,7 @@
       --accent: #8668ffcc;
       --text: #e3defffe;
       --text-secondary: #baa7ff;
-   }
+   } */
 }
 
 @layer base {
