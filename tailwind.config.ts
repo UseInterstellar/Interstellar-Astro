@@ -21,6 +21,6 @@ module.exports = {
     prefix: "ds-",
   },
   plugins: [
-   // require("daisyui") 
+    // require("daisyui")
   ],
-}
+};
