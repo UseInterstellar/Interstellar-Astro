@@ -28,9 +28,9 @@ const splashText = [
     </div>
   </div>
 </Layout>
-<script>
+<script is:inline>
   const searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
-  const input = document.getElementById("search") as HTMLInputElement | null;
+  const input = document.getElementById("search");
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && !val.includes(" "))) {
       return true;
