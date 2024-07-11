@@ -27,8 +27,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.4
       '@mercuryworkshop/epoxy-transport':
-        specifier: ^2.1.0
-        version: 2.1.0(typescript@5.5.3)
+        specifier: ^2.1.1
+        version: 2.1.1(typescript@5.5.3)
       '@tomphttp/bare-server-node':
         specifier: ^2.0.3
         version: 2.0.3(bufferutil@4.0.8)(utf-8-validate@6.0.4)
@@ -627,8 +627,8 @@ packages:
   '@mercuryworkshop/epoxy-tls@2.0.4-2':
     resolution: {integrity: sha512-I/lHt4Q49SB+p5yurQtND6HngqkIYucaA2iz5Yq/gamG+X6ZffqcheNHgNAT7/Hqyzqbm8aWpoHSbFQysfkw5A==}
 
-  '@mercuryworkshop/epoxy-transport@2.1.0':
-    resolution: {integrity: sha512-W+pbUsSlK0A7fVGKRgCUda1I16WTcQPMpdAo5GADHmAHb5LuYxAuHYZHs2Hwkz4nQjayz3frBgxMGcvBLcjU1A==}
+  '@mercuryworkshop/epoxy-transport@2.1.1':
+    resolution: {integrity: sha512-hs3Za/PbAf/p9iQUxynj5btoW7tEBhidQtz/k7dnCxKeIFDFv+YCw0TCtog2zvU293sG7qIzBZfw7gTxtWEzdA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3234,7 +3234,7 @@ snapshots:
 
   '@mercuryworkshop/epoxy-tls@2.0.4-2': {}
 
-  '@mercuryworkshop/epoxy-transport@2.1.0(typescript@5.5.3)':
+  '@mercuryworkshop/epoxy-transport@2.1.1(typescript@5.5.3)':
     dependencies:
       '@mercuryworkshop/epoxy-tls': 2.0.4-2
       esbuild-plugin-umd-wrapper: 2.0.0
