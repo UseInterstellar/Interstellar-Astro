@@ -24,7 +24,7 @@
     "@tomphttp/bare-server-node": "^2.0.3",
     "astro": "^4.11.5",
     "fastify": "^4.28.0",
-    "lucide-astro": "^0.399.0",
+    "lucide-astro": "^0.407.0",
     "mime": "^4.0.4",
     "tailwindcss": "^3.4.4",
     "tsx": "^4.15.7",
