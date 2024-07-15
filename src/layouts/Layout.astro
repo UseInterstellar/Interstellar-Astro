@@ -40,7 +40,7 @@ import { ViewTransitions } from "astro:transitions";
       window.addEventListener("DOMContentLoaded", () => {
         if ("serviceWorker" in navigator) {
           navigator.serviceWorker.ready.then(() => {
-            SetTransport("EpxMod.EpoxyClient", {
+            SetTransport("EpxMod.default", {
               wisp: `${location.protocol.replace("http", "ws")}//${location.host}/f/`,
             });
           });

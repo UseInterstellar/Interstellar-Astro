@@ -18,12 +18,7 @@
 }
 
 @layer base {
-    body {
-        /* background-image: var(--background-image); */
-        @apply h-full font-sans bg-background text-text;
-    }
-
-    * {
-        @apply border-border;
-    }
+   body {
+      @apply h-full;
+   }
 }
