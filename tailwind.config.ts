@@ -1,3 +1,5 @@
+import { D } from "dist/server/chunks/astro/assets-service_qhrK6M8N.mjs";
+
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
@@ -6,14 +8,18 @@ module.exports = {
         sans: ["Inter", "sans-serif"],
       },
       colors: {
-        background: "var(--background)",
-        secondary: "var(--background-secondary)",
-        interactive: "var(--interactive)",
-        "interactive-secondary": "var(--interactive-secondary)",
-        border: "var(--border)",
-        accent: "var(--accent)",
-        text: "var(--text)",
-        "text-secondary": "var(--text-secondary)",
+        background: "hsl(var(--background))",
+        secondary: "hsl(var(--background-secondary))",
+        interactive: {
+          DEFAULT: "hsl(var(--interactive))",
+          secondary: "hsl(var(--interactive-secondary))",
+        },
+        border: "hsl(var(--border))",
+        accent: "hsl(var(--accent))",
+        text: {
+          DEFAULT: "hsl(var(--text))",
+          secondary: "hsl(var(--text-secondary))",
+        },
       },
     },
   },
