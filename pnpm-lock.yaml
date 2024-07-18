@@ -57,8 +57,8 @@ importers:
         specifier: ^1.0.5
         version: 1.0.6(vite@5.3.3(@types/node@20.14.11))
       wisp-server-node:
-        specifier: ^1.1.0
-        version: 1.1.0
+        specifier: ^1.1.1
+        version: 1.1.1
     devDependencies:
       '@biomejs/biome':
         specifier: 1.8.3
@@ -2607,8 +2607,8 @@ packages:
     resolution: {integrity: sha512-o0cyEG0e8GPzT4iGHphIOh0cJOV8fivsXxddQasHPHfoZf1ZexrfeA21w2NaEN1RHE+fXlfISmOE8R9N3u3Qig==}
     engines: {node: '>=12'}
 
-  wisp-server-node@1.1.0:
-    resolution: {integrity: sha512-kJcuDIZZfV/HOkTepoVLfwzP7IieE0GfU57UTe8z2IwNRp+YbL12q5xsImcMNEYb9QeP/8loXiyBKXdZ+vojow==}
+  wisp-server-node@1.1.1:
+    resolution: {integrity: sha512-JQGQ5CqNaMFxlmvHIJTQDAqGYGWq4Szt1Ou57Qkhgb4s88IEPHEJyLlqZ/wGvoks7/8z5UNJW0QBeTASr2Ikog==}
 
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
@@ -5523,7 +5523,7 @@ snapshots:
     dependencies:
       string-width: 5.1.2
 
-  wisp-server-node@1.1.0:
+  wisp-server-node@1.1.1:
     dependencies:
       bufferutil: 4.0.8
       utf-8-validate: 6.0.4
