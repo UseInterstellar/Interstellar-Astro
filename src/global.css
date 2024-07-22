@@ -4,21 +4,21 @@
 @tailwind utilities;
 
 @layer base {
-   :root {
-      /* --background-image: url("/assets/media/backgrounds/full-inverted.png"); */
-      --background: 0, 0%, 7%;
-      --background-secondary: 0, 0%, 13%;
-      --interactive: 0, 0%, 20%;
-      --interactive-secondary: 0, 0%, 47%;
-      --border: 0, 0%, 27%;
-      --accent: 0, 0%, 27%;
-      --text: 0, 0%, 100%;
-      --text-secondary: 0, 0%, 87%;
-   }
+    :root {
+        /* --background-image: url("/assets/media/backgrounds/full-inverted.png"); */
+        --background: 0, 0%, 7%;
+        --background-secondary: 0, 0%, 13%;
+        --interactive: 0, 0%, 20%;
+        --interactive-secondary: 0, 0%, 47%;
+        --border: 0, 0%, 27%;
+        --accent: 0, 0%, 27%;
+        --text: 0, 0%, 100%;
+        --text-secondary: 0, 0%, 87%;
+    }
 }
 
 @layer base {
-   body {
-      @apply h-full;
-   }
+    body {
+        @apply h-full;
+    }
 }

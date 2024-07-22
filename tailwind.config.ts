@@ -1,4 +1,3 @@
-import { D } from "dist/server/chunks/astro/assets-service_qhrK6M8N.mjs";
 
 module.exports = {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
