@@ -3,6 +3,7 @@ import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
 import { Gamepad2, PlusCircle } from "lucide-astro";
+export const prerender = false;
 const games: Asset[] = await (await fetch(`${ASSET_URL}/json/games.json`)).json();
 const customGames = (Astro.cookies.get("asset.game")?.json() as Asset[]) ?? [];
 ---

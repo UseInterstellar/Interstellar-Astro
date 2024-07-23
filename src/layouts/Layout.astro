@@ -6,8 +6,10 @@ declare global {
       encodeUrl: (str: string) => string;
       decodeUrl: (str: string) => string;
     };
+    connection: BareMuxConnection;
   }
 }
+import type { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 import "@/global.css";
 
 import { ViewTransitions } from "astro:transitions";
@@ -22,28 +24,30 @@ import { ViewTransitions } from "astro:transitions";
     <link rel="shortcut icon" href="/assets/media/favicons/default.png" />
     <title>Interstellar</title>
     <ViewTransitions />
-    <script is:inline src="/assets/bundled/v.ble.js" defer></script>
-    <script is:inline src="/assets/bundled/v.cfg.js" defer></script>
-    <script is:inline src="/assets/ex/index.js" defer></script>
+    <script is:inline src="/assets/bundled/v.bndl.js" defer></script>
+    <script is:inline src="/assets/bundled/v.cnfg.js" defer></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
 
-      function gtag() {
-        dataLayer.push(arguments);
+      function gtag(...args) {
+        dataLayer.push(args);
       }
       gtag("js", new Date());
       gtag("config", "G-WKJQ5QHQTJ");
     </script>
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
     <script>
-      import { SetTransport } from "@mercuryworkshop/bare-mux";
+      import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
+      if (!window.connection) {
+        window.connection = new BareMuxConnection("/assets/bundled/bm-worker.js");
+      }
+      await window.connection.setTransport("/assets/bundled/ex-index.mjs", [
+        {
+          wisp: `${location.protocol === "http:" ? "ws:" : "wss:"}//${location.host}/wisp/`,
+        },
+      ]);
       window.addEventListener("DOMContentLoaded", () => {
         if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.ready.then(() => {
-            SetTransport("EpxMod.default", {
-              wisp: `${location.protocol.replace("http", "ws")}//${location.host}/f/`,
-            });
-          });
           navigator.serviceWorker.register("/sw.js").then(() => console.log("uv registered"));
         }
       });

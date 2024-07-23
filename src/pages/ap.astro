@@ -3,6 +3,7 @@ import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
 import { LayoutGrid, PlusCircle } from "lucide-astro";
+export const prerender = false;
 const apps: Asset[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
 const customApps = (Astro.cookies.get("asset.app")?.json() as Asset[]) ?? [];
 ---

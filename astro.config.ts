@@ -1,14 +1,16 @@
 import node from "@astrojs/node";
 import tailwind from "@astrojs/tailwind";
+import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 // @ts-expect-error shut
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
-import { createBareServer } from "@tomphttp/bare-server-node";
+// @ts-expect-error shut
+import { server as wisp } from "@mercuryworkshop/wisp-js/server";
+import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { defineConfig } from "astro/config";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import wisp from "wisp-server-node";
 // https://astro.build/config
 export default defineConfig({
-  output: "server",
+  output: "hybrid",
   adapter: node({
     mode: "middleware",
   }),
@@ -32,25 +34,33 @@ export default defineConfig({
       {
         name: "vite-wisp-server",
         configureServer(server) {
-          const bare = createBareServer("/o/");
           server.httpServer?.on("upgrade", (req, socket, head) =>
-            bare.shouldRoute(req)
-              ? bare.routeUpgrade(req, socket, head)
-              : req.url?.startsWith("/f")
-                ? wisp.routeRequest(req, socket, head)
-                : undefined,
-          );
-          server.middlewares.use((req, res, next) =>
-            bare.shouldRoute(req) ? bare.routeRequest(req, res) : next(),
+            req.url?.startsWith("/f")
+              ? wisp.routeRequest(req, socket, head)
+              : undefined,
           );
         },
       },
       viteStaticCopy({
         targets: [
           {
-            src: `${epoxyPath}/**/*`.replace(/\\/g, "/"),
-            dest: "assets/ex",
+            src: `${epoxyPath}/**/*.js`.replace(/\\/g, "/"),
+            dest: "assets/bundled",
             overwrite: false,
+            rename: (name) => `ex-${name}.mjs`,
+          },
+          {
+            src: `${baremuxPath}/**/*.js`.replace(/\\/g, "/"),
+            dest: "assets/bundled",
+            overwrite: false,
+            rename: (name) => `bm-${name}.js`,
+          },
+          {
+            src: `${uvPath}/**/*.js`.replace(/\\/g, "/"),
+            dest: "assets/bundled",
+            overwrite: false,
+            rename: (name) =>
+              `${name.replace("uv", "v").replace(/[aeiou]/gi, "")}.js`,
           },
         ],
       }),

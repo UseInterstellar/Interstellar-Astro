@@ -4,25 +4,18 @@ import type { Socket } from "node:net";
 import path from "node:path";
 import fastifyMiddie from "@fastify/middie";
 import fastifyStatic from "@fastify/static";
-import { createBareServer } from "@tomphttp/bare-server-node";
+// @ts-expect-error shut
+import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { build } from "astro";
 import Fastify from "fastify";
-import wisp from "wisp-server-node";
 const port = Number.parseInt(process.env.PORT as string) || 8080;
-const bare = createBareServer("/o/");
 const app = Fastify({
   serverFactory: (handler) =>
-    createServer()
-      .on("request", (req, res) =>
-        bare.shouldRoute(req) ? bare.routeRequest(req, res) : handler(req, res),
-      )
-      .on("upgrade", (req, socket: Socket, head) =>
-        bare.shouldRoute(req)
-          ? bare.routeUpgrade(req, socket, head)
-          : req.url?.startsWith("/f")
-            ? wisp.routeRequest(req, socket, head)
-            : socket.destroy(),
-      ),
+    createServer(handler).on("upgrade", (req, socket: Socket, head) =>
+      req.url?.startsWith("/f")
+        ? wisp.routeRequest(req, socket, head)
+        : socket.destroy(),
+    ),
 });
 if (!fs.existsSync("dist")) {
   console.log("Interstellar's not built yet! Building now...");
@@ -31,6 +24,9 @@ if (!fs.existsSync("dist")) {
     process.exit(1);
   });
 }
+await app.register(import("@fastify/compress"), {
+  encodings: ["br", "gzip", "deflate"],
+});
 // @ts-ignore
 const { handler } = await import("./dist/server/entry.mjs");
 await app
