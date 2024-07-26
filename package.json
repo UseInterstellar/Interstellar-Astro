@@ -13,7 +13,7 @@
     "check": "prettier --write . && biome check --write ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.8.2",
+    "@astrojs/check": "^0.8.3",
     "@astrojs/node": "^8.3.2",
     "@astrojs/tailwind": "^5.1.0",
     "@fastify/compress": "^7.0.3",
