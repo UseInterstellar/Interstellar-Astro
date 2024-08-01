@@ -1,4 +1,3 @@
-/*global Ultraviolet*/
 const filePrefix = "/assets/bundled/v."
 // cursed encoding method
 const factory = (key) => {
@@ -65,7 +64,8 @@ const factory = (key) => {
 };
 
 const cipher = factory((location.origin + navigator.userAgent).toUpperCase());
-self.__uv$config = {
+/** @type {import("@titaniumnetwork-dev/ultraviolet").UVConfig}*/
+const config = {
   prefix: '/jquery/', /* yes i am insane */
   encodeUrl: cipher.enc,
   decodeUrl: cipher.dec,
@@ -74,4 +74,15 @@ self.__uv$config = {
   bundle: `${filePrefix}bndl.js`,
   config: `${filePrefix}cnfg.js`,
   sw: `${filePrefix}sw.js`,
+  inject: [
+    {
+      host: /discord.com*/g,
+      injectTo: "head",
+      html: `
+      <script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script>
+      <link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css">
+      `
+    }
+  ]
 };
+self.__uv$config = config;

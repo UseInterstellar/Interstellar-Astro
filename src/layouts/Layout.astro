@@ -6,7 +6,7 @@ declare global {
       encodeUrl: (str: string) => string;
       decodeUrl: (str: string) => string;
     };
-    connection: BareMuxConnection;
+    connection: BareMuxConnection | undefined;
   }
 }
 import type { BareMuxConnection } from "@mercuryworkshop/bare-mux";
@@ -38,19 +38,13 @@ import { ViewTransitions } from "astro:transitions";
     <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
     <script>
       import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
-      if (!window.connection) {
-        window.connection = new BareMuxConnection("/assets/bundled/bm-worker.js");
-      }
+      window.connection = new BareMuxConnection("/assets/bundled/bm-worker.js");
       await window.connection.setTransport("/assets/bundled/ex-index.mjs", [
         {
-          wisp: `${location.protocol === "http:" ? "ws:" : "wss:"}//${location.host}/wisp/`,
+          wisp: `${location.protocol === "http:" ? "ws:" : "wss:"}//${location.host}/f/`,
         },
       ]);
-      window.addEventListener("DOMContentLoaded", () => {
-        if ("serviceWorker" in navigator) {
-          navigator.serviceWorker.register("/sw.js").then(() => console.log("uv registered"));
-        }
-      });
+      await navigator.serviceWorker.register("/sw.js").then(() => console.log("uv registered"));
     </script>
   </head>
   <body>

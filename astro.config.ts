@@ -44,7 +44,7 @@ export default defineConfig({
       viteStaticCopy({
         targets: [
           {
-            src: `${epoxyPath}/**/*.js`.replace(/\\/g, "/"),
+            src: `${epoxyPath}/**/*.mjs`.replace(/\\/g, "/"),
             dest: "assets/bundled",
             overwrite: false,
             rename: (name) => `ex-${name}.mjs`,
