@@ -36,8 +36,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1(utf-8-validate@6.0.4)
       '@titaniumnetwork-dev/ultraviolet':
-        specifier: ^3.2.6
-        version: 3.2.6
+        specifier: ^3.2.7
+        version: 3.2.7
       astro:
         specifier: ^4.12.3
         version: 4.12.3(@types/node@20.14.13)(typescript@5.5.4)
@@ -719,8 +719,8 @@ packages:
   '@shikijs/core@1.12.0':
     resolution: {integrity: sha512-mc1cLbm6UQ8RxLc0dZES7v5rkH+99LxQp/ZvTqV3NLyYsO/fD6JhEflP1H5b2SDq9gI0+0G36AVZWxvounfR9w==}
 
-  '@titaniumnetwork-dev/ultraviolet@3.2.6':
-    resolution: {integrity: sha512-kMyUdXBWKIOjO/0sGlj/uTNjNK2/3dn+gnhlBTs/CB3EPUPD+DAKnH99yYqBs0R+YE0Hjm54pCyBHY7ztq6iOQ==}
+  '@titaniumnetwork-dev/ultraviolet@3.2.7':
+    resolution: {integrity: sha512-leR8Cxtgld9NykRbEbYejbD85dOLh0rqQe6tfcsaFEBIChWG9QF10x1qoJBQ3wXSvZ+wqh3cBNYrucYpHOWpUA==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -3226,7 +3226,7 @@ snapshots:
     dependencies:
       '@types/hast': 3.0.4
 
-  '@titaniumnetwork-dev/ultraviolet@3.2.6': {}
+  '@titaniumnetwork-dev/ultraviolet@3.2.7': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
