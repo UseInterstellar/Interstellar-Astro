@@ -6,13 +6,15 @@ This is a unstable version of Interstellar rewritten from the ground up. Expect 
 
 ```sh
 pnpm i
+pnpm disable # Optional: Disables Astro's Telemetry - https://astro.build/telemetry
 pnpm dev
 ```
 
-## Production (if you're brave)
+## Production 
 
 ```sh
 pnpm i
+pnpm disable # Optional: Disables Astro's Telemetry - https://astro.build/telemetry
 pnpm build
 pnpm start
 ```

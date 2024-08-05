@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "typecheck": "astro check",
     "astro": "astro",
+    "disable": "npx astro telemetry disable",
     "precommit": "pnpm check && pnpm typecheck",
     "check": "prettier --write . && biome check --write ."
   },
@@ -22,8 +23,8 @@
     "@mercuryworkshop/bare-mux": "2.0.4",
     "@mercuryworkshop/epoxy-transport": "2.1.5",
     "@mercuryworkshop/wisp-js": "^0.1.1",
-    "@titaniumnetwork-dev/ultraviolet": "^3.2.6",
-    "astro": "^4.12.3",
+    "@titaniumnetwork-dev/ultraviolet": "^3.2.7",
+    "astro": "^4.13.1",
     "fastify": "^4.28.1",
     "lucide-astro": "^0.414.0",
     "mime": "^4.0.4",

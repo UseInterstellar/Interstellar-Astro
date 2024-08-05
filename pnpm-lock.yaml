@@ -13,10 +13,10 @@ importers:
         version: 0.8.3(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.5.4)
       '@astrojs/node':
         specifier: ^8.3.2
-        version: 8.3.2(astro@4.12.3(@types/node@20.14.13)(typescript@5.5.4))
+        version: 8.3.2(astro@4.13.1(@types/node@20.14.13)(typescript@5.5.4))
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.12.3(@types/node@20.14.13)(typescript@5.5.4))(tailwindcss@3.4.7)
+        version: 5.1.0(astro@4.13.1(@types/node@20.14.13)(typescript@5.5.4))(tailwindcss@3.4.7)
       '@fastify/compress':
         specifier: ^7.0.3
         version: 7.0.3
@@ -36,17 +36,17 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1(utf-8-validate@6.0.4)
       '@titaniumnetwork-dev/ultraviolet':
-        specifier: ^3.2.6
-        version: 3.2.6
+        specifier: ^3.2.7
+        version: 3.2.7
       astro:
-        specifier: ^4.12.3
-        version: 4.12.3(@types/node@20.14.13)(typescript@5.5.4)
+        specifier: ^4.13.1
+        version: 4.13.1(@types/node@20.14.13)(typescript@5.5.4)
       fastify:
         specifier: ^4.28.1
         version: 4.28.1
       lucide-astro:
         specifier: ^0.414.0
-        version: 0.414.0(astro@4.12.3(@types/node@20.14.13)(typescript@5.5.4))
+        version: 0.414.0(astro@4.13.1(@types/node@20.14.13)(typescript@5.5.4))
       mime:
         specifier: ^4.0.4
         version: 4.0.4
@@ -719,8 +719,8 @@ packages:
   '@shikijs/core@1.12.0':
     resolution: {integrity: sha512-mc1cLbm6UQ8RxLc0dZES7v5rkH+99LxQp/ZvTqV3NLyYsO/fD6JhEflP1H5b2SDq9gI0+0G36AVZWxvounfR9w==}
 
-  '@titaniumnetwork-dev/ultraviolet@3.2.6':
-    resolution: {integrity: sha512-kMyUdXBWKIOjO/0sGlj/uTNjNK2/3dn+gnhlBTs/CB3EPUPD+DAKnH99yYqBs0R+YE0Hjm54pCyBHY7ztq6iOQ==}
+  '@titaniumnetwork-dev/ultraviolet@3.2.7':
+    resolution: {integrity: sha512-leR8Cxtgld9NykRbEbYejbD85dOLh0rqQe6tfcsaFEBIChWG9QF10x1qoJBQ3wXSvZ+wqh3cBNYrucYpHOWpUA==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -869,8 +869,8 @@ packages:
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
 
-  astro@4.12.3:
-    resolution: {integrity: sha512-rFcRktbZk8CsHufLOB51gYAia3RTuOyaBD8iZXRHP7Oqo6QviquNaa/5U6RoUqyF5KS8vyq/ldJ5jfboJzxuuw==}
+  astro@4.13.1:
+    resolution: {integrity: sha512-VnMjAc+ykFsIVjgbu9Mt/EA1fMIcPMXbU89h3ATwGOzSIKDsQH72bDgfJkWiwk6u0OE90GeP5EPhAT28Twf9oA==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -2688,9 +2688,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@8.3.2(astro@4.12.3(@types/node@20.14.13)(typescript@5.5.4))':
+  '@astrojs/node@8.3.2(astro@4.13.1(@types/node@20.14.13)(typescript@5.5.4))':
     dependencies:
-      astro: 4.12.3(@types/node@20.14.13)(typescript@5.5.4)
+      astro: 4.13.1(@types/node@20.14.13)(typescript@5.5.4)
       send: 0.18.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -2700,9 +2700,9 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/tailwind@5.1.0(astro@4.12.3(@types/node@20.14.13)(typescript@5.5.4))(tailwindcss@3.4.7)':
+  '@astrojs/tailwind@5.1.0(astro@4.13.1(@types/node@20.14.13)(typescript@5.5.4))(tailwindcss@3.4.7)':
     dependencies:
-      astro: 4.12.3(@types/node@20.14.13)(typescript@5.5.4)
+      astro: 4.13.1(@types/node@20.14.13)(typescript@5.5.4)
       autoprefixer: 10.4.19(postcss@8.4.40)
       postcss: 8.4.40
       postcss-load-config: 4.0.2(postcss@8.4.40)
@@ -3226,7 +3226,7 @@ snapshots:
     dependencies:
       '@types/hast': 3.0.4
 
-  '@titaniumnetwork-dev/ultraviolet@3.2.6': {}
+  '@titaniumnetwork-dev/ultraviolet@3.2.7': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -3397,7 +3397,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@4.12.3(@types/node@20.14.13)(typescript@5.5.4):
+  astro@4.13.1(@types/node@20.14.13)(typescript@5.5.4):
     dependencies:
       '@astrojs/compiler': 2.10.1
       '@astrojs/internal-helpers': 0.4.1
@@ -3415,7 +3415,6 @@ snapshots:
       aria-query: 5.3.0
       axobject-query: 4.1.0
       boxen: 7.1.1
-      chokidar: 3.6.0
       ci-info: 4.0.0
       clsx: 2.1.1
       common-ancestor-path: 1.0.1
@@ -4173,9 +4172,9 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-astro@0.414.0(astro@4.12.3(@types/node@20.14.13)(typescript@5.5.4)):
+  lucide-astro@0.414.0(astro@4.13.1(@types/node@20.14.13)(typescript@5.5.4)):
     dependencies:
-      astro: 4.12.3(@types/node@20.14.13)(typescript@5.5.4)
+      astro: 4.13.1(@types/node@20.14.13)(typescript@5.5.4)
 
   magic-string@0.30.11:
     dependencies:
