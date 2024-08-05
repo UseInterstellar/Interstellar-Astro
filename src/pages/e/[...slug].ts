@@ -6,7 +6,7 @@ export const GET: APIRoute = async ({ params }) => {
   try {
     const baseUrls = {
       "1": "https://raw.githubusercontent.com/v-5x/x/fixy",
-      "2": "https://raw.githubusercontent.com/ypxa/y/main",
+      "2": "https://raw.githubusercontent.com/ypxa/Assets/main",
       "3": "https://raw.githubusercontent.com/ypxa/w/master",
     };
     if (!params.slug) {

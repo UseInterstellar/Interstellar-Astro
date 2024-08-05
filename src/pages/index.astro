@@ -1,17 +1,5 @@
 ---
 import Layout from "@/layouts/Main.astro";
-const splashText = [
-  "Over 8 Million Users since 2023",
-  "Fastest growing proxy server",
-  "Made by xBubbo",
-  "Check out discord.gg/interstellar :)",
-  "Thanks for using the site",
-  "Follow us on Tiktok (@useinterstellar)",
-  "Subscribe to us on YouTube (@unblocking)",
-  "Subscribe to my Youtube (@xbubbo)",
-  "Check out the settings page",
-  "Check out our Patreon (https://www.patreon.com/gointerstellar)",
-];
 ---
 
 <script src="@/lib/cloak.ts"></script>
@@ -19,7 +7,6 @@ const splashText = [
   <div class="flex h-full flex-col overflow-hidden">
     <h3 class="flex text-8xl font-black uppercase place-content-center mt-40 hover:scale-105 hover:-translate-y-1 duration-150">Interstellar</h3>
     <div id="form" class="flex mt-4 flex-col items-center justify-center gap-4">
-      <span class="text-accent">{splashText[Math.floor(Math.random() * splashText.length)]}</span>
       <input
         class="h-16 rounded-md w-1/2 py-3 px-4 placeholder-text leading-tight focus:outline-none bg-interactive border-border"
         placeholder="Search"

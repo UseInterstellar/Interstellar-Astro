@@ -10,7 +10,7 @@ pnpm disable # Optional: Disables Astro's Telemetry - https://astro.build/teleme
 pnpm dev
 ```
 
-## Production 
+## Production
 
 ```sh
 pnpm i
