@@ -8,7 +8,8 @@ import fastifyStatic from "@fastify/static";
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { build } from "astro";
 import Fastify from "fastify";
-const port = Number.parseInt(process.env.PORT as string) || 8080;
+import inConfig from "./config";
+const port = Number.parseInt(process.env.PORT as string) || inConfig.port || 8080;
 const app = Fastify({
   serverFactory: (handler) =>
     createServer(handler).on("upgrade", (req, socket: Socket, head) =>
@@ -27,6 +28,21 @@ if (!fs.existsSync("dist")) {
 await app.register(import("@fastify/compress"), {
   encodings: ["br", "gzip", "deflate"],
 });
+if (inConfig.auth?.challenge) {
+  await app.register(import("@fastify/basic-auth"), {
+    authenticate: true,
+    validate(username, password, _req, _reply, done) {
+      for (const [user, pass] of Object.entries(inConfig.auth?.users || {})) {
+        if (username === user && password === pass) {
+          return done();
+        }
+      }
+      return done(new Error("Invalid credentials"));
+    },
+  });
+  await app.after();
+  app.addHook("onRequest", app.basicAuth);
+}
 // @ts-ignore
 const { handler } = await import("./dist/server/entry.mjs");
 await app
