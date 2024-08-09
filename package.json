@@ -25,7 +25,7 @@
     "@mercuryworkshop/epoxy-transport": "2.1.5",
     "@mercuryworkshop/wisp-js": "^0.1.1",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.7",
-    "astro": "^4.13.1",
+    "astro": "^4.13.2",
     "fastify": "^4.28.1",
     "lucide-astro": "^0.424.0",
     "mime": "^4.0.4",
