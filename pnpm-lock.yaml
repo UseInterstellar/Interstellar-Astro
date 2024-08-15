@@ -13,10 +13,10 @@ importers:
         version: 0.9.2(prettier-plugin-astro@0.14.1)(prettier@3.3.3)(typescript@5.5.4)
       '@astrojs/node':
         specifier: ^8.3.2
-        version: 8.3.2(astro@4.13.1(@types/node@22.1.0)(typescript@5.5.4))
+        version: 8.3.2(astro@4.13.1(@types/node@22.3.0)(typescript@5.5.4))
       '@astrojs/tailwind':
         specifier: ^5.1.0
-        version: 5.1.0(astro@4.13.1(@types/node@22.1.0)(typescript@5.5.4))(tailwindcss@3.4.8)
+        version: 5.1.0(astro@4.13.1(@types/node@22.3.0)(typescript@5.5.4))(tailwindcss@3.4.8)
       '@fastify/basic-auth':
         specifier: ^5.1.1
         version: 5.1.1
@@ -43,13 +43,13 @@ importers:
         version: 3.2.7
       astro:
         specifier: ^4.13.1
-        version: 4.13.1(@types/node@22.1.0)(typescript@5.5.4)
+        version: 4.13.1(@types/node@22.3.0)(typescript@5.5.4)
       fastify:
         specifier: ^4.28.1
         version: 4.28.1
       lucide-astro:
         specifier: ^0.426.0
-        version: 0.426.0(astro@4.13.1(@types/node@22.1.0)(typescript@5.5.4))
+        version: 0.426.0(astro@4.13.1(@types/node@22.3.0)(typescript@5.5.4))
       mime:
         specifier: ^4.0.4
         version: 4.0.4
@@ -67,14 +67,14 @@ importers:
         version: 5.5.4
       vite-plugin-static-copy:
         specifier: ^1.0.6
-        version: 1.0.6(vite@5.3.5(@types/node@22.1.0))
+        version: 1.0.6(vite@5.3.5(@types/node@22.3.0))
     devDependencies:
       '@biomejs/biome':
         specifier: 1.8.3
         version: 1.8.3
       '@types/node':
-        specifier: ^22.1.0
-        version: 22.1.0
+        specifier: ^22.3.0
+        version: 22.3.0
       prettier:
         specifier: ^3.3.3
         version: 3.3.3
@@ -908,8 +908,8 @@ packages:
   '@types/nlcst@2.0.3':
     resolution: {integrity: sha512-vSYNSDe6Ix3q+6Z7ri9lyWqgGhJTmzRjZRqyq15N0Z/1/UnVsno9G/N40NBijoYx2seFDIl0+B2mgAb9mezUCA==}
 
-  '@types/node@22.1.0':
-    resolution: {integrity: sha512-AOmuRF0R2/5j1knA3c6G3HOk523Ga+l+ZXltX8SF1+5oqcXijjfTd8fY3XRZqSihEu9XhtQnKYLmkFaoxgsJHw==}
+  '@types/node@22.3.0':
+    resolution: {integrity: sha512-nrWpWVaDZuaVc5X84xJ0vNrLvomM205oQyLsRt7OHNZbSHslcWsvgFR7O7hire2ZonjLrWBbedmotmIlJDVd6g==}
 
   '@types/unist@3.0.2':
     resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
@@ -2507,8 +2507,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@6.13.0:
-    resolution: {integrity: sha512-xtFJHudx8S2DSoujjMd1WeWvn7KKWFRESZTMeL1RptAYERu29D6jphMjjY+vn96jvN3kVPDNxU/E13VTaXj6jg==}
+  undici-types@6.18.2:
+    resolution: {integrity: sha512-5ruQbENj95yDYJNS3TvcaxPMshV7aizdv/hWYjGIKoANWKjhWNBsr2YEuYZKodQulB1b8l7ILOuDQep3afowQQ==}
 
   unified@11.0.5:
     resolution: {integrity: sha512-xKvGhPWw3k84Qjh8bI3ZeJjqnyadK+GEFtazSfZv/rKeTkTjOJho6mFqh2SM96iIcZokxiOpg78GazTSg8+KHA==}
@@ -2848,9 +2848,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@astrojs/node@8.3.2(astro@4.13.1(@types/node@22.1.0)(typescript@5.5.4))':
+  '@astrojs/node@8.3.2(astro@4.13.1(@types/node@22.3.0)(typescript@5.5.4))':
     dependencies:
-      astro: 4.13.1(@types/node@22.1.0)(typescript@5.5.4)
+      astro: 4.13.1(@types/node@22.3.0)(typescript@5.5.4)
       send: 0.18.0
       server-destroy: 1.0.1
     transitivePeerDependencies:
@@ -2860,9 +2860,9 @@ snapshots:
     dependencies:
       prismjs: 1.29.0
 
-  '@astrojs/tailwind@5.1.0(astro@4.13.1(@types/node@22.1.0)(typescript@5.5.4))(tailwindcss@3.4.8)':
+  '@astrojs/tailwind@5.1.0(astro@4.13.1(@types/node@22.3.0)(typescript@5.5.4))(tailwindcss@3.4.8)':
     dependencies:
-      astro: 4.13.1(@types/node@22.1.0)(typescript@5.5.4)
+      astro: 4.13.1(@types/node@22.3.0)(typescript@5.5.4)
       autoprefixer: 10.4.19(postcss@8.4.40)
       postcss: 8.4.40
       postcss-load-config: 4.0.2(postcss@8.4.40)
@@ -3508,9 +3508,9 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.2
 
-  '@types/node@22.1.0':
+  '@types/node@22.3.0':
     dependencies:
-      undici-types: 6.13.0
+      undici-types: 6.18.2
 
   '@types/unist@3.0.2': {}
 
@@ -3634,7 +3634,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@4.13.1(@types/node@22.1.0)(typescript@5.5.4):
+  astro@4.13.1(@types/node@22.3.0)(typescript@5.5.4):
     dependencies:
       '@astrojs/compiler': 2.10.1
       '@astrojs/internal-helpers': 0.4.1
@@ -3691,8 +3691,8 @@ snapshots:
       tsconfck: 3.1.1(typescript@5.5.4)
       unist-util-visit: 5.0.0
       vfile: 6.0.2
-      vite: 5.3.5(@types/node@22.1.0)
-      vitefu: 0.2.5(vite@5.3.5(@types/node@22.1.0))
+      vite: 5.3.5(@types/node@22.3.0)
+      vitefu: 0.2.5(vite@5.3.5(@types/node@22.3.0))
       which-pm: 3.0.0
       yargs-parser: 21.1.1
       zod: 3.23.8
@@ -4436,9 +4436,9 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-astro@0.426.0(astro@4.13.1(@types/node@22.1.0)(typescript@5.5.4)):
+  lucide-astro@0.426.0(astro@4.13.1(@types/node@22.3.0)(typescript@5.5.4)):
     dependencies:
-      astro: 4.13.1(@types/node@22.1.0)(typescript@5.5.4)
+      astro: 4.13.1(@types/node@22.3.0)(typescript@5.5.4)
 
   magic-string@0.30.11:
     dependencies:
@@ -5476,7 +5476,7 @@ snapshots:
 
   typescript@5.5.4: {}
 
-  undici-types@6.13.0: {}
+  undici-types@6.18.2: {}
 
   unified@11.0.5:
     dependencies:
@@ -5561,26 +5561,26 @@ snapshots:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  vite-plugin-static-copy@1.0.6(vite@5.3.5(@types/node@22.1.0)):
+  vite-plugin-static-copy@1.0.6(vite@5.3.5(@types/node@22.3.0)):
     dependencies:
       chokidar: 3.6.0
       fast-glob: 3.3.2
       fs-extra: 11.2.0
       picocolors: 1.0.1
-      vite: 5.3.5(@types/node@22.1.0)
+      vite: 5.3.5(@types/node@22.3.0)
 
-  vite@5.3.5(@types/node@22.1.0):
+  vite@5.3.5(@types/node@22.3.0):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.40
       rollup: 4.19.1
     optionalDependencies:
-      '@types/node': 22.1.0
+      '@types/node': 22.3.0
       fsevents: 2.3.3
 
-  vitefu@0.2.5(vite@5.3.5(@types/node@22.1.0)):
+  vitefu@0.2.5(vite@5.3.5(@types/node@22.3.0)):
     optionalDependencies:
-      vite: 5.3.5(@types/node@22.1.0)
+      vite: 5.3.5(@types/node@22.3.0)
 
   volar-service-css@0.0.59(@volar/language-service@2.4.0-alpha.18):
     dependencies:
