@@ -6,12 +6,14 @@
 @layer base {
    :root {
       /* --background-image: url("/assets/media/backgrounds/full-inverted.png"); */
-      --background: #111;
-      --background-secondary: #222;
+      --background: #222;
+      --background-secondary: #282828;
+      --background-settings: #171717;
       --interactive: #333;
       --interactive-secondary: #777;
       --border: #444;
       --accent: #444;
+      --accent-secondary: #2e2e2e; 
       --text: #fff;
       --text-secondary: #ddd;
    }

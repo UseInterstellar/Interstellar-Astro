@@ -3,5 +3,44 @@ import Layout from "@/layouts/Main.astro";
 ---
 
 <Layout>
-  <main>settings</main>
+  <div class="relative">
+    <div class="absolute top-4 left-1/2 transform -translate-x-1/2">
+      <h1 class="font-extrabold text-4xl">Cloaking & Privacy</h1>
+    </div>
+  </div>
+  <!-- Settings Container -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pt-20 pb-14 px-5 justify-center">
+    <div class="bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
+      <h3 class="font-extrabold text-2xl mt-0">About:Blank</h3>
+      <p class="font-light">You can open the site in about:blank down below.</p>
+    </div>    
+    <div class="bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
+      <h3 class="font-extrabold text-2xl mt-0">Tab Cloaker</h3>
+      <p class="font-light">Change the title and icon of the page.</p>
+    </div>    
+    <div class="bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
+      <h3 class="font-extrabold text-2xl mt-0">Panic Key</h3>
+      <p class="font-light">Quickly open another site with press of one key.</p>
+    </div>    
+  </div>  
+  <div class="relative">
+  <div class="absolute -mt-8 left-1/2 transform -translate-x-1/2">
+    <h1 class="font-extrabold text-4xl">Customization</h1>
+  </div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 py-10 px-5 justify-center">
+  <div class="bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
+    <h3 class="font-extrabold text-2xl mt-0">Search Engine</h3>
+    <p class="font-light">Change the search engine when searching.</p>
+  </div>    
+  <div class="bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
+    <h3 class="font-extrabold text-2xl mt-0">Themes</h3>
+    <p class="font-light">Pick from a variety of themes to customize your experience.</p>
+  </div>    
+  <div class="bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
+    <h3 class="font-extrabold text-2xl mt-0">Particles</h3>
+    <p class="font-light">Choose from a variety of particles to customize your experience on the home page.</p>
+  </div>    
+</div>
+
 </Layout>

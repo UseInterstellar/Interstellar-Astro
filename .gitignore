@@ -24,3 +24,7 @@ pnpm-debug.log*
 .idea/
 
 package-lock.json
+
+# Interstellar Assets Local (Testing)
+/public/assets/json/
+/public/assets/media/icons/

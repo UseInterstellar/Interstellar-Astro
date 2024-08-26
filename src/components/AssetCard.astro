@@ -11,15 +11,18 @@ export const prerender = false;
 ---
 
 <button data-asset={JSON.stringify(asset)}>
-  <div class="flex flex-col items-center p-4 bg-secondary size-48 rounded-md space-y-4 duration-150 justify-between border-[1px] hover:border-4">
-    <Image loading="eager" src={ASSET_URL + asset.image} alt={asset.name} height={145} width={145} class="size-24 rounded-xl bg-accent" />
-    <section class="inline-flex items-center gap-2" class:list={{ "text-red-600": asset.error, "text-yellow-400": asset.partial }}>
-      {asset.custom && <UserRoundPlus class="size-5" />}
-      {asset.partial && <CircleAlert class="size-5" />}
-      {asset.error && <Ban class="size-5" />}
-      <span class="text-center font-semibold text-lg line-clamp-2 hover:line-clamp-3">
-        {asset.name}
-      </span>
-    </section>
-  </div>
+  <div class="relative group cursor-pointer transition-all duration-150 hover:scale-105">
+    <Image loading="eager" src={ASSET_URL + asset.image} alt={asset.name} height={145} width={145} class="h-36 aspect-square object-cover rounded-md">
+      <div class="absolute inset-0 h-full w-full opacity-0 group-hover:opacity-100 bg-gradient-to-t from-accent to-transparent rounded-b-md duration-100 flex items-end p-2 px-4 font-semibold"/>
+        <section class="inline-flex items-center gap-2" class:list={{ "text-red-600": asset.error, "text-yellow-400": asset.partial }}>
+          {asset.custom && <UserRoundPlus class="size-5" />}
+          {asset.partial && <CircleAlert class="size-5" />}
+          {asset.error && <Ban class="size-5" />}
+          <span class="text-center font-semibold text-lg line-clamp-2 hover:line-clamp-3">
+            {asset.name}
+                   </span>          
+        </section>
+      </div>
+    </div>
 </button>
+
