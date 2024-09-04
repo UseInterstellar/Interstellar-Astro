@@ -10,6 +10,7 @@
     "typecheck": "astro check",
     "astro": "astro",
     "disable": "npx astro telemetry disable",
+    "menu": "astro preferences disable --global devToolbar",
     "precommit": "pnpm check && pnpm typecheck",
     "check": "prettier --write . && biome check --write ."
   },

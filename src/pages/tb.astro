@@ -1,13 +1,43 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import { ArrowLeft, ArrowRight, Home, Maximize2, RotateCw, Settings2, Star, Plus} from "lucide-astro";
 ---
 
 <Layout>
-  <a href="/">home</a>
+  <div class="bg-secondary h-8 flex items-center justify-between px-4">
+    <div class="flex space-x-4">
+      <button title="New Tab"> 
+        <Plus class="w-6 h-6 cursor-pointer bg-accent rounded-md Plus" />
+      </button>
+    </div>
+  </div>
+  <div class="bg-secondary h-12 flex items-center justify-between px-4">
+    <div class="flex items-center space-x-4">
+      <button title="Click to go back.">
+        <ArrowLeft class="w-5 h-5 cursor-pointer ArrowLeft" />
+      </button>
+      <button title="Click to go forward.">
+        <ArrowRight class="w-5 h-5 cursor-pointer ArrowRight" />
+      </button>
+      <button title="Click to reload this page.">
+        <RotateCw class="w-5 h-5 cursor-pointer RotateCw" />
+      </button>
+    </div>
+    <div class="flex-grow flex items-center justify-center mx-4">
+      <input type="text"  placeholder="Search or enter a new URL" class="w-10/12 h-8 px-4 rounded-md bg-border outline-none focus:ring-2 focus:ring-accent placeholder:text-interactive-secondary"/>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button title="Click to use fullscreen.">
+        <Maximize2 class="w-5 h-5 cursor-pointer Maximize2" />
+      </button>
+      <button title="Click to bookmark this page.">
+        <Star class="w-5 h-5 cursor-pointer Star" />
+      </button>
+      <button title="Click to go back to the home page.">
+        <Home class="w-5 h-5 cursor-pointer Home" />
+      </button>
+    </div>
+  </div>
+  <script src="src/lib/tabs.ts"></script>
   <iframe id="frame__1" class="w-full h-screen"></iframe>
 </Layout>
-<script>
-  const frame = document.getElementById("frame__1") as HTMLIFrameElement;
-  frame.src =
-    window.__uv$config.prefix + window.__uv$config.encodeUrl(sessionStorage.getItem("goUrl") || localStorage.getItem("engine") || "https://www.google.com");
-</script>
