@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const toggle = document.querySelector("[data-dropdown-toggle]");
-  const menu = document.getElementById("dropdownDelay");
+  const Toggle = document.querySelectorAll("[data-dropdown-toggle]");
+  const Menu = document.getElementById("cloaker");
+  const EngineMenu = document.getElementById("engine");
 
   const options: { [key: string]: { name: string; icon: string } } = {
     Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
@@ -173,37 +174,103 @@ document.addEventListener("DOMContentLoaded", () => {
     BIM: { name: "Big Ideas Math", icon: "/assets/media/favicons/bim.ico" },
   };
 
+  const EngineOptions: { [key: string]: string } = {
+    Google: "https://www.google.com/search?q=",
+    Bing: "https://www.bing.com/search?q=",
+    DuckDuckGo: "https://duckduckgo.com/?q=",
+    Qwant: "https://www.qwant.com/?q=",
+    Startpage: "https://www.startpage.com/search?q=",
+    SearchEncrypt: "https://www.searchencrypt.com/search/?q=",
+    Ecosia: "https://www.ecosia.org/search?q=",
+  };
+
   const outside = (event: MouseEvent) => {
-    if (toggle && menu) {
-      const inside =
-        menu.contains(event.target as Node) || toggle.contains(event.target as Node);
-      if (!inside) {
-        menu.classList.add("hidden");
+    for (const toggleElement of Toggle) {
+      const Menu = document.getElementById(
+        toggleElement.getAttribute("data-dropdown-toggle") || "",
+      );
+
+      if (Menu) {
+        const inside =
+          Menu.contains(event.target as Node) ||
+          toggleElement.contains(event.target as Node);
+        if (!inside) {
+          Menu.classList.add("hidden");
+        }
       }
     }
   };
 
-  if (toggle && menu) {
-    toggle.addEventListener("click", () => {
-      menu.classList.toggle("hidden");
-    });
+  for (const ToggleElement of Toggle) {
+    ToggleElement.addEventListener("click", () => {
+      const DropdownID = ToggleElement.getAttribute("data-dropdown-toggle");
+      const DropdownMenu = document.getElementById(DropdownID || "");
 
-    const links = menu.querySelectorAll("a");
-    if (links) {
-      for (const link of links) {
-        link.addEventListener("click", (event) => {
-          event.preventDefault();
-          const value = link.getAttribute("data-value");
-          if (value && options[value]) {
-            const { name, icon } = options[value];
-            localStorage.setItem("title", name);
-            localStorage.setItem("icon", icon);
-            window.location.reload();
-          }
-        });
+      if (DropdownMenu) {
+        DropdownMenu.classList.toggle("hidden");
       }
+    });
+  }
+
+  if (Menu) {
+    const links = Menu.querySelectorAll("a");
+    for (const link of links) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const value = link.getAttribute("data-value");
+        if (value && options[value]) {
+          const { name, icon } = options[value];
+          localStorage.setItem("title", name);
+          localStorage.setItem("icon", icon);
+          window.location.reload();
+        }
+      });
+    }
+  }
+
+  if (EngineMenu) {
+    const EngineLinks = EngineMenu.querySelectorAll("a");
+    for (const link of EngineLinks) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const value = link.getAttribute("data-value");
+        if (value && EngineOptions[value]) {
+          localStorage.setItem("engine", EngineOptions[value]);
+          localStorage.setItem("notification", "engine");
+          window.location.reload();
+        }
+      });
     }
   }
 
   document.addEventListener("click", outside);
+});
+
+const ShowNotification = (message: string, type: "default" | "engine") => {
+  const Container = document.getElementById(
+    type === "engine" ? "notification-container-engine" : "notification-container",
+  );
+
+  if (Container) {
+    const Notification = Container.querySelector("[role='alert']");
+    if (Notification) {
+      const fontBoldElement = Notification.querySelector("p.font-bold");
+      if (fontBoldElement) {
+        fontBoldElement.textContent = message;
+      }
+      Container.style.display = "block";
+      setTimeout(() => {
+        Container.style.display = "none";
+        localStorage.removeItem("notification");
+      }, 3000);
+    }
+  }
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  const NotificationMessage = localStorage.getItem("notification");
+
+  if (NotificationMessage === "engine") {
+    ShowNotification("Search engine updated", "engine");
+  }
 });

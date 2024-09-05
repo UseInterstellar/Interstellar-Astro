@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function Fullscreen() {
     const frame = document.getElementById("frame__1") as HTMLIFrameElement;
     if (frame) {
-      frame.requestFullscreen().catch(err => {
+      frame.requestFullscreen().catch((err) => {
         console.error("Failed to enter fullscreen mode:", err);
       });
     }
