@@ -1,0 +1,42 @@
+---
+interface Props {
+  id: string;
+  text: string;
+  menu: { text: string; value: string }[];
+}
+
+const { id, text, menu } = Astro.props;
+---
+
+<div class="relative">
+  <button
+    id={`${id}Button`}
+    data-dropdown-toggle={id}
+    data-dropdown-delay="500"
+    data-dropdown-trigger="hover"
+    class="text-white bg-dropdown focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center"
+    type="button"
+  >
+    {text}
+    <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"></path>
+    </svg>
+  </button>
+
+  <div
+    id={id}
+    class="z-10 hidden divide-y divide-gray-100 rounded-lg shadow-lg bg-background max-h-60 overflow-auto absolute top-full left-0 mt-2 w-auto min-w-[160px] transition-all duration-300 ease-in-out"
+  >
+    <ul class="py-2 text-sm text-gray-200">
+      {
+        menu.map((item) => (
+          <li>
+            <a data-value={item.value} class="block px-4 py-2 hover:bg-background-secondary rounded-md">
+              {item.text}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>

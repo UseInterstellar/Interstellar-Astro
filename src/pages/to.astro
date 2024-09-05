@@ -7,6 +7,7 @@ export const prerender = false;
 const tools: Asset[] = await (await fetch(`${ASSET_URL}/json/tools.json`)).json();
 ---
 
+<script src="@/lib/global.ts"></script>
 <Layout>
   <div class="flex justify-center py-8 flex-col items-center">
     <div class="text-4xl font-bold text-text inline-flex mb-4">

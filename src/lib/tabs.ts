@@ -2,7 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const frame = document.getElementById("frame__1") as HTMLIFrameElement;
   if (frame) {
     frame.src =
-      window.__uv$config.prefix + window.__uv$config.encodeUrl(sessionStorage.getItem("goUrl") || localStorage.getItem("engine") || "https://www.google.com");
+      window.__uv$config.prefix +
+      window.__uv$config.encodeUrl(
+        sessionStorage.getItem("goUrl") ||
+          localStorage.getItem("engine") ||
+          "https://www.google.com",
+      );
   }
 
   const back = document.querySelector(".ArrowLeft");
@@ -34,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const frame = document.getElementById("frame__1") as HTMLIFrameElement;
     if (frame) {
       // biome-ignore lint/correctness/noSelfAssign:
-      frame.src = frame.src
+      frame.src = frame.src;
     }
   }
   if (reloadbtn) {

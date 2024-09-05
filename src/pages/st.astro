@@ -1,26 +1,88 @@
 ---
+import Dropdown from "@/components/Dropdown.astro";
 import SettingsCard from "@/components/SettingsCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { Atom, ExternalLink, EyeOff, Search, Siren, SwatchBook } from "lucide-astro";
 ---
 
+<script src="@/lib/global.ts"></script>
 <Layout>
   <div class="flex flex-col gap-2 justify-center items-center">
     <div>
       <h1 class="font-extrabold text-4xl">Cloaking & Privacy</h1>
     </div>
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-4 justify-center">
-      <SettingsCard description="You can open the site in about:blank down below." title="About:Blank" Icon={ExternalLink} />
-      <SettingsCard description="Change the title and icon of the page" title="Tab Cloaker" Icon={EyeOff} />
-      <SettingsCard description="Quickly open another site with press of one key." title="Panic Key" Icon={Siren} />
+      <SettingsCard description="Access our site through an about:blank tab." title="About:Blank" Icon={ExternalLink} />
+      <SettingsCard description="Change the name and title of every single page on our site." title="Tab Cloaker" Icon={EyeOff}>
+        <Dropdown
+          id="dropdownDelay"
+          text="Tab Cloaker"
+          menu={[
+            { value: "Britannica", text: "Britannica" },
+            { value: "Big_Ideas_Math", text: "Big Ideas Math" },
+            { value: "Big_Ideas_Math_Assignment_Player", text: "Big Ideas Math Assignment Player" },
+            { value: "Canvas", text: "Canvas" },
+            { value: "ClassLink_Login", text: "ClassLink Login" },
+            { value: "Classroom", text: "Classroom" },
+            { value: "Clever", text: "Clever" },
+            { value: "DeltaMath", text: "DeltaMath" },
+            { value: "Desmos", text: "Desmos" },
+            { value: "Dictionary", text: "Dictionary" },
+            { value: "Ducksters", text: "Ducksters" },
+            { value: "Drive", text: "Drive" },
+            { value: "Edpuzzle", text: "Edpuzzle" },
+            { value: "Gmail", text: "Gmail" },
+            { value: "Google", text: "Google" },
+            { value: "Google_Docs", text: "Google Docs" },
+            { value: "Google_Forms_Locked_Mode", text: "Google Forms Locked Mode" },
+            { value: "Google_Meet", text: "Google Meet" },
+            { value: "Google_Slides", text: "Google Slides" },
+            { value: "IF_Campus", text: "Infinite Campus" },
+            { value: "i-Ready_Math", text: "i-Ready Math" },
+            { value: "i-Ready_Reading", text: "i-Ready Reading" },
+            { value: "i-Ready_Learning_Games", text: "i-Ready Learning Games" },
+            { value: "IXL", text: "IXL" },
+            { value: "Kami", text: "Kami" },
+            { value: "Khan", text: "Khan" },
+            { value: "LinkIt", text: "LinkIt" },
+            { value: "Minga", text: "Minga" },
+            { value: "Naviance_Student", text: "Naviance" },
+            { value: "Nearpod", text: "Nearpod" },
+            { value: "NoRedInk_Home", text: "NoRedInk Home" },
+            { value: "Newsela_Assignments", text: "Newsela Assignments" },
+            { value: "Newsela_Binder", text: "Newsela Binder" },
+            { value: "Newsela_Home", text: "Newsela Home" },
+            { value: "PBS_LearningMedia", text: "PBS Learning Media" },
+            { value: "PBS_LearningMedia_Student_Home", text: "PBS Learning Media Student Home" },
+            { value: "PowerSchool_Attendance", text: "PowerSchool Attendance" },
+            { value: "PowerSchool_Grades_and_Attendance", text: "PowerSchool Grades and Attendance" },
+            { value: "PowerSchool_Sign_In", text: "PowerSchool Sign In" },
+            { value: "PowerSchool_Standards_Grades", text: "PowerSchool Standards Grades" },
+            { value: "PowerSchool_Teacher_Comments", text: "PowerSchool Teacher Comments" },
+            { value: "Quizlet_Home", text: "Quizlet Home" },
+            { value: "Savvas", text: "Savvas Realize" },
+            { value: "Schoology", text: "Schoology" },
+            { value: "SmartPass", text: "SmartPass" },
+            { value: "StudentVUE", text: "StudentVUE" },
+            { value: "Thesaurus", text: "Thesaurus" },
+            { value: "Wikipedia", text: "Wikipedia" },
+            { value: "World_History_Encyclopedia", text: "World History Encyclopedia" },
+            { value: "WBO_SuperHome", text: "World Book Online - Super Home" },
+            { value: "WBO_Student", text: "World Book Online - Student" },
+            { value: "WBO_Timelines", text: "World Book Online - Timelines" },
+          ]}
+        />
+      </SettingsCard>
+      <SettingsCard description="Quickly open another website that will replace the current website by pressing a button." title="Panic Key" Icon={Siren} />
     </section>
     <div>
       <h1 class="font-extrabold text-4xl">Customization</h1>
     </div>
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-4 justify-center">
-      <SettingsCard description="Change the search engine when searching" title="Search Engine" Icon={Search} />
+      <SettingsCard description="Choose your own search engine. (Default: Google)" title="Search Engine" Icon={Search} />
       <SettingsCard description="Pick from a variety of themes to customize your experience." title="Themes" Icon={SwatchBook} />
       <SettingsCard description="Choose from a variety of particles to customize your experience on the home page." title="Particles" Icon={Atom} />
     </section>
   </div>
+  <script is:inline src="/src/lib/settings.ts"></script>
 </Layout>

@@ -6,8 +6,10 @@ module.exports = {
         sans: ["Inter", "sans-serif"],
       },
       colors: {
-        background: "var(--background)",
-        secondary: "var(--background-secondary)",
+        background: {
+          DEFAULT: "var(--background)",
+          secondary: "var(--background-secondary)",
+        },
         settings: "var(--background-settings)",
         interactive: {
           DEFAULT: "var(--interactive)",
@@ -22,6 +24,7 @@ module.exports = {
           DEFAULT: "var(--text)",
           secondary: "var(--text-secondary)",
         },
+        dropdown: "var(--dropdown)",
       },
     },
   },

@@ -1,17 +1,18 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { ArrowLeft, ArrowRight, Home, Maximize2, RotateCw, Settings2, Star, Plus} from "lucide-astro";
+import { ArrowLeft, ArrowRight, Home, Maximize2, Plus, RotateCw, Star } from "lucide-astro";
 ---
 
+<script src="@/lib/global.ts"></script>
 <Layout>
-  <div class="bg-secondary h-8 flex items-center justify-between px-4">
+  <div class="bg-background-secondary h-8 flex items-center justify-between px-4">
     <div class="flex space-x-4">
-      <button title="New Tab"> 
+      <button title="New Tab">
         <Plus class="w-6 h-6 cursor-pointer bg-accent rounded-md Plus" />
       </button>
     </div>
   </div>
-  <div class="bg-secondary h-12 flex items-center justify-between px-4">
+  <div class="bg-background-secondary h-12 flex items-center justify-between px-4">
     <div class="flex items-center space-x-4">
       <button title="Click to go back.">
         <ArrowLeft class="w-5 h-5 cursor-pointer ArrowLeft" />
@@ -24,7 +25,11 @@ import { ArrowLeft, ArrowRight, Home, Maximize2, RotateCw, Settings2, Star, Plus
       </button>
     </div>
     <div class="flex-grow flex items-center justify-center mx-4">
-      <input type="text"  placeholder="Search or enter a new URL" class="w-10/12 h-8 px-4 rounded-md bg-border outline-none focus:ring-2 focus:ring-accent placeholder:text-interactive-secondary"/>
+      <input
+        type="text"
+        placeholder="Search or enter a new URL"
+        class="w-10/12 h-8 px-4 rounded-md bg-border outline-none focus:ring-2 focus:ring-accent placeholder:text-interactive-secondary"
+      />
     </div>
     <div class="flex items-center space-x-4">
       <button title="Click to use fullscreen.">
@@ -38,6 +43,6 @@ import { ArrowLeft, ArrowRight, Home, Maximize2, RotateCw, Settings2, Star, Plus
       </button>
     </div>
   </div>
-  <script src="src/lib/tabs.ts"></script>
+  <script src="/src/lib/tabs.ts"></script>
   <iframe id="frame__1" class="w-full h-screen"></iframe>
 </Layout>
