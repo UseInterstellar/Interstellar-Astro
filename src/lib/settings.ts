@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const EngineForm = document.getElementById("custom-engine") as HTMLInputElement;
   // Tab Cloaks
   const cloaker: Record<string, { name: string; icon: string }> = {
-      Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
+    Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
     Savvas: {
       name: "Savvas Realize",
       icon: "/assets/media/favicons/savvas-realize.png",
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     BIM: { name: "Big Ideas Math", icon: "/assets/media/favicons/bim.ico" },
   };
-// Engines
+  // Engines
   const engine: { [key: string]: string } = {
     Google: "https://www.google.com/search?q=",
     Bing: "https://www.bing.com/search?q=",
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
     Ecosia: "https://www.ecosia.org/search?q=",
   };
 
-// Close dropdown when outside is clicked
+  // Close dropdown when outside is clicked
   const outside = (event: MouseEvent) => {
     for (const toggleElement of ToggleButtons) {
       const CloakerDropdown = document.getElementById(
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (CloakerDropdown) {
         const inside =
-        CloakerDropdown.contains(event.target as Node) ||
+          CloakerDropdown.contains(event.target as Node) ||
           toggleElement.contains(event.target as Node);
         if (!inside) {
           CloakerDropdown.classList.add("hidden");
@@ -208,12 +208,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const DropdownID = ToggleElement.getAttribute("data-dropdown-toggle");
       const DropdownMenu = document.getElementById(DropdownID || "");
 
-      if (DropdownMenu) {
-        DropdownMenu.classList.toggle("hidden");
+      if (dropdown) {
+        dropdown.classList.toggle("hidden");
       }
     });
   }
-// Cloaker Dropdown
+  // Cloaker Dropdown
   if (CloakerDropdown) {
     const links = CloakerDropdown.querySelectorAll("a");
     for (const link of links) {
@@ -230,7 +230,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   // Custom Cloaker
-  const CloakerTitleForm = document.getElementById("custom-title") as HTMLInputElement;
+  const CloakerTitleForm = document.getElementById(
+    "custom-title",
+  ) as HTMLInputElement;
   const CloakerIconForm = document.getElementById("custom-icon") as HTMLInputElement;
   if (CloakerTitleForm) {
     CloakerTitleForm.value = localStorage.getItem("title") || "";
@@ -259,7 +261,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-// Engine Dropdown
+  // Engine Dropdown
   if (EngineMenu) {
     const EngineLinks = EngineMenu.querySelectorAll("a");
     for (const link of EngineLinks) {
@@ -274,21 +276,21 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
-// Custom Engine
-if (EngineForm) {
-  EngineForm.value = localStorage.getItem("engine") || ""; 
-  EngineForm.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const customEngine = EngineForm.value.trim();
-      if (customEngine) {
-        localStorage.setItem("engine", customEngine);
-        localStorage.setItem("notification", "engine");
-        window.location.reload();
+  // Custom Engine
+  if (EngineForm) {
+    EngineForm.value = localStorage.getItem("engine") || "";
+    EngineForm.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const customEngine = EngineForm.value.trim();
+        if (customEngine) {
+          localStorage.setItem("engine", customEngine);
+          localStorage.setItem("notification", "engine");
+          window.location.reload();
+        }
       }
-    }
-  });
-}
+    });
+  }
   document.addEventListener("click", outside);
 });
 // Panic Key
@@ -319,26 +321,25 @@ if (LinkForm) {
         window.location.reload();
       }
     }
-  }
-  );
+  });
 }
 
-// Notification 
+// Notification
 const ShowNotification = (message: string, type: "default" | "engine") => {
   const Container = document.getElementById(
     type === "engine" ? "notification-container-engine" : "notification-container",
   );
 
-  if (Container) {
-    const Notification = Container.querySelector("[role='alert']");
-    if (Notification) {
-      const fontBoldElement = Notification.querySelector("p.font-bold");
+  if (container) {
+    const notification = container.querySelector("[role='alert']");
+    if (notification) {
+      const fontBoldElement = notification.querySelector("p.font-bold");
       if (fontBoldElement) {
         fontBoldElement.textContent = message;
       }
-      Container.style.display = "block";
+      container.style.display = "block";
       setTimeout(() => {
-        Container.style.display = "none";
+        container.style.display = "none";
         localStorage.removeItem("notification");
       }, 3000);
     }
@@ -346,9 +347,9 @@ const ShowNotification = (message: string, type: "default" | "engine") => {
 };
 // Engine Notification Message
 document.addEventListener("DOMContentLoaded", () => {
-  const NotificationMessage = localStorage.getItem("notification");
+  const notificationMessage = localStorage.getItem("notification");
 
-  if (NotificationMessage === "engine") {
-    ShowNotification("Search engine updated", "engine");
+  if (notificationMessage === "engine") {
+    showNotification("Search engine updated", "engine");
   }
 });

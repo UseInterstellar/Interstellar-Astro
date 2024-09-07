@@ -6,8 +6,8 @@ document.addEventListener("astro:page-load", () => {
 });
 // Panic
 document.addEventListener("astro:page-load", () => {
-  const Key = localStorage.getItem("key") || ""; 
-  const PanicKeys = Key.split(",").map(key => key.trim());  
+  const Key = localStorage.getItem("key") || "";
+  const PanicKeys = Key.split(",").map((key) => key.trim());
   const PanicLink = localStorage.getItem("link") || "";
   let Typed: string[] = [];
   let Shift = false;
@@ -22,7 +22,10 @@ document.addEventListener("astro:page-load", () => {
     if (Typed.length > PanicKeys.length) {
       Typed.shift();
     }
-    if (Typed.length === PanicKeys.length && PanicKeys.every((key, index) => key === Typed[index])) {
+    if (
+      Typed.length === PanicKeys.length &&
+      PanicKeys.every((key, index) => key === Typed[index])
+    ) {
       window.location.href = PanicLink;
       Typed = [];
     }
