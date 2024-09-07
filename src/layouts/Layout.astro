@@ -1,15 +1,4 @@
 ---
-declare global {
-  interface Window {
-    __uv$config: {
-      prefix: string;
-      encodeUrl: (str: string) => string;
-      decodeUrl: (str: string) => string;
-    };
-    connection: BareMuxConnection | undefined;
-  }
-}
-import type { BareMuxConnection } from "@mercuryworkshop/bare-mux";
 import "@/global.css";
 
 import { ViewTransitions } from "astro:transitions";
@@ -22,12 +11,12 @@ import { ViewTransitions } from "astro:transitions";
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <link id="icon" rel="shortcut icon" href="/assets/media/favicons/default.png" />
-    <title id="title">Home</title>
+    <title>Home</title>
     <ViewTransitions />
     <script is:inline src="/assets/bundled/v.bndl.js" defer></script>
     <script is:inline src="/assets/bundled/v.cnfg.js" defer></script>
     <script is:inline>
-      window.dataLayer = window.dataLayer || [];
+      window.dataLayer ||= [];
 
       function gtag(...args) {
         dataLayer.push(args);
@@ -46,6 +35,7 @@ import { ViewTransitions } from "astro:transitions";
       ]);
       await navigator.serviceWorker.register("/sw.js").then(() => console.log("uv registered"));
     </script>
+    <script src="@/lib/global.ts"></script>
   </head>
   <body>
     <slot />

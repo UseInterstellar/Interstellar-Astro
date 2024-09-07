@@ -6,7 +6,6 @@ import { Atom, ExternalLink, EyeOff, Info, Search, Siren, SwatchBook } from "luc
 import ArrowButton from "../components/ArrowButton.astro";
 ---
 
-<script src="@/lib/global.ts"></script>
 <Layout>
   <div class="hidden" id="notification-container-engine">
     <div class="bg-teal-100 border-t-4 border-teal-500 rounded-lg text-teal-900 px-4 py-3 shadow-md fixed top-4 right-4 w-96" role="alert">
@@ -128,7 +127,7 @@ import ArrowButton from "../components/ArrowButton.astro";
         </div>
         <p class="font-light">
           Version: <span class="font-bold">6.0.1</span><br />
-          Last Updated: <span class="font-bold">September 5th, 2024</span><br />
+          Last Updated: <span class="font-bold">{new Date(__COMMIT_DATE__).toLocaleString()}</span><br />
           If you have any questions or concerns, please contact us at
           <a class="font-medium" href="mailto:hello@gointerstellar.app">hello@gointerstellar.app</a>
           or visit our

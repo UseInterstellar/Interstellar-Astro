@@ -1,9 +1,9 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import { ArrowLeft, ArrowRight, Home, Loader, Maximize2, Plus, RotateCw, Star } from "lucide-astro";
+import { ArrowLeft, ArrowRight, Home, Loader2, Maximize2, Plus, RotateCw, Star } from "lucide-astro";
 ---
 
-<script src="@/lib/global.ts"></script>
+<script src="@/lib/tabs.ts"></script>
 <Layout>
   <div class="bg-background-secondary h-8 flex items-center justify-between px-4">
     <div class="flex space-x-4">
@@ -14,14 +14,14 @@ import { ArrowLeft, ArrowRight, Home, Loader, Maximize2, Plus, RotateCw, Star } 
   </div>
   <div class="bg-background-secondary h-12 flex items-center justify-between px-4">
     <div class="flex items-center space-x-4">
-      <button title="Click to go back.">
-        <ArrowLeft class="w-5 h-5 cursor-pointer ArrowLeft" />
+      <button title="Click to go back." id="back">
+        <ArrowLeft class="w-5 h-5 cursor-pointer" />
       </button>
-      <button title="Click to go forward.">
-        <ArrowRight class="w-5 h-5 cursor-pointer ArrowRight" />
+      <button title="Click to go forward." id="forward">
+        <ArrowRight class="w-5 h-5 cursor-pointer" />
       </button>
-      <button title="Click to reload this page.">
-        <RotateCw class="w-5 h-5 cursor-pointer RotateCw" />
+      <button title="Click to reload this page." id="reload">
+        <RotateCw class="w-5 h-5 cursor-pointer" />
       </button>
     </div>
     <div class="flex-grow flex items-center justify-center mx-4">
@@ -33,21 +33,20 @@ import { ArrowLeft, ArrowRight, Home, Loader, Maximize2, Plus, RotateCw, Star } 
       />
     </div>
     <div class="flex items-center space-x-4">
-      <button title="Click to use fullscreen.">
-        <Maximize2 class="w-5 h-5 cursor-pointer Maximize2" />
+      <button title="Click to use fullscreen." id="fullscreen">
+        <Maximize2 class="w-5 h-5 cursor-pointer" />
       </button>
-      <button title="Click to bookmark this page.">
-        <Star class="w-5 h-5 cursor-pointer Star" />
+      <button title="Click to bookmark this page." id="bookmark">
+        <Star class="w-5 h-5 cursor-pointer" />
       </button>
-      <button title="Click to go back to the home page.">
-        <Home class="w-5 h-5 cursor-pointer Home" />
-      </button>
+      <a href="/" aria-label="Home">
+        <Home class="w-5 h-5 cursor-pointer" />
+      </a>
     </div>
   </div>
-  <script src="/src/lib/tabs.ts"></script>
-  <div class="loader absolute top-0 left-0 flex flex-col w-full h-screen justify-center items-center z-[-99]">
-    <Loader class="w-24 h-24 animate-spin text-white-500" />
+  <div class="absolute top-0 left-0 flex flex-col w-full h-screen justify-center items-center z-[-99]">
+    <Loader2 class="w-24 h-24 animate-spin text-white-500" />
     <h2 class="mt-2">Interstellar is loading your content!</h2>
   </div>
-  <iframe id="frame__1" class="w-full h-screen z-9"></iframe>
+  <iframe id="frame__1" class="w-full h-[calc(100vh_-_5rem)] z-9" title=""></iframe>
 </Layout>

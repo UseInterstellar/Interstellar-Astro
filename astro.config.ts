@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import node from "@astrojs/node";
 import tailwind from "@astrojs/tailwind";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
@@ -29,6 +30,11 @@ export default defineConfig({
     ],
   },
   vite: {
+    define: {
+      __COMMIT_DATE__: JSON.stringify(
+        execSync("git show --no-patch --format=%ci").toString().trim(),
+      ),
+    },
     plugins: [
       // this absurdity is made possible by astro not letting you use a custom http server :)
       {

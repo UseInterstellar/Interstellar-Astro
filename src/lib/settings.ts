@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const Toggle = document.querySelectorAll("[data-dropdown-toggle]");
-  const Menu = document.getElementById("cloaker");
-  const EngineMenu = document.getElementById("engine");
+  const toggleButtons = document.querySelectorAll("[data-dropdown-toggle]");
+  const cloakMenu = document.getElementById("cloaker");
+  const engineMenu = document.getElementById("engine");
 
-  const options: { [key: string]: { name: string; icon: string } } = {
+  const options: Record<string, { name: string; icon: string }> = {
     Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
     Savvas: {
       name: "Savvas Realize",
@@ -185,35 +185,35 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const outside = (event: MouseEvent) => {
-    for (const toggleElement of Toggle) {
-      const Menu = document.getElementById(
+    for (const toggleElement of toggleButtons) {
+      const cloakMenu = document.getElementById(
         toggleElement.getAttribute("data-dropdown-toggle") || "",
       );
 
-      if (Menu) {
+      if (cloakMenu) {
         const inside =
-          Menu.contains(event.target as Node) ||
+          cloakMenu.contains(event.target as Node) ||
           toggleElement.contains(event.target as Node);
         if (!inside) {
-          Menu.classList.add("hidden");
+          cloakMenu.classList.add("hidden");
         }
       }
     }
   };
 
-  for (const ToggleElement of Toggle) {
-    ToggleElement.addEventListener("click", () => {
-      const DropdownID = ToggleElement.getAttribute("data-dropdown-toggle");
-      const DropdownMenu = document.getElementById(DropdownID || "");
+  for (const toggleButtonsElement of toggleButtons) {
+    toggleButtonsElement.addEventListener("click", () => {
+      const dropdownId = toggleButtonsElement.getAttribute("data-dropdown-toggle");
+      const dropdown = document.getElementById(dropdownId || "");
 
-      if (DropdownMenu) {
-        DropdownMenu.classList.toggle("hidden");
+      if (dropdown) {
+        dropdown.classList.toggle("hidden");
       }
     });
   }
 
-  if (Menu) {
-    const links = Menu.querySelectorAll("a");
+  if (cloakMenu) {
+    const links = cloakMenu.querySelectorAll("a");
     for (const link of links) {
       link.addEventListener("click", (event) => {
         event.preventDefault();
@@ -228,9 +228,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  if (EngineMenu) {
-    const EngineLinks = EngineMenu.querySelectorAll("a");
-    for (const link of EngineLinks) {
+  if (engineMenu) {
+    const engineLinks = engineMenu.querySelectorAll("a");
+    for (const link of engineLinks) {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const value = link.getAttribute("data-value");
@@ -246,21 +246,21 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener("click", outside);
 });
 
-const ShowNotification = (message: string, type: "default" | "engine") => {
-  const Container = document.getElementById(
+const showNotification = (message: string, type: "default" | "engine") => {
+  const container = document.getElementById(
     type === "engine" ? "notification-container-engine" : "notification-container",
   );
 
-  if (Container) {
-    const Notification = Container.querySelector("[role='alert']");
-    if (Notification) {
-      const fontBoldElement = Notification.querySelector("p.font-bold");
+  if (container) {
+    const notification = container.querySelector("[role='alert']");
+    if (notification) {
+      const fontBoldElement = notification.querySelector("p.font-bold");
       if (fontBoldElement) {
         fontBoldElement.textContent = message;
       }
-      Container.style.display = "block";
+      container.style.display = "block";
       setTimeout(() => {
-        Container.style.display = "none";
+        container.style.display = "none";
         localStorage.removeItem("notification");
       }, 3000);
     }
@@ -268,9 +268,9 @@ const ShowNotification = (message: string, type: "default" | "engine") => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  const NotificationMessage = localStorage.getItem("notification");
+  const notificationMessage = localStorage.getItem("notification");
 
-  if (NotificationMessage === "engine") {
-    ShowNotification("Search engine updated", "engine");
+  if (notificationMessage === "engine") {
+    showNotification("Search engine updated", "engine");
   }
 });
