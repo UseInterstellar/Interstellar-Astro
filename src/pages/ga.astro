@@ -8,7 +8,6 @@ const games: Asset[] = await (await fetch(`${ASSET_URL}/json/games.json`)).json(
 const customGames = (Astro.cookies.get("asset.game")?.json() as Asset[]) ?? [];
 ---
 
-<script src="@/lib/global.ts"></script>
 <Layout>
   <div class="flex justify-center py-8 flex-col items-center gap-4">
     <div class="text-4xl font-bold text-text inline-flex">
