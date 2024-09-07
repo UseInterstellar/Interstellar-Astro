@@ -28,6 +28,7 @@ import { ArrowLeft, ArrowRight, Home, Maximize2, Plus, RotateCw, Star } from "lu
       <input
         type="text"
         placeholder="Search or enter a new URL"
+        id="inp"
         class="w-10/12 h-8 px-4 rounded-md bg-border outline-none focus:ring-2 focus:ring-accent placeholder:text-interactive-secondary"
       />
     </div>
@@ -44,5 +45,9 @@ import { ArrowLeft, ArrowRight, Home, Maximize2, Plus, RotateCw, Star } from "lu
     </div>
   </div>
   <script src="/src/lib/tabs.ts"></script>
-  <iframe id="frame__1" class="w-full h-screen"></iframe>
+  <div class="loader absolute top-0 left-0 flex flex-col w-full h-screen justify-center items-center z-[-99]">
+    <img src="/assets/media/backgrounds/loader.svg" class="w-24 h-24" />
+    <h2 class="mt-2">Interstellar is loading your content!</h2>
+  </div>
+  <iframe id="frame__1" class="w-full h-screen z-9"></iframe>
 </Layout>

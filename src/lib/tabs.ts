@@ -46,6 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
     reloadbtn.addEventListener("click", Reload);
   }
 
+  // Update titlebar
+  function TitleBar() {
+    const titlebar = document.getElementById("inp") as HTMLInputElement;
+    const frame = document.getElementById("frame__1") as HTMLIFrameElement;
+    if (titlebar && frame) {
+      frame.addEventListener('load', () => {
+        // @ts-ignore
+        const currentUrl = frame.contentDocument.__uv$location.href;
+        titlebar.value = currentUrl;
+      })
+    }
+  }
+
+  TitleBar()
+  setTimeout(() => TitleBar, 60000);
+
   // Fullscreen
   function Fullscreen() {
     const frame = document.getElementById("frame__1") as HTMLIFrameElement;
