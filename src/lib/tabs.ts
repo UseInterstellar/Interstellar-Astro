@@ -1,5 +1,7 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const frame = document.getElementById("frame__1") as HTMLIFrameElement;
+const getFrame = () =>
+  document.getElementById("frame__1") as HTMLIFrameElement | null;
+document.addEventListener("astro:page-load", () => {
+  const frame = getFrame();
   if (frame) {
     frame.src =
       window.__uv$config.prefix +
@@ -10,68 +12,54 @@ document.addEventListener("DOMContentLoaded", () => {
       );
   }
 
-  const back = document.querySelector(".ArrowLeft");
-  const forward = document.querySelector(".ArrowRight");
-  const reloadbtn = document.querySelector(".RotateCw");
-  const fullscreen = document.querySelector(".Maximize2");
-  const bookmark = document.querySelector(".Star");
-  const home = document.querySelector(".Home");
+  const back = document.getElementById("back");
+  const forward = document.getElementById("forward");
+  const reloadbtn = document.getElementById("reload");
+  const fullscreen = document.getElementById("fullscreen");
+  const bookmark = document.getElementById("bookmark");
 
-  // Back Arrow
-  function goBack() {
-    window.history.back();
-    console.log("goBack");
-  }
   if (back) {
-    back.addEventListener("click", goBack);
+    back.addEventListener("click", () => getFrame()?.contentWindow?.history.back());
   }
 
-  // Forward Arrow
-  function goForward() {
-    window.history.forward();
-  }
   if (forward) {
-    forward.addEventListener("click", goForward);
+    forward.addEventListener("click", () =>
+      getFrame()?.contentWindow?.history.forward(),
+    );
   }
 
-  // Reload
-  function Reload() {
-    const frame = document.getElementById("frame__1") as HTMLIFrameElement;
-    if (frame) {
-      // biome-ignore lint/correctness/noSelfAssign:
-      frame.src = frame.src;
-    }
-  }
   if (reloadbtn) {
-    reloadbtn.addEventListener("click", Reload);
+    reloadbtn.addEventListener("click", () =>
+      getFrame()?.contentWindow?.location.reload(),
+    );
   }
 
-  // Fullscreen
-  function Fullscreen() {
+  function titleBar() {
+    const titlebar = document.getElementById("inp") as HTMLInputElement;
     const frame = document.getElementById("frame__1") as HTMLIFrameElement;
-    if (frame) {
-      frame.requestFullscreen().catch((err) => {
-        console.error("Failed to enter fullscreen mode:", err);
+    if (titlebar && frame) {
+      frame.addEventListener("load", () => {
+        const currentUrl = frame.contentWindow?.__uv$location?.href || "";
+        titlebar.value = currentUrl;
       });
     }
   }
+
   if (fullscreen) {
-    fullscreen.addEventListener("click", Fullscreen);
+    fullscreen.addEventListener("click", (e) => {
+      if (frame) {
+        frame.requestFullscreen().catch((err) => {
+          console.error("Failed to enter fullscreen mode:", err);
+        });
+      }
+    });
   }
 
   // Bookmark
-  function Bookmark() {
+  function addBookmark() {
     console.log("Bookmark clicked");
   }
   if (bookmark) {
-    bookmark.addEventListener("click", Bookmark);
-  }
-
-  // Home
-  function Home() {
-    window.location.href = "./";
-  }
-  if (home) {
-    home.addEventListener("click", Home);
+    bookmark.addEventListener("click", addBookmark);
   }
 });

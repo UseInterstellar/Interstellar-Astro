@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const Toggle = document.querySelectorAll("[data-dropdown-toggle]");
+  const ToggleButtons = document.querySelectorAll("[data-dropdown-toggle]");
   const CloakerDropdown = document.getElementById("cloaker");
   const EngineMenu = document.getElementById("engine");
   const EngineForm = document.getElementById("custom-engine") as HTMLInputElement;
   // Tab Cloaks
-  const cloaker: { [key: string]: { name: string; icon: string } } = {
-    Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
+  const cloaker: Record<string, { name: string; icon: string }> = {
+      Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
     Savvas: {
       name: "Savvas Realize",
       icon: "/assets/media/favicons/savvas-realize.png",
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Close dropdown when outside is clicked
   const outside = (event: MouseEvent) => {
-    for (const toggleElement of Toggle) {
+    for (const toggleElement of ToggleButtons) {
       const CloakerDropdown = document.getElementById(
         toggleElement.getAttribute("data-dropdown-toggle") || "",
       );
@@ -203,7 +203,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  for (const ToggleElement of Toggle) {
+  for (const ToggleElement of ToggleButtons) {
     ToggleElement.addEventListener("click", () => {
       const DropdownID = ToggleElement.getAttribute("data-dropdown-toggle");
       const DropdownMenu = document.getElementById(DropdownID || "");
