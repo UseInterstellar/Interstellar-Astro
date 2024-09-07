@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("astro:page-load", () => {
   const togglebuttons = document.querySelectorAll("[data-dropdown-toggle]");
   const cloakerdropdown = document.getElementById("cloaker");
   const enginedropdown = document.getElementById("engine");
