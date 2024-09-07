@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const Toggle = document.querySelectorAll("[data-dropdown-toggle]");
-  const Menu = document.getElementById("cloaker");
+  const CloakerDropdown = document.getElementById("cloaker");
   const EngineMenu = document.getElementById("engine");
-
-  const options: { [key: string]: { name: string; icon: string } } = {
+  const EngineForm = document.getElementById("custom-engine") as HTMLInputElement;
+  // Tab Cloaks
+  const cloaker: { [key: string]: { name: string; icon: string } } = {
     Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
     Savvas: {
       name: "Savvas Realize",
@@ -173,8 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     BIM: { name: "Big Ideas Math", icon: "/assets/media/favicons/bim.ico" },
   };
-
-  const EngineOptions: { [key: string]: string } = {
+// Engines
+  const engine: { [key: string]: string } = {
     Google: "https://www.google.com/search?q=",
     Bing: "https://www.bing.com/search?q=",
     DuckDuckGo: "https://duckduckgo.com/?q=",
@@ -184,18 +185,19 @@ document.addEventListener("DOMContentLoaded", () => {
     Ecosia: "https://www.ecosia.org/search?q=",
   };
 
+// Close dropdown when outside is clicked
   const outside = (event: MouseEvent) => {
     for (const toggleElement of Toggle) {
-      const Menu = document.getElementById(
+      const CloakerDropdown = document.getElementById(
         toggleElement.getAttribute("data-dropdown-toggle") || "",
       );
 
-      if (Menu) {
+      if (CloakerDropdown) {
         const inside =
-          Menu.contains(event.target as Node) ||
+        CloakerDropdown.contains(event.target as Node) ||
           toggleElement.contains(event.target as Node);
         if (!inside) {
-          Menu.classList.add("hidden");
+          CloakerDropdown.classList.add("hidden");
         }
       }
     }
@@ -211,15 +213,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-
-  if (Menu) {
-    const links = Menu.querySelectorAll("a");
+// Cloaker Dropdown
+  if (CloakerDropdown) {
+    const links = CloakerDropdown.querySelectorAll("a");
     for (const link of links) {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const value = link.getAttribute("data-value");
-        if (value && options[value]) {
-          const { name, icon } = options[value];
+        if (value && cloaker[value]) {
+          const { name, icon } = cloaker[value];
           localStorage.setItem("title", name);
           localStorage.setItem("icon", icon);
           window.location.reload();
@@ -227,25 +229,101 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   }
+  // Custom Cloaker
+  const CloakerTitleForm = document.getElementById("custom-title") as HTMLInputElement;
+  const CloakerIconForm = document.getElementById("custom-icon") as HTMLInputElement;
+  if (CloakerTitleForm) {
+    CloakerTitleForm.value = localStorage.getItem("title") || "";
+    CloakerTitleForm.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const customTitle = CloakerTitleForm.value.trim();
+        if (customTitle) {
+          localStorage.setItem("title", customTitle);
+          window.location.reload();
+        }
+      }
+    });
+  }
+  if (CloakerIconForm) {
+    CloakerIconForm.value = localStorage.getItem("icon") || "";
+    CloakerIconForm.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        const customIcon = CloakerIconForm.value.trim();
+        if (customIcon) {
+          localStorage.setItem("icon", customIcon);
+          window.location.reload();
+        }
+      }
+    });
+  }
 
+// Engine Dropdown
   if (EngineMenu) {
     const EngineLinks = EngineMenu.querySelectorAll("a");
     for (const link of EngineLinks) {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const value = link.getAttribute("data-value");
-        if (value && EngineOptions[value]) {
-          localStorage.setItem("engine", EngineOptions[value]);
+        if (value && engine[value]) {
+          localStorage.setItem("engine", engine[value]);
           localStorage.setItem("notification", "engine");
           window.location.reload();
         }
       });
     }
   }
-
+// Custom Engine
+if (EngineForm) {
+  EngineForm.value = localStorage.getItem("engine") || ""; 
+  EngineForm.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const customEngine = EngineForm.value.trim();
+      if (customEngine) {
+        localStorage.setItem("engine", customEngine);
+        localStorage.setItem("notification", "engine");
+        window.location.reload();
+      }
+    }
+  });
+}
   document.addEventListener("click", outside);
 });
+// Panic Key
+const KeyForm = document.getElementById("p-key") as HTMLInputElement;
+const LinkForm = document.getElementById("p-link") as HTMLInputElement;
 
+if (KeyForm) {
+  KeyForm.value = localStorage.getItem("key") || "";
+  KeyForm.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const key = KeyForm.value.trim();
+      if (key) {
+        localStorage.setItem("key", key);
+        window.location.reload();
+      }
+    }
+  });
+}
+if (LinkForm) {
+  LinkForm.value = localStorage.getItem("link") || "";
+  LinkForm.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      const link = LinkForm.value.trim();
+      if (link) {
+        localStorage.setItem("link", link);
+        window.location.reload();
+      }
+    }
+  }
+  );
+}
+
+// Notification 
 const ShowNotification = (message: string, type: "default" | "engine") => {
   const Container = document.getElementById(
     type === "engine" ? "notification-container-engine" : "notification-container",
@@ -266,7 +344,7 @@ const ShowNotification = (message: string, type: "default" | "engine") => {
     }
   }
 };
-
+// Engine Notification Message
 document.addEventListener("DOMContentLoaded", () => {
   const NotificationMessage = localStorage.getItem("notification");
 

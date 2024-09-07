@@ -92,13 +92,19 @@ import { Atom, ExternalLink, EyeOff, Search, Siren, SwatchBook, Info} from "luci
             { value: "WBO_Timelines", text: "World Book Online - Timelines" },
           ]}
         />
+        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
+          <input id="custom-title" placeholder="Custom Tab Title" class="w-full outline-none bg-transparent text-text text-sm" />
+        </div>
+        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
+          <input id="custom-icon" placeholder="Custom Tab Icon" class="w-full outline-none bg-transparent text-text text-sm" />
+        </div>
       </SettingsCard>
       <SettingsCard description="Quickly open another website that will replace the current website by pressing a button." title="Panic Key" Icon={Siren}>
         <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
-          <input placeholder="Panic Key" class="w-full outline-none bg-transparent text-text text-sm" />
+          <input id="p-key" placeholder="Panic Key" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
         <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto">
-          <input placeholder="Panic Link" class="w-full outline-none bg-transparent text-text text-sm" />
+          <input id="p-link" placeholder="Panic Link" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
     </SettingsCard>
       <SettingsCard description="Choose your own search engine. (Default: Google)" title="Search Engine" Icon={Search}>
@@ -116,11 +122,11 @@ import { Atom, ExternalLink, EyeOff, Search, Siren, SwatchBook, Info} from "luci
           ]}
         />
         <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
-          <input placeholder="Custom Search Engine" class="w-full outline-none bg-transparent text-text text-sm" />
+          <input id="custom-engine" placeholder="Custom Search Engine" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
       </SettingsCard>
-      <SettingsCard description="Pick from a variety of themes to customize your experience." title="Themes" Icon={SwatchBook} />
-      <SettingsCard description="Choose from a variety of particles to customize your experience on the home page." title="Particles" Icon={Atom} />
+      <SettingsCard description="Customize the theme of the site and choose from a variety of particles to customize the site further." title="Customization" Icon={SwatchBook} />
+      <!-- Information Card -->
       <div class="w-full bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px] ">
         <div class="flex items-center gap-2">
           <Info class="size-6" />
