@@ -208,8 +208,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const DropdownID = ToggleElement.getAttribute("data-dropdown-toggle");
       const DropdownMenu = document.getElementById(DropdownID || "");
 
-      if (dropdown) {
-        dropdown.classList.toggle("hidden");
+      if (DropdownMenu) {
+        DropdownMenu.classList.toggle("hidden");
       }
     });
   }
@@ -330,16 +330,16 @@ const ShowNotification = (message: string, type: "default" | "engine") => {
     type === "engine" ? "notification-container-engine" : "notification-container",
   );
 
-  if (container) {
-    const notification = container.querySelector("[role='alert']");
+  if (Container) {
+    const notification = Container.querySelector("[role='alert']");
     if (notification) {
       const fontBoldElement = notification.querySelector("p.font-bold");
       if (fontBoldElement) {
         fontBoldElement.textContent = message;
       }
-      container.style.display = "block";
+      Container.style.display = "block";
       setTimeout(() => {
-        container.style.display = "none";
+        Container.style.display = "none";
         localStorage.removeItem("notification");
       }, 3000);
     }
@@ -350,6 +350,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const notificationMessage = localStorage.getItem("notification");
 
   if (notificationMessage === "engine") {
-    showNotification("Search engine updated", "engine");
+    ShowNotification("Search engine updated", "engine");
   }
 });

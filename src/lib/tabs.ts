@@ -34,7 +34,7 @@ document.addEventListener("astro:page-load", () => {
     );
   }
 
-  function titleBar() {
+  function TitleBar() {
     const titlebar = document.getElementById("inp") as HTMLInputElement;
     const frame = document.getElementById("frame__1") as HTMLIFrameElement;
     if (titlebar && frame) {
@@ -45,8 +45,11 @@ document.addEventListener("astro:page-load", () => {
     }
   }
 
+  TitleBar();
+  setTimeout(() => TitleBar, 60000);
+
   if (fullscreen) {
-    fullscreen.addEventListener("click", (e) => {
+    fullscreen.addEventListener("click", () => {
       if (frame) {
         frame.requestFullscreen().catch((err) => {
           console.error("Failed to enter fullscreen mode:", err);
