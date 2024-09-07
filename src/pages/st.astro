@@ -2,8 +2,8 @@
 import Dropdown from "@/components/Dropdown.astro";
 import SettingsCard from "@/components/SettingsCard.astro";
 import Layout from "@/layouts/Main.astro";
-import ArrowButton from '../components/ArrowButton.astro';
-import { Atom, ExternalLink, EyeOff, Search, Siren, SwatchBook, Info} from "lucide-astro";
+import { Atom, ExternalLink, EyeOff, Info, Search, Siren, SwatchBook } from "lucide-astro";
+import ArrowButton from "../components/ArrowButton.astro";
 ---
 
 <script src="@/lib/global.ts"></script>
@@ -100,7 +100,7 @@ import { Atom, ExternalLink, EyeOff, Search, Siren, SwatchBook, Info} from "luci
         <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto">
           <input placeholder="Panic Link" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
-    </SettingsCard>
+      </SettingsCard>
       <SettingsCard description="Choose your own search engine. (Default: Google)" title="Search Engine" Icon={Search}>
         <Dropdown
           id="engine"
@@ -121,22 +121,22 @@ import { Atom, ExternalLink, EyeOff, Search, Siren, SwatchBook, Info} from "luci
       </SettingsCard>
       <SettingsCard description="Pick from a variety of themes to customize your experience." title="Themes" Icon={SwatchBook} />
       <SettingsCard description="Choose from a variety of particles to customize your experience on the home page." title="Particles" Icon={Atom} />
-      <div class="w-full bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px] ">
+      <div class="w-full bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
         <div class="flex items-center gap-2">
           <Info class="size-6" />
           <h3 class="font-extrabold text-2xl mt-0">Information</h3>
         </div>
         <p class="font-light">
-          Version: <span class="font-bold">6.0.1</span><br/>
+          Version: <span class="font-bold">6.0.1</span><br />
           Last Updated: <span class="font-bold">September 5th, 2024</span><br />
-          If you have any questions or concerns, please contact us at 
-          <a class="font-medium" href="mailto:hello@gointerstellar.app">hello@gointerstellar.app</a> 
-          or visit our 
-          <a class="font-medium" href="https://discord.gg/interstellar">Discord</a> 
-          or read our 
+          If you have any questions or concerns, please contact us at
+          <a class="font-medium" href="mailto:hello@gointerstellar.app">hello@gointerstellar.app</a>
+          or visit our
+          <a class="font-medium" href="https://discord.gg/interstellar">Discord</a>
+          or read our
           <a class="font-medium" href="https://docs.gointerstellar.app/">Documentation</a>.
         </p>
-      </div>       
+      </div>
     </section>
   </div>
   <script is:inline src="/src/lib/settings.ts?v=2"></script>
