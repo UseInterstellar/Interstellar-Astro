@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const ToggleButtons = document.querySelectorAll("[data-dropdown-toggle]");
-  const CloakerDropdown = document.getElementById("cloaker");
-  const EngineMenu = document.getElementById("engine");
-  const EngineForm = document.getElementById("custom-engine") as HTMLInputElement;
+  const togglebuttons = document.querySelectorAll("[data-dropdown-toggle]");
+  const cloakerdropdown = document.getElementById("cloaker");
+  const enginedropdown = document.getElementById("engine");
+  const engineform = document.getElementById("custom-engine") as HTMLInputElement;
   // Tab Cloaks
   const cloaker: Record<string, { name: string; icon: string }> = {
     Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
@@ -187,35 +187,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Close dropdown when outside is clicked
   const outside = (event: MouseEvent) => {
-    for (const toggleElement of ToggleButtons) {
-      const CloakerDropdown = document.getElementById(
+    for (const toggleElement of togglebuttons) {
+      const cloakerdropdown = document.getElementById(
         toggleElement.getAttribute("data-dropdown-toggle") || "",
       );
 
-      if (CloakerDropdown) {
+      if (cloakerdropdown) {
         const inside =
-          CloakerDropdown.contains(event.target as Node) ||
+          cloakerdropdown.contains(event.target as Node) ||
           toggleElement.contains(event.target as Node);
         if (!inside) {
-          CloakerDropdown.classList.add("hidden");
+          cloakerdropdown.classList.add("hidden");
         }
       }
     }
   };
 
-  for (const ToggleElement of ToggleButtons) {
+  for (const ToggleElement of togglebuttons) {
     ToggleElement.addEventListener("click", () => {
       const DropdownID = ToggleElement.getAttribute("data-dropdown-toggle");
-      const DropdownMenu = document.getElementById(DropdownID || "");
+      const dropdownmenu = document.getElementById(DropdownID || "");
 
-      if (DropdownMenu) {
-        DropdownMenu.classList.toggle("hidden");
+      if (dropdownmenu) {
+        dropdownmenu.classList.toggle("hidden");
       }
     });
   }
   // Cloaker Dropdown
-  if (CloakerDropdown) {
-    const links = CloakerDropdown.querySelectorAll("a");
+  if (cloakerdropdown) {
+    const links = cloakerdropdown.querySelectorAll("a");
     for (const link of links) {
       link.addEventListener("click", (event) => {
         event.preventDefault();
@@ -230,31 +230,29 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
   // Custom Cloaker
-  const CloakerTitleForm = document.getElementById(
-    "custom-title",
-  ) as HTMLInputElement;
-  const CloakerIconForm = document.getElementById("custom-icon") as HTMLInputElement;
-  if (CloakerTitleForm) {
-    CloakerTitleForm.value = localStorage.getItem("title") || "";
-    CloakerTitleForm.addEventListener("keydown", (event) => {
+  const customtitle = document.getElementById("custom-title") as HTMLInputElement;
+  const customicon = document.getElementById("custom-icon") as HTMLInputElement;
+  if (customtitle) {
+    customtitle.value = localStorage.getItem("title") || "";
+    customtitle.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
-        const customTitle = CloakerTitleForm.value.trim();
-        if (customTitle) {
-          localStorage.setItem("title", customTitle);
+        const title = customtitle.value.trim();
+        if (title) {
+          localStorage.setItem("title", title);
           window.location.reload();
         }
       }
     });
   }
-  if (CloakerIconForm) {
-    CloakerIconForm.value = localStorage.getItem("icon") || "";
-    CloakerIconForm.addEventListener("keydown", (event) => {
+  if (customicon) {
+    customicon.value = localStorage.getItem("icon") || "";
+    customicon.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
-        const customIcon = CloakerIconForm.value.trim();
-        if (customIcon) {
-          localStorage.setItem("icon", customIcon);
+        const icon = customicon.value.trim();
+        if (icon) {
+          localStorage.setItem("icon", icon);
           window.location.reload();
         }
       }
@@ -262,47 +260,46 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Engine Dropdown
-  if (EngineMenu) {
-    const EngineLinks = EngineMenu.querySelectorAll("a");
-    for (const link of EngineLinks) {
+  if (enginedropdown) {
+    const enginelinks = enginedropdown.querySelectorAll("a");
+    for (const link of enginelinks) {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const value = link.getAttribute("data-value");
         if (value && engine[value]) {
           localStorage.setItem("engine", engine[value]);
-          localStorage.setItem("notification", "engine");
           window.location.reload();
         }
       });
     }
   }
   // Custom Engine
-  if (EngineForm) {
-    EngineForm.value = localStorage.getItem("engine") || "";
-    EngineForm.addEventListener("keydown", (event) => {
+  if (engineform) {
+    engineform.value = localStorage.getItem("engine") || "";
+    engineform.addEventListener("keydown", (event) => {
       if (event.key === "Enter") {
         event.preventDefault();
-        const customEngine = EngineForm.value.trim();
+        const customEngine = engineform.value.trim();
         if (customEngine) {
           localStorage.setItem("engine", customEngine);
-          localStorage.setItem("notification", "engine");
           window.location.reload();
         }
       }
     });
   }
+
   document.addEventListener("click", outside);
 });
 // Panic Key
-const KeyForm = document.getElementById("p-key") as HTMLInputElement;
-const LinkForm = document.getElementById("p-link") as HTMLInputElement;
+const panickey = document.getElementById("key") as HTMLInputElement;
+const paniclink = document.getElementById("link") as HTMLInputElement;
 
-if (KeyForm) {
-  KeyForm.value = localStorage.getItem("key") || "";
-  KeyForm.addEventListener("keydown", (event) => {
+if (panickey) {
+  panickey.value = localStorage.getItem("key") || "";
+  panickey.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      const key = KeyForm.value.trim();
+      const key = panickey.value.trim();
       if (key) {
         localStorage.setItem("key", key);
         window.location.reload();
@@ -310,12 +307,13 @@ if (KeyForm) {
     }
   });
 }
-if (LinkForm) {
-  LinkForm.value = localStorage.getItem("link") || "";
-  LinkForm.addEventListener("keydown", (event) => {
+
+if (paniclink) {
+  paniclink.value = localStorage.getItem("link") || "";
+  paniclink.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      const link = LinkForm.value.trim();
+      const link = paniclink.value.trim();
       if (link) {
         localStorage.setItem("link", link);
         window.location.reload();
@@ -324,32 +322,3 @@ if (LinkForm) {
   });
 }
 
-// Notification
-const ShowNotification = (message: string, type: "default" | "engine") => {
-  const Container = document.getElementById(
-    type === "engine" ? "notification-container-engine" : "notification-container",
-  );
-
-  if (Container) {
-    const notification = Container.querySelector("[role='alert']");
-    if (notification) {
-      const fontBoldElement = notification.querySelector("p.font-bold");
-      if (fontBoldElement) {
-        fontBoldElement.textContent = message;
-      }
-      Container.style.display = "block";
-      setTimeout(() => {
-        Container.style.display = "none";
-        localStorage.removeItem("notification");
-      }, 3000);
-    }
-  }
-};
-// Engine Notification Message
-document.addEventListener("DOMContentLoaded", () => {
-  const notificationMessage = localStorage.getItem("notification");
-
-  if (notificationMessage === "engine") {
-    ShowNotification("Search engine updated", "engine");
-  }
-});

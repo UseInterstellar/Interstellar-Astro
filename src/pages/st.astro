@@ -7,23 +7,6 @@ import ArrowButton from "../components/ArrowButton.astro";
 ---
 
 <Layout>
-  <div class="hidden" id="notification-container-engine">
-    <div class="bg-teal-100 border-t-4 border-teal-500 rounded-lg text-teal-900 px-4 py-3 shadow-md fixed top-4 right-4 w-96" role="alert">
-      <div class="flex">
-        <div class="py-1">
-          <svg class="fill-current h-6 w-6 text-teal-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-            <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"
-            ></path>
-          </svg>
-        </div>
-        <div>
-          <p class="font-bold"></p>
-          <p class="text-sm">Your selection has been successfully saved.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="flex flex-col gap-2 justify-center items-center">
     <div>
       <h1 class="mt-2 font-extrabold text-5xl">Settings</h1>
@@ -100,10 +83,10 @@ import ArrowButton from "../components/ArrowButton.astro";
       </SettingsCard>
       <SettingsCard description="Quickly open another website that will replace the current website by pressing a button." title="Panic Key" Icon={Siren}>
         <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
-          <input id="p-key" placeholder="Panic Key" class="w-full outline-none bg-transparent text-text text-sm" />
+          <input id="key" placeholder="Panic Key" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
         <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto">
-          <input id="p-link" placeholder="Panic Link" class="w-full outline-none bg-transparent text-text text-sm" />
+          <input id="link" placeholder="Panic Link" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
       </SettingsCard>
       <SettingsCard description="Choose your own search engine. (Default: Google)" title="Search Engine" Icon={Search}>
@@ -124,8 +107,8 @@ import ArrowButton from "../components/ArrowButton.astro";
           <input id="custom-engine" placeholder="Custom Search Engine" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
       </SettingsCard>
-      <SettingsCard description="Pick from a variety of themes to customize your experience." title="Themes" Icon={SwatchBook} />
-      <SettingsCard description="Choose from a variety of particles to customize your experience on the home page." title="Particles" Icon={Atom} />
+      <SettingsCard description="Customize the theme of the site and choose from a variety of particles to customize the site further." title="Customization" Icon={SwatchBook} />
+      <!-- Information Card -->
       <div class="w-full bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
         <div class="flex items-center gap-2">
           <Info class="size-6" />
@@ -144,5 +127,5 @@ import ArrowButton from "../components/ArrowButton.astro";
       </div>
     </section>
   </div>
-  <script is:inline src="/src/lib/settings.ts?v=2"></script>
+  <script is:inline src="/src/lib/settings.ts?v=4"></script>
 </Layout>
