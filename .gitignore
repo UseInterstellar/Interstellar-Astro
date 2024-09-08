@@ -1,8 +1,7 @@
 # build output
 dist/
-
-# generated types
 .astro/
+.vercel/
 
 # dependencies
 node_modules/
@@ -24,7 +23,3 @@ pnpm-debug.log*
 .idea/
 
 package-lock.json
-
-# Interstellar Assets Local (Testing)
-/public/assets/json/
-/public/assets/media/icons/
