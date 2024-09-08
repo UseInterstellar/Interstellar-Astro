@@ -9,8 +9,8 @@ module.exports = {
         background: {
           DEFAULT: "var(--background)",
           secondary: "var(--background-secondary)",
+          settings: "var(--background-settings)",
         },
-        settings: "var(--background-settings)",
         interactive: {
           DEFAULT: "var(--interactive)",
           secondary: "var(--interactive-secondary)",

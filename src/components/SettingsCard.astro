@@ -7,7 +7,7 @@ interface Props {
 const { Icon, title, description } = Astro.props;
 ---
 
-<div class="bg-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
+<div class="bg-background-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
   <span class="font-extrabold text-2xl mt-0 flex flex-row gap-2 items-center"><Icon class="size-6" />{title}</span>
   <p class="font-light">{description}</p>
   <slot />
