@@ -28,7 +28,7 @@
     "@titaniumnetwork-dev/ultraviolet": "^3.2.7",
     "astro": "^4.15.4",
     "fastify": "^4.28.1",
-    "lucide-astro": "^0.438.0",
+    "lucide-astro": "^0.439.0",
     "mime": "^4.0.4",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.10",
