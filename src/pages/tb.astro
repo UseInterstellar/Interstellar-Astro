@@ -14,6 +14,9 @@ import { ArrowLeft, ArrowRight, Home, Loader2, Maximize2, Plus, RotateCw, Star }
   </div>
   <div class="bg-background-secondary h-12 flex items-center justify-between px-4">
     <div class="flex items-center space-x-4">
+      <a href="/" id="home" title="Home Page.">
+        <Home class="w-5 h-5 cursor-pointer" />
+      </a>
       <button title="Click to go back." id="back">
         <ArrowLeft class="w-5 h-5 cursor-pointer" />
       </button>
@@ -39,9 +42,6 @@ import { ArrowLeft, ArrowRight, Home, Loader2, Maximize2, Plus, RotateCw, Star }
       <button title="Click to bookmark this page." id="bookmark">
         <Star class="w-5 h-5 cursor-pointer" />
       </button>
-      <a href="/" aria-label="Home">
-        <Home class="w-5 h-5 cursor-pointer" />
-      </a>
     </div>
   </div>
   <div class="absolute top-0 left-0 flex flex-col w-full h-screen justify-center items-center z-[-99]">

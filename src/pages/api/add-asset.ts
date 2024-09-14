@@ -17,7 +17,7 @@ export const PUT: APIRoute = async ({ cookies, request }) => {
   currentAssets.push({
     name: body.name,
     link: body.link,
-    image: "/media/icons/custom.webp",
+    image: "/icons/custom.webp",
     custom: true,
   });
   cookies.set(`asset.${body.type}`, JSON.stringify(currentAssets), {

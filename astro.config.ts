@@ -18,7 +18,7 @@ export default defineConfig({
   integrations: [tailwind({ applyBaseStyles: false })],
   prefetch: {
     defaultStrategy: "viewport",
-    prefetchAll: true,
+    prefetchAll: false,
   },
   image: {
     remotePatterns: [

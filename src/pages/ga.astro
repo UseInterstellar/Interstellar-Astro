@@ -1,5 +1,6 @@
 ---
 import AssetCard from "@/components/AssetCard.astro";
+import Dropdown from "@/components/Dropdown.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
 import { Gamepad2, PlusCircle } from "lucide-astro";
@@ -14,11 +15,14 @@ const customGames = (Astro.cookies.get("asset.game")?.json() as Asset[]) ?? [];
       <Gamepad2 class="size-12 mr-2" />
       Games
     </div>
+    <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-1/4 h-14 mx-auto">
+      <input id="search" placeholder="Search Games" class="w-full outline-none bg-transparent text-text text-sm" />
+    </div>
     <button class="p-4 bg-interactive hover:bg-interactive-secondary rounded-md font-semibold inline-flex items-center" data-type="game" id="add-asset">
       <PlusCircle class="size-5 mr-2" />
       Add Game
     </button>
-    <div class="flex flex-wrap justify-center gap-4 flex-row mt-30">
+    <div id="container" class="flex flex-wrap justify-center gap-4 flex-row mt-30">
       {[...customGames, ...games].sort((a, b) => (a.name > b.name ? 1 : -1)).map((game) => <AssetCard asset={game} />)}
     </div>
   </div>

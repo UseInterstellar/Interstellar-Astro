@@ -82,7 +82,12 @@ const config = {
       <script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script>
       <link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css">
       `
-    }
+    },
+    {
+      host: /youtube.com*/,
+      injectTo: "head",
+      html: `console.log("hello world!")` /* to-do: remove 4k option */
+    },
   ]
-};
+}; 
 self.__uv$config = config;
