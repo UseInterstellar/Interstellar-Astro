@@ -1,7 +1,6 @@
 ---
 import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
-import Dropdown from "@/components/Dropdown.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
 import { LayoutGrid, PlusCircle } from "lucide-astro";
 export const prerender = false;
@@ -18,15 +17,12 @@ const customApps = (Astro.cookies.get("asset.app")?.json() as Asset[]) ?? [];
     <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-1/4 h-14 mx-auto">
       <input id="search" placeholder="Search Apps" class="w-full outline-none bg-transparent text-text text-sm" />
     </div>
-      <button class="p-4 bg-interactive hover:bg-interactive-secondary rounded-md font-semibold inline-flex items-center" data-type="app" id="add-asset">
+    <button class="p-4 bg-interactive hover:bg-interactive-secondary rounded-md font-semibold inline-flex items-center" data-type="app" id="add-asset">
       <PlusCircle class="size-5 mr-2" />
       Add App
     </button>
     <div id="container" class="flex flex-wrap justify-center gap-4 flex-row mt-30">
-      {[...customApps, ...apps]
-        .sort((a, b) => (a.name > b.name ? 1 : -1))
-        .map((app) => <AssetCard asset={app} />)}
+      {[...customApps, ...apps].sort((a, b) => (a.name > b.name ? 1 : -1)).map((app) => <AssetCard asset={app} />)}
     </div>
   </div>
 </Layout>
-
