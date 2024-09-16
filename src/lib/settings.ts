@@ -2,6 +2,7 @@ document.addEventListener("astro:page-load", () => {
   const togglebuttons = document.querySelectorAll("[data-dropdown-toggle]");
   const cloakerdropdown = document.getElementById("cloaker");
   const enginedropdown = document.getElementById("engine");
+  const menudropdown = document.getElementById("menu");
   const engineform = document.getElementById("custom-engine") as HTMLInputElement;
   // Tab Cloaks
   const cloaker: Record<string, { name: string; icon: string }> = {
@@ -224,6 +225,25 @@ document.addEventListener("astro:page-load", () => {
           const { name, icon } = cloaker[value];
           localStorage.setItem("title", name);
           localStorage.setItem("icon", icon);
+          window.location.reload();
+        }
+      });
+    }
+  }
+  const menu: { [key: string]: string } = {
+    Hamburger: "Hamburger",
+    Standard: "Standard",
+  };
+
+  // Menu Dropdown
+  if (menudropdown) {
+    const menulinks = menudropdown.querySelectorAll("a");
+    for (const link of menulinks) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const value = link.getAttribute("data-value");
+        if (value && menu[value]) {
+          localStorage.setItem("menu", menu[value]);
           window.location.reload();
         }
       });

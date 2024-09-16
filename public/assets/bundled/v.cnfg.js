@@ -66,7 +66,7 @@ const factory = (key) => {
 const cipher = factory((location.origin + navigator.userAgent).toUpperCase());
 /** @type {import("@titaniumnetwork-dev/ultraviolet").UVConfig}*/
 const config = {
-  prefix: '/jquery/', /* yes i am insane */
+  prefix: '/jquery/', 
   encodeUrl: cipher.enc,
   decodeUrl: cipher.dec,
   handler: `${filePrefix}hndlr.js`,
@@ -88,6 +88,11 @@ const config = {
       injectTo: "head",
       html: `console.log("hello world!")` /* to-do: remove 4k option */
     },
+    {
+      host: /now.gg*/,
+      injectTo: "head",
+      html: `document.querySelectorAll("div.sc-19c21da7-0.dgAMyI").forEach(function(c){c.remove()});`
+    }
   ]
 }; 
 self.__uv$config = config;

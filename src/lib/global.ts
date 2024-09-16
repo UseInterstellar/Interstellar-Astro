@@ -5,34 +5,53 @@ document.addEventListener("astro:page-load", () => {
   document.getElementById("icon")?.setAttribute("href", icon);
 
   // Nav
-  const hamburger = document.getElementById("hamburger");
-  const menu = document.getElementById("nav");
+  const menu = localStorage.getItem("menu") || "Default";
+  const defaultnav = document.getElementById("default-nav");
+  const standard = document.getElementById("standard-nav");
+  const button = document.getElementById("hamburger");
+  const nav = document.getElementById("nav");
+
+  if (menu === "Default") {
+    if (defaultnav) defaultnav.classList.remove("hidden");
+    if (standard) standard.classList.add("hidden");
+
+    if (button) {
+      button.addEventListener("click", () => {
+        if (nav) {
+          nav.classList.toggle("hidden");
+        }
+      });
+    }
+  } else if (menu === "Standard") {
+    if (standard) standard.classList.remove("hidden");
+    if (defaultnav) defaultnav.classList.add("hidden");
+  }
 
   const isMenuOpen = localStorage.getItem("hamburger-open") === "true";
-  menu?.classList.toggle("hidden", !isMenuOpen);
+  nav?.classList.toggle("hidden", !isMenuOpen);
 
-  hamburger?.addEventListener("click", (e) => {
+  defaultnav?.addEventListener("click", (e) => {
     e.stopPropagation();
-    const isOpen = menu?.classList.toggle("hidden");
+    const isOpen = nav?.classList.toggle("hidden");
     localStorage.setItem("hamburger-open", !isOpen ? "true" : "false");
   });
 
-  for (const link of menu?.querySelectorAll("a") ?? []) {
+  for (const link of nav?.querySelectorAll("a") ?? []) {
     link.addEventListener("click", () => {
       localStorage.removeItem("hamburger-open");
-      menu?.classList.add("hidden");
+      nav?.classList.add("hidden");
     });
   }
 
   document.addEventListener("click", (e) => {
     const target = e.target as Node;
     if (
-      menu !== null &&
-      !menu.classList.contains("hidden") &&
-      !menu.contains(target) &&
-      !hamburger?.contains(target)
+      nav !== null &&
+      !nav.classList.contains("hidden") &&
+      !nav.contains(target) &&
+      !defaultnav?.contains(target)
     ) {
-      menu?.classList.add("hidden");
+      nav?.classList.add("hidden");
       localStorage.removeItem("hamburger-open");
     }
   });

@@ -46,7 +46,7 @@ document.addEventListener("astro:page-load", () => {
   }
 
   TitleBar();
-  setTimeout(() => TitleBar, 60000);
+  setTimeout(() => TitleBar, 40000);
 
   if (fullscreen) {
     fullscreen.addEventListener("click", () => {
