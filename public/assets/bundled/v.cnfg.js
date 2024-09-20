@@ -86,12 +86,12 @@ const config = {
     {
       host: /youtube.com*/,
       injectTo: "head",
-      html: `console.log("hello world!")` /* to-do: remove 4k option */
+      html: `<script>console.log("hello world!")</script>` /* to-do: remove 4k option */
     },
     {
       host: /now.gg*/,
       injectTo: "head",
-      html: `document.querySelectorAll("div.sc-19c21da7-0.dgAMyI").forEach(function(c){c.remove()});`
+      html: `<script>document.querySelectorAll("div.sc-19c21da7-0.dgAMyI").forEach(function(c){c.remove()});</script>`
     }
   ]
 }; 

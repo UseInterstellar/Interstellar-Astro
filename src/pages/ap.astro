@@ -17,7 +17,7 @@ const customApps = (Astro.cookies.get("asset.app")?.json() as Asset[]) ?? [];
     <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-1/4 h-14 mx-auto">
       <input id="search" placeholder="Search Apps" class="w-full outline-none bg-transparent text-text text-sm" />
     </div>
-    <button class="p-4 bg-interactive hover:bg-interactive-secondary rounded-md font-semibold inline-flex items-center" data-type="app" id="add-asset">
+    <button class="p-4 bg-interactive hover:bg-interactive-secondary rounded-md font-semibold inline-flex items-center" id="add-asset" data-type="app">
       <PlusCircle class="size-5 mr-2" />
       Add App
     </button>
