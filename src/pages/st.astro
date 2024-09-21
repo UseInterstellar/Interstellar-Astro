@@ -2,14 +2,15 @@
 import Dropdown from "@/components/Dropdown.astro";
 import SettingsCard from "@/components/SettingsCard.astro";
 import Layout from "@/layouts/Main.astro";
-import { ExternalLink, EyeOff, Info, Menu, Search, Siren, SwatchBook } from "lucide-astro";
+import { ExternalLink, EyeOff, Info, Settings2, Search, Siren, SwatchBook } from "lucide-astro";
 import ArrowButton from "../components/ArrowButton.astro";
 ---
 
 <Layout>
-  <div class="flex flex-col gap-2 justify-center items-center">
-    <div>
-      <h1 class="mt-2 font-extrabold text-5xl">Settings</h1>
+  <div class="flex justify-center py-8 flex-col items-center gap-4 mt-24">
+    <div class="text-4xl font-bold text-text inline-flex">
+      <Settings2 class="transform -translate-y-1 size-12 mr-2" />
+      Settings
     </div>
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-4 justify-center">
       <SettingsCard description="Access our site through an about:blank tab." title="About:Blank" Icon={ExternalLink}>

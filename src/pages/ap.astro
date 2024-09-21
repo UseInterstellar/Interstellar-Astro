@@ -9,9 +9,9 @@ const customApps = (Astro.cookies.get("asset.app")?.json() as Asset[]) ?? [];
 ---
 
 <Layout>
-  <div class="flex justify-center py-8 flex-col items-center gap-4">
+  <div class="flex justify-center py-8 flex-col items-center gap-4 mt-24">
     <div class="text-4xl font-bold text-text inline-flex">
-      <LayoutGrid class="size-12 mr-2" />
+      <LayoutGrid class="transform -translate-y-1 size-12 mr-2" />
       Apps
     </div>
     <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-1/4 h-14 mx-auto">

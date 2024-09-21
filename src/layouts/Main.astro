@@ -23,12 +23,12 @@ const navLinks = [
     </button>
     <ul
       id="nav"
-      class="w-48 flex flex-col absolute top-20 right-0 bg-background-secondary border border-accent rounded-lg p-4 transition-all duration-200 shadow-md hidden"
+      class="mt-2 w-48 flex flex-col absolute top-20 right-0 bg-background-secondary border border-accent rounded-lg p-4 transition-all duration-200 shadow-md hidden"
     >
       {
         navLinks.map((link) => (
           <li>
-            <a href={link.href} class="font-medium flex-row inline-flex gap-2 items-center hover:scale-105 hover:bg-accent hover:rounded-md p-3">
+            <a href={link.href} class="font-medium flex-row inline-flex gap-2 items-center hover:scale-105 hover:bg-accent hover:rounded-md p-3 w-full">
               <link.Icon class="size-5" />
               <Obfuscated text={link.text} />
             </a>
@@ -56,7 +56,7 @@ const navLinks = [
     </ul>
   </nav>
 
-  <main class="mt-28">
+  <main class="flex flex-col min-h-screen min-w-full">
     <slot />
   </main>
 </Layout>
