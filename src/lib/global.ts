@@ -1,8 +1,21 @@
+function isValidUrl(url: string): boolean {
+  try {
+    new URL(url);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
+
 document.addEventListener("astro:page-load", () => {
   // Cloak
   document.title = localStorage.getItem("title") ?? "Home";
   const icon = localStorage.getItem("icon") ?? "/assets/media/favicons/default.png";
-  document.getElementById("icon")?.setAttribute("href", icon);
+  if (isValidUrl(icon)) {
+    document.getElementById("icon")?.setAttribute("href", icon);
+  } else {
+    document.getElementById("icon")?.setAttribute("href", "/assets/media/favicons/default.png");
+  }
 
   // Nav
   const hamburger = document.getElementById("hamburger");
