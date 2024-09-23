@@ -10,21 +10,25 @@ import { Search } from "lucide-astro";
       <h3 class="flex text-8xl font-black uppercase place-content-center hover:scale-105 hover:-translate-y-1 duration-150">Interstellar</h3>
     </div>
     <!-- <h3 class="flex text-8xl font-black uppercase place-content-center mt-40 hover:scale-105 hover:-translate-y-1 duration-150">Interstellar</h3> -->
-     
+
     <div class="items-center justify-center w-full max-w-screen-md">
       <form class="relative">
-        
-        <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500"/>
-        <input class="search h-15 w-full border px-3 text-sm pl-10 py-6 bg-[#333333] border-[#444444] text-gray-200 placeholder-gray-500 placeholder:text- focus:outline-none rounded-xl" placeholder="Search the cosmos..." type="search">
-        
+        <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-500" />
+        <input
+          id="search"
+          class="h-15 w-full border px-3 text-sm pl-10 py-6 bg-[#333333] border-[#444444] text-gray-200 placeholder-gray-500 placeholder:text- focus:outline-none rounded-xl"
+          placeholder="Search the cosmos..."
+          type="search"
+        />
+
         <!--<button class="text-sm font-medium transition-colors h-11 px-4 absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 hover:bg-indigo-700 text-gray-200 rounded-xl" type="submit">Search</button>-->
       </form>
     </div>
   </div>
 </Layout>
 <script is:inline>
-  const searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
-  const input = document.getElementById("search");
+  let searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
+  let input = document.getElementById("search");
   function isUrl(val = "") {
     if (/^http(s?):\/\//.test(val) || (val.includes(".") && !val.includes(" "))) {
       return true;

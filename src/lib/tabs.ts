@@ -1,6 +1,7 @@
 const getFrame = () =>
   document.getElementById("frame__1") as HTMLIFrameElement | null;
 document.addEventListener("astro:page-load", () => {
+  console.log("page loaded");
   const frame = getFrame();
   if (frame) {
     frame.src =
@@ -10,6 +11,8 @@ document.addEventListener("astro:page-load", () => {
           localStorage.getItem("engine") ||
           "https://www.google.com",
       );
+  } else {
+    console.error("No iFrame found");
   }
 
   const back = document.getElementById("back");
