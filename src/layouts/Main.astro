@@ -17,13 +17,13 @@ const navLinks = [
     id="default-nav"
     class="flex flex-row justify-between backdrop-blur-lg bg-background-secondary border-none w-[98vw] h-20 px-6 rounded-xl mx-4 mt-4 fixed top-0 z-[99999] shadow-lg"
   >
-    <a href="/" class="uppercase flex items-center text-primary hover:scale-105 duration-150 text-6xl font-black">in</a>
-    <button id="hamburger" class="text-3xl text-primary focus:outline-none hover:scale-110 transition-transform">
+    <a href="/" class="uppercase flex items-center text-text hover:scale-105 duration-150 text-6xl font-black">in</a>
+    <button id="hamburger" class="text-3xl text-text focus:outline-none hover:scale-110 transition-transform">
       <Menu class="size-8" />
     </button>
     <ul
       id="nav"
-      class="mt-2 w-48 flex flex-col absolute top-20 right-0 bg-background-secondary border border-accent rounded-lg p-4 transition-all duration-200 shadow-md hidden"
+      class="mt-2 w-48 flex flex-col absolute top-20 right-0 bg-background-secondary border border-accent rounded-lg p-4 transition-all duration-200 shadow-md"
     >
       {
         navLinks.map((link) => (
@@ -37,25 +37,6 @@ const navLinks = [
       }
     </ul>
   </nav>
-  <nav
-    id="standard-nav"
-    class="hidden flex flex-row justify-between backdrop-blur-lg bg-background-secondary border-none w-[98vw] h-20 px-6 rounded-xl mx-4 mt-4 fixed top-0 z-[99999]"
-  >
-    <a href="/" class="uppercase flex items-center hover:-translate-y-1 hover:scale-105 duration-150 text-6xl font-black">in</a>
-    <ul class="flex flex-row items-center text-2xl gap-6 font-semibold">
-      {
-        navLinks.map((link) => (
-          <li>
-            <a href={link.href} class="flex-row inline-flex gap-2 items-center hover:scale-105 hover:-translate-y-1 duration-150">
-              <link.Icon class="size-5" />
-              <Obfuscated text={link.text} />
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
-
   <main class="flex flex-col min-h-screen min-w-full">
     <slot />
   </main>

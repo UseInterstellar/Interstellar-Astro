@@ -23,6 +23,7 @@ module.exports = {
         text: {
           DEFAULT: "var(--text)",
           secondary: "var(--text-secondary)",
+          placeholder: "var(--text-placeholder)"
         },
         dropdown: "var(--dropdown)",
       },
