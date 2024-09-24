@@ -37,7 +37,7 @@
     "vite-plugin-static-copy": "^1.0.6"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.0",
+    "@biomejs/biome": "1.9.2",
     "@types/node": "^22.5.4",
     "prettier": "^3.3.3",
     "prettier-plugin-astro": "^0.14.1"
