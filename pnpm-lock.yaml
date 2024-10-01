@@ -36,8 +36,8 @@ importers:
         specifier: 2.1.11
         version: 2.1.11
       '@mercuryworkshop/wisp-js':
-        specifier: ^0.1.1
-        version: 0.1.1(utf-8-validate@6.0.4)
+        specifier: ^0.3.2
+        version: 0.3.2(utf-8-validate@6.0.4)
       '@titaniumnetwork-dev/ultraviolet':
         specifier: ^3.2.7
         version: 3.2.7
@@ -765,8 +765,9 @@ packages:
   '@mercuryworkshop/epoxy-transport@2.1.11':
     resolution: {integrity: sha512-kp1MDWbrTOr55ZvD4KLbaWcfwwugdhjourBXLh5inJcKFsVKqbbLWMfs/JGGTluwBoTG52UpLUU4OW0suruBwg==}
 
-  '@mercuryworkshop/wisp-js@0.1.1':
-    resolution: {integrity: sha512-mpsoKteEPkuY6uGGY6B73lU+EBGMlh/A39yXG4hNKzV6FZZ9CWmq3bAREmsLqA8adK/Y+OV8MkYWBEaRJHVhTw==}
+  '@mercuryworkshop/wisp-js@0.3.2':
+    resolution: {integrity: sha512-Gt8fVo41cecIQhh9E86b9eUS9WUpChfADKtnEIRiE2282JlHOVVSIRftMsnJgeh8erH3w1/hECLnVBNlPNctTw==}
+    hasBin: true
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1176,6 +1177,10 @@ packages:
   comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
 
+  commander@12.1.0:
+    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
+    engines: {node: '>=18'}
+
   commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
@@ -1560,6 +1565,10 @@ packages:
   ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
     engines: {node: '>= 0.10'}
+
+  ipaddr.js@2.2.0:
+    resolution: {integrity: sha512-Ag3wB2o37wslZS19hZqorUnrnzSkpOVy+IiiDEiTqNubEYpYuHWIf6K4psgN2ZWKExS4xhVCrRVfb/wfW8fWJA==}
+    engines: {node: '>= 10'}
 
   is-arrayish@0.3.2:
     resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
@@ -2017,9 +2026,6 @@ packages:
   path-scurry@1.11.1:
     resolution: {integrity: sha512-Xa4Nw17FS9ApQFJ9umLiJS4orGjm7ZzwUrwamcGQuHSzDyth9boKDaycYdDcZDuqYATXw4HFXgaqWTctW/v1HA==}
     engines: {node: '>=16 || 14 >=14.18'}
-
-  path-to-regexp@6.2.2:
-    resolution: {integrity: sha512-GQX3SSMokngb36+whdpRXE+3f9V8UzyAorlYvOGx87ufGHehNTn5lCxrKtLyZ4Yl/wEKnNnr98ZzOwwDZV5ogw==}
 
   path-to-regexp@8.1.0:
     resolution: {integrity: sha512-Bqn3vc8CMHty6zuD+tG23s6v2kwxslHEhTj4eYaVKGIEB+YX/2wd0/rgXLFD9G9id9KCtbVy/3ZgmvZjpa0UdQ==}
@@ -3448,9 +3454,11 @@ snapshots:
     dependencies:
       '@mercuryworkshop/epoxy-tls': 2.1.4-1
 
-  '@mercuryworkshop/wisp-js@0.1.1(utf-8-validate@6.0.4)':
+  '@mercuryworkshop/wisp-js@0.3.2(utf-8-validate@6.0.4)':
     dependencies:
       bufferutil: 4.0.8
+      commander: 12.1.0
+      ipaddr.js: 2.2.0
       ws: 8.18.0(bufferutil@4.0.8)(utf-8-validate@6.0.4)
     transitivePeerDependencies:
       - utf-8-validate
@@ -3924,6 +3932,8 @@ snapshots:
 
   comma-separated-tokens@2.0.3: {}
 
+  commander@12.1.0: {}
+
   commander@4.1.1: {}
 
   common-ancestor-path@1.0.1: {}
@@ -4370,6 +4380,8 @@ snapshots:
   inherits@2.0.4: {}
 
   ipaddr.js@1.9.1: {}
+
+  ipaddr.js@2.2.0: {}
 
   is-arrayish@0.3.2: {}
 
@@ -4955,8 +4967,6 @@ snapshots:
     dependencies:
       lru-cache: 10.4.3
       minipass: 7.1.2
-
-  path-to-regexp@6.2.2: {}
 
   path-to-regexp@8.1.0: {}
 
