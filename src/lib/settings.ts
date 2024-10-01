@@ -3,6 +3,7 @@ document.addEventListener("astro:page-load", () => {
   const cloakerdropdown = document.getElementById("cloaker");
   const enginedropdown = document.getElementById("engine");
   const menudropdown = document.getElementById("menu");
+  const themedropdown = document.getElementById("theme");
   const engineform = document.getElementById("custom-engine") as HTMLInputElement;
   // Tab Cloaks
   const cloaker: Record<string, { name: string; icon: string }> = {
@@ -214,6 +215,26 @@ document.addEventListener("astro:page-load", () => {
       }
     });
   }
+  const theme: { [key: string]: string } = {
+    Default: "Default",
+    Black: "Black",
+    White: "White",
+  };
+
+  if (themedropdown) {
+    const menulinks = themedropdown.querySelectorAll("a");
+    for (const link of menulinks) {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const value = link.getAttribute("data-value");
+        if (value && theme[value]) {
+          localStorage.setItem("theme", theme[value]);
+          window.location.reload();
+        }
+      });
+    }
+  }
+
   // Cloaker Dropdown
   if (cloakerdropdown) {
     const links = cloakerdropdown.querySelectorAll("a");

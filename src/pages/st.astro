@@ -108,6 +108,17 @@ import ArrowButton from "../components/ArrowButton.astro";
           <input id="custom-engine" placeholder="Custom Search Engine" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
       </SettingsCard>
+      <SettingsCard description="Customize the theme of the site." title="Themes" Icon={SwatchBook}>
+        <Dropdown
+          id="theme"
+          text="Select Theme"
+          menu={[
+            { value: "Default", text: "Default" },
+            { value: "Black", text: "Black" },
+            { value: "White", text: "White" },
+          ]}
+        />
+      </SettingsCard>
       <!-- <SettingsCard description="Choose between a hamburger menu and a standard menu. (Default: Hamburger)" title="Menu" Icon={Menu}>
         <Dropdown
           id="menu"
@@ -141,7 +152,6 @@ import ArrowButton from "../components/ArrowButton.astro";
     </div>
     <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-4 justify-center">
       <SettingsCard description="Customize the theme of the site." title="UI" Icon={SwatchBook} />
-      <SettingsCard description="Customize the theme of the site." title="Themes" Icon={SwatchBook} />
     </section>
   </div>
   <script is:inline src="/src/lib/settings.ts"></script>

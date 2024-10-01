@@ -19,6 +19,36 @@
       --text-secondary: #ddd;
       --text-placeholder: #666;
    }
+
+   .dark {
+      --background: #222;
+      --background-secondary: #282828;
+      --background-settings: #171717;
+      --interactive: #333;
+      --interactive-secondary: #777;
+      --dropdown: #333;
+      --border: #444;
+      --accent: #444;
+      --accent-secondary: #2e2e2e;
+      --text: #fff;
+      --text-secondary: #ddd;
+      --text-placeholder: #666;
+   }
+
+   .light {
+      --background: #f9f9f9;
+      --background-secondary: #e4e4e4;
+      --background-settings: #ffffff;
+      --interactive: #e0e0e0;
+      --interactive-secondary: #c4c4c4;
+      --dropdown: #ffffff;
+      --border: #ccc;
+      --accent: #999;
+      --accent-secondary: #ddd;
+      --text: #222;
+      --text-secondary: #555;
+      --text-placeholder: #aaa;
+   }
 }
 
 @layer base {
