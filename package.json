@@ -23,7 +23,7 @@
     "@fastify/middie": "^9.0.2",
     "@fastify/static": "^7.0.4",
     "@mercuryworkshop/bare-mux": "2.0.9",
-    "@mercuryworkshop/epoxy-transport": "2.1.11",
+    "@mercuryworkshop/epoxy-transport": "2.1.12",
     "@mercuryworkshop/wisp-js": "^0.1.1",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.7",
     "astro": "^4.15.8",

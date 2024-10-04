@@ -33,8 +33,8 @@ importers:
         specifier: 2.0.9
         version: 2.0.9
       '@mercuryworkshop/epoxy-transport':
-        specifier: 2.1.11
-        version: 2.1.11
+        specifier: 2.1.12
+        version: 2.1.12
       '@mercuryworkshop/wisp-js':
         specifier: ^0.1.1
         version: 0.1.1(utf-8-validate@6.0.4)
@@ -759,11 +759,11 @@ packages:
   '@mercuryworkshop/bare-mux@2.0.9':
     resolution: {integrity: sha512-g+F/Oz33iSQwLf3rJU3Vr1bh5cbxHRKS/Tnr6ayk060UzcJ+EDGad5pUdRJFz1MRyinpYC5MrG67QDA9Dlta9A==}
 
-  '@mercuryworkshop/epoxy-tls@2.1.4-1':
-    resolution: {integrity: sha512-kRbW12tU4TAf9GuoLfyFYvUATqFZq6n9ScRSfwAECceOBWDlr+bACnSH45lLDXvjBKwxZotTyYE5aNc+Ow+M3Q==}
+  '@mercuryworkshop/epoxy-tls@2.1.5-1':
+    resolution: {integrity: sha512-bheT8ua9FgfFR/GPDJmgTQVhdio/1IEmEPZAF3DZirA5DGF84tSIiv8e+ET3wxjatSdX56j6J7bx56igLmOk8w==}
 
-  '@mercuryworkshop/epoxy-transport@2.1.11':
-    resolution: {integrity: sha512-kp1MDWbrTOr55ZvD4KLbaWcfwwugdhjourBXLh5inJcKFsVKqbbLWMfs/JGGTluwBoTG52UpLUU4OW0suruBwg==}
+  '@mercuryworkshop/epoxy-transport@2.1.12':
+    resolution: {integrity: sha512-hZeYZycSgLTaWDnwECB+dYYs7n3Af/ap3jGx7yX75I1zC6MT6tJQd6FZS7NhwuRj1OZ+oEEnucda5DGspYmxfQ==}
 
   '@mercuryworkshop/wisp-js@0.1.1':
     resolution: {integrity: sha512-mpsoKteEPkuY6uGGY6B73lU+EBGMlh/A39yXG4hNKzV6FZZ9CWmq3bAREmsLqA8adK/Y+OV8MkYWBEaRJHVhTw==}
@@ -3439,11 +3439,11 @@ snapshots:
 
   '@mercuryworkshop/bare-mux@2.0.9': {}
 
-  '@mercuryworkshop/epoxy-tls@2.1.4-1': {}
+  '@mercuryworkshop/epoxy-tls@2.1.5-1': {}
 
-  '@mercuryworkshop/epoxy-transport@2.1.11':
+  '@mercuryworkshop/epoxy-transport@2.1.12':
     dependencies:
-      '@mercuryworkshop/epoxy-tls': 2.1.4-1
+      '@mercuryworkshop/epoxy-tls': 2.1.5-1
 
   '@mercuryworkshop/wisp-js@0.1.1(utf-8-validate@6.0.4)':
     dependencies:
