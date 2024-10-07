@@ -17,7 +17,7 @@ document.addEventListener("astro:page-load", () => {
     localStorage.setItem("hamburger-open", !isOpen ? "true" : "false");
   });
 
-  for (const link of menu?.querySelectorAll("a") ?? []) {
+  for (const link of Array.from(menu?.querySelectorAll("a") ?? [])) {
     link.addEventListener("click", () => {
       localStorage.removeItem("hamburger-open");
       menu?.classList.add("hidden");
