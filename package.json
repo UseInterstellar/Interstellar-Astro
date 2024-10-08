@@ -19,7 +19,7 @@
     "@astrojs/node": "^8.3.4",
     "@astrojs/tailwind": "^5.1.1",
     "@fastify/basic-auth": "^5.1.1",
-    "@fastify/compress": "^7.0.3",
+    "@fastify/compress": "^8.0.1",
     "@fastify/middie": "^9.0.2",
     "@fastify/static": "^7.0.4",
     "@mercuryworkshop/bare-mux": "2.0.9",
