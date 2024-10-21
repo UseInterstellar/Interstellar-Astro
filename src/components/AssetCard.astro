@@ -3,8 +3,20 @@ interface Props {
   asset: Asset;
 }
 import { Image } from "astro:assets";
-import { ASSET_URL, type Asset } from "@/lib/asset";
 import { Ban, CircleAlert, UserRoundPlus } from "lucide-astro";
+interface Asset {
+  name: string;
+  image: string;
+  link?: string;
+  links?: { name: string; url: string }[];
+  say?: string;
+  custom?: boolean;
+  partial?: boolean | string;
+  error?: boolean | string;
+  blank?: boolean | string;
+}
+
+export const ASSET_URL = "https://raw.githubusercontent.com/UseInterstellar/Interstellar-Assets/main";
 
 const { asset } = Astro.props;
 export const prerender = false;
@@ -23,7 +35,13 @@ export const prerender = false;
     <div
       class="absolute bottom-0 left-0 w-full h-full bg-black/20 opacity-0 group-hover:opacity-100 rounded-b-md duration-150 flex items-end p-2 px-4 font-semibold transition-all z-10"
     >
-      <section class="inline-flex items-center gap-2 text-white" class:list={{ "text-red-600": asset.error, "text-yellow-400": asset.partial }}>
+      <section
+        class="inline-flex items-center gap-2 text-white"
+        class:list={{
+          "text-red-600": asset.error,
+          "text-yellow-400": asset.partial,
+        }}
+      >
         {asset.custom && <UserRoundPlus class="size-5" />}
         {asset.partial && <CircleAlert class="size-5" />}
         {asset.error && <Ban class="size-5" />}
@@ -34,4 +52,5 @@ export const prerender = false;
     </div>
   </div>
 </button>
+
 <script src="@/lib/assets.ts"></script>
