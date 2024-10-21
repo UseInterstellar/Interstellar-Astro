@@ -3,16 +3,23 @@ import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
 import { Gamepad2, PlusCircle } from "lucide-astro";
+
 export const prerender = false;
+
 const games: Asset[] = await (await fetch(`${ASSET_URL}/json/games.json`)).json();
 const customGames = (Astro.cookies.get("asset.game")?.json() as Asset[]) ?? [];
+
+const all = [...customGames, ...games].sort((a, b) => {
+  if (a.custom && !b.custom) return -1;
+  if (!a.custom && b.custom) return 1;
+  return a.name.localeCompare(b.name);
+});
 ---
 
 <Layout>
   <div class="flex justify-center py-8 flex-col items-center gap-4 mt-24">
     <div class="text-4xl font-bold text-text inline-flex">
       <Gamepad2 class="transform -translate-y-1 size-12 mr-2" />
-      <!-- <Gamepad2 class="size-12 mr-2" /> -->
       Games
     </div>
     <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-1/4 h-14 mx-auto">
@@ -23,8 +30,9 @@ const customGames = (Astro.cookies.get("asset.game")?.json() as Asset[]) ?? [];
       Add Game
     </button>
     <div id="container" class="flex flex-wrap justify-center gap-4 flex-row mt-30">
-      {[...customGames, ...games].sort((a, b) => (a.name > b.name ? 1 : -1)).map((game) => <AssetCard asset={game} />)}
+      {all.map((game) => <AssetCard asset={game} />)}
     </div>
   </div>
 </Layout>
+
 <script src="@/lib/asset-script.ts"></script>

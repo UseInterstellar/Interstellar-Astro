@@ -1,4 +1,3 @@
-import { navigate } from "astro:transitions/client";
 import type { Asset } from "@/lib/asset";
 import addAsset from "./add-asset";
 document.addEventListener("astro:page-load", () => {
@@ -34,7 +33,7 @@ document.addEventListener("astro:page-load", () => {
       const link = prompt(`Enter the link of the ${type}`);
       if (!link) return alert("Invalid link");
       // @ts-expect-error
-      await addAsset(name, link, type);
+      addAsset(name, link, type);
     });
   }
 });

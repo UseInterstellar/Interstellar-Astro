@@ -3,9 +3,17 @@ import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/asset";
 import { LayoutGrid, PlusCircle } from "lucide-astro";
+
 export const prerender = false;
+
 const apps: Asset[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
 const customApps = (Astro.cookies.get("asset.app")?.json() as Asset[]) ?? [];
+
+const all = [...customApps, ...apps].sort((a, b) => {
+  if (a.custom && !b.custom) return -1;
+  if (!a.custom && b.custom) return 1;
+  return a.name.localeCompare(b.name);
+});
 ---
 
 <Layout>
@@ -22,7 +30,7 @@ const customApps = (Astro.cookies.get("asset.app")?.json() as Asset[]) ?? [];
       Add App
     </button>
     <div id="container" class="flex flex-wrap justify-center gap-4 flex-row mt-30">
-      {[...customApps, ...apps].sort((a, b) => (a.name > b.name ? 1 : -1)).map((app) => <AssetCard asset={app} />)}
+      {all.map((app) => <AssetCard asset={app} />)}
     </div>
   </div>
 </Layout>
