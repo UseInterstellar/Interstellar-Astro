@@ -1,7 +1,7 @@
 ---
 import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
-import { ASSET_URL, type Asset } from "@/lib/asset";
+import { ASSET_URL, type Asset } from "@/lib/assets";
 import { Gamepad2, PlusCircle } from "lucide-astro";
 
 export const prerender = false;
@@ -35,4 +35,4 @@ const all = [...customGames, ...games].sort((a, b) => {
   </div>
 </Layout>
 
-<script src="@/lib/asset-script.ts"></script>
+<script src="@/lib/assets.ts"></script>
