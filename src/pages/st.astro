@@ -12,7 +12,7 @@ import ArrowButton from "../components/ArrowButton.astro";
       <Settings2 class="transform -translate-y-1 size-12 mr-2" />
       Settings
     </div>
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-4 justify-center">
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-4 justify-center w-full">
       <SettingsCard description="Access our site through an about:blank tab." title="About:Blank" Icon={ExternalLink}>
         <ArrowButton id="AB" title="Open Popup" />
       </SettingsCard>
@@ -75,10 +75,10 @@ import ArrowButton from "../components/ArrowButton.astro";
             { value: "WBO_Timelines", text: "World Book Online - Timelines" },
           ]}
         />
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
+        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full mt-2 mb-2">
           <input id="custom-title" placeholder="Custom Tab Title" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
+        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full mt-2 mb-2">
           <input id="custom-icon" placeholder="Custom Tab Icon" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
       </SettingsCard>
@@ -87,10 +87,10 @@ import ArrowButton from "../components/ArrowButton.astro";
         title="Panic Key"
         Icon={Siren}
       >
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
+        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full mt-2 mb-2">
           <input id="key" placeholder="Panic Key" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto">
+        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full">
           <input id="link" placeholder="Panic Link" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
       </SettingsCard>
@@ -108,7 +108,7 @@ import ArrowButton from "../components/ArrowButton.astro";
             { value: "Startpage", text: "Startpage" },
           ]}
         />
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden max-w-md mx-auto mt-2 mb-2">
+        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full mt-2 mb-2">
           <input id="custom-engine" placeholder="Custom Search Engine" class="w-full outline-none bg-transparent text-text text-sm" />
         </div>
       </SettingsCard>
@@ -123,17 +123,6 @@ import ArrowButton from "../components/ArrowButton.astro";
           ]}
         />
       </SettingsCard>
-      <!-- <SettingsCard description="Choose between a hamburger menu and a standard menu. (Default: Hamburger)" title="Menu" Icon={Menu}>
-        <Dropdown
-          id="menu"
-          text="Choose Menu"
-          menu={[
-            { value: "Hamburger", text: "Hamburger Menu" },
-            { value: "Standard", text: "Standard" },
-          ]}
-        />
-      </SettingsCard> -->
-      <!-- Information Card -->
       <div class="w-full bg-background-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
         <div class="flex items-center gap-2">
           <Info class="size-6" />
