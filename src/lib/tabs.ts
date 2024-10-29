@@ -38,18 +38,18 @@ document.addEventListener("astro:page-load", () => {
   }
 
   function TitleBar() {
-    const titlebar = document.getElementById("inp") as HTMLInputElement;
-    const frame = document.getElementById("frame__1") as HTMLIFrameElement;
-    if (titlebar && frame) {
+    const Titlebar = document.getElementById("inp") as HTMLInputElement;
+    const frame = getFrame();
+    if (Titlebar && frame) {
       frame.addEventListener("load", () => {
-        const currentUrl = frame.contentWindow?.__uv$location?.href || "";
-        titlebar.value = currentUrl;
+        const CurrentURL = frame.contentWindow?.__uv$location?.href || "";
+        Titlebar.value = CurrentURL;
       });
     }
   }
 
   TitleBar();
-  setTimeout(() => TitleBar, 40000);
+  setTimeout(() => TitleBar(), 40000);
 
   if (fullscreen) {
     fullscreen.addEventListener("click", () => {
@@ -61,11 +61,23 @@ document.addEventListener("astro:page-load", () => {
     });
   }
 
-  // Bookmark
-  function addBookmark() {
-    console.log("Bookmark clicked");
+// Bookmark
+function addBookmark() {
+  const CurrentURL = frame?.contentWindow?.location.href;
+
+  const Path = CurrentURL?.split('/').slice(3).join('/').split('/').pop() || "";
+
+  const Title = prompt("Enter a Title for this bookmark:", "New Bookmark");
+
+  if (Title) {
+    const decodedUrl = window.__uv$config.decodeUrl(Path);
+    const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+    bookmarks.push({ Title, url: decodedUrl }); 
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    console.log("Bookmark added:", { Title, url: decodedUrl });
   }
-  if (bookmark) {
-    bookmark.addEventListener("click", addBookmark);
-  }
+}
+if (bookmark) {
+  bookmark.addEventListener("click", addBookmark);
+}
 });

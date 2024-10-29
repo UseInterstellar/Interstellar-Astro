@@ -19,17 +19,51 @@ import { Search } from "lucide-astro";
         />
       </form>
     </div>
+    <div id="bookmarks" class="flex flex-wrap justify-center mt-6 space-x-4 space-y-4"></div>
   </div>
 </Layout>
+
 <script is:inline>
   let searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
   let input = document.getElementById("search");
+
   function isUrl(val = "") {
-    if (/^http(s?):\/\//.test(val) || (val.includes(".") && !val.includes(" "))) {
-      return true;
-    }
-    return false;
+    return /^http(s?):\/\//.test(val) || (val.includes(".") && !val.includes(" "));
   }
+
+  function Render() {
+    const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+    const container = document.getElementById("bookmarks");
+
+    if (container) {
+      container.innerHTML = "";
+    }
+
+    bookmarks.forEach((bookmark) => {
+      const card = document.createElement("button");
+      card.className = "relative group cursor-pointer transition-all duration-150 hover:scale-105";
+
+      card.innerHTML = `
+        <div class="bg-gray-200 rounded-md flex items-center justify-center" style="width: 145px; height: 145px;">
+          <span class="text-xl font-semibold" style="display: flex; align-items: center; height: 100%;">${bookmark.title}</span>
+        </div>
+        <div class="absolute bottom-0 left-0 w-full h-full bg-black/20 opacity-0 group-hover:opacity-100 rounded-b-md duration-150 flex items-end p-2 px-4 font-semibold transition-all z-10">
+          <span class="text-white">${bookmark.title}</span>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        window.location.href = bookmark.url;
+      });
+
+      if (container) {
+        container.appendChild(card);
+      } else {
+        console.error("No container found for bookmarks");
+      }
+    });
+  }
+
   document.addEventListener("astro:page-load", () => {
     if (input) {
       input.focus();
@@ -46,5 +80,6 @@ import { Search } from "lucide-astro";
         }
       });
     }
+    Render();
   });
 </script>
