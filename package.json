@@ -3,14 +3,12 @@
   "type": "module",
   "version": "6.0.0",
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev && astro preferences disable --global devToolbar",
     "start": "tsx index.ts",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
+    "build": "pnpm i && astro check && astro build",
     "typecheck": "astro check",
     "astro": "astro",
     "disable": "npx astro telemetry disable",
-    "menu": "astro preferences disable --global devToolbar",
     "precommit": "pnpm check && pnpm typecheck",
     "check": "prettier --write . && biome check --write ."
   },

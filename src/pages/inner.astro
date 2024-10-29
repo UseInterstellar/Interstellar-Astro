@@ -1,0 +1,50 @@
+---
+import Layout from "@/layouts/Main.astro";
+import { Search } from "lucide-astro";
+---
+
+<Layout>
+  <div class="flex-1 flex flex-col items-center justify-center px-4">
+    <div class="text-center space-y-2 mb-6">
+      <h3 class="flex text-8xl font-black uppercase place-content-center hover:scale-105 hover:-translate-y-1 duration-150">Interstellar</h3>
+    </div>
+    <div class="items-center justify-center w-full max-w-screen-md">
+      <form class="relative">
+        <Search class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-interactive-secondary" />
+        <input
+          id="search"
+          class="h-15 w-full border px-3 text-sm pl-10 py-6 bg-interactive border-border text-text focus:outline-none rounded-xl"
+          placeholder="Search or type a URL"
+          type="search"
+        />
+      </form>
+    </div>
+  </div>
+</Layout>
+<script is:inline>
+  let searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
+  let input = document.getElementById("search");
+  function isUrl(val = "") {
+    if (/^http(s?):\/\//.test(val) || (val.includes(".") && !val.includes(" "))) {
+      return true;
+    }
+    return false;
+  }
+  document.addEventListener("astro:page-load", () => {
+    if (input) {
+      input.focus();
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          let url = input.value;
+          if (!isUrl(url)) {
+            url = searchUrl + url;
+          } else if (!(url.startsWith("https://") || url.startsWith("http://"))) {
+            url = `https://${url}`;
+          }
+          sessionStorage.setItem("goUrl", url);
+          location.replace("/tb");
+        }
+      });
+    }
+  });
+</script>
