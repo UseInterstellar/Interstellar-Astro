@@ -36,7 +36,6 @@ export default defineConfig({
       ),
     },
     plugins: [
-      // this absurdity is made possible by astro not letting you use a custom http server :)
       {
         name: "vite-wisp-server",
         configureServer(server) {
