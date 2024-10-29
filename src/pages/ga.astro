@@ -2,7 +2,7 @@
 import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/assets";
-import { Gamepad2, PlusCircle } from "lucide-astro";
+import { PlusCircle } from "lucide-astro";
 
 export const prerender = false;
 
@@ -18,10 +18,6 @@ const all = [...customGames, ...games].sort((a, b) => {
 
 <Layout>
   <div class="flex justify-center py-8 flex-col items-center gap-4 mt-24">
-    <div class="text-4xl font-bold text-text inline-flex">
-      <Gamepad2 class="transform -translate-y-1 size-12 mr-2" />
-      Games
-    </div>
     <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-1/4 h-14 mx-auto">
       <input id="search" placeholder="Search Games" class="w-full outline-none bg-transparent text-text text-sm" />
     </div>

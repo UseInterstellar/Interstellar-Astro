@@ -13,7 +13,7 @@ export const prerender = false;
 <button data-asset={JSON.stringify(asset)}>
   <div class="relative group cursor-pointer transition-all duration-150 hover:scale-105">
     <Image
-      loading="eager"
+      loading="lazy"
       src={ASSET_URL + asset.image}
       alt={asset.name}
       height={145}
