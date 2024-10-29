@@ -21,8 +21,8 @@ importers:
         specifier: ^5.1.1
         version: 5.1.1(astro@4.16.2(@types/node@22.8.2)(rollup@4.24.0)(typescript@5.6.2))(tailwindcss@3.4.13)
       '@fastify/basic-auth':
-        specifier: ^5.1.1
-        version: 5.1.1
+        specifier: ^6.0.1
+        version: 6.0.1
       '@fastify/compress':
         specifier: ^7.0.3
         version: 7.0.3
@@ -607,14 +607,11 @@ packages:
   '@fastify/ajv-compiler@4.0.1':
     resolution: {integrity: sha512-DxrBdgsjNLP0YM6W5Hd6/Fmj43S8zMKiFJYgi+Ri3htTGAowPVG/tG1wpnWLMjufEnehRivUCKZ1pLDIoZdTuw==}
 
-  '@fastify/basic-auth@5.1.1':
-    resolution: {integrity: sha512-L4b7EK5LKZnV6fdH1+rQbjhkKGXjCfiKJ0JkdGHZQPBMHMiXDZF8xbZsCakWGf9c7jDXJicP3FPcIXUPBkuSeQ==}
+  '@fastify/basic-auth@6.0.1':
+    resolution: {integrity: sha512-qEc2GvqqKg6LdkG4/a/95lmOfJVY1iImv+F8hyYtmnQjqihmB1s0GZJUgSUjGpJRZcl7bta09/nKIlRfGbhu1w==}
 
   '@fastify/compress@7.0.3':
     resolution: {integrity: sha512-xa9fo5/DgK1s0bkS6xrYgNn8HmofO5tJvbCDk8QuXshSgLd2cFZANv1ox/Qv7zswS7JroHwTlCVv/XGTVO98tg==}
-
-  '@fastify/error@3.4.1':
-    resolution: {integrity: sha512-wWSvph+29GR783IhmvdwWnN4bUxTD01Vm5Xad4i7i1VuAOItLvbPAb69sb0IQ2N57yprvhNIwAP5B6xfKTmjmQ==}
 
   '@fastify/error@4.0.0':
     resolution: {integrity: sha512-OO/SA8As24JtT1usTUTKgGH7uLvhfwZPwlptRi2Dp5P4KKmJI3gvsZ8MIHnNwDs4sLf/aai5LzTyl66xr7qMxA==}
@@ -3304,10 +3301,10 @@ snapshots:
       ajv-formats: 3.0.1(ajv@8.17.1)
       fast-uri: 3.0.2
 
-  '@fastify/basic-auth@5.1.1':
+  '@fastify/basic-auth@6.0.1':
     dependencies:
-      '@fastify/error': 3.4.1
-      fastify-plugin: 4.5.1
+      '@fastify/error': 4.0.0
+      fastify-plugin: 5.0.1
 
   '@fastify/compress@7.0.3':
     dependencies:
@@ -3319,8 +3316,6 @@ snapshots:
       pump: 3.0.2
       pumpify: 2.0.1
       readable-stream: 4.5.2
-
-  '@fastify/error@3.4.1': {}
 
   '@fastify/error@4.0.0': {}
 
