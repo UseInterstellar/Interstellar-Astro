@@ -48,7 +48,7 @@ document.addEventListener("astro:page-load", () => {
     const popup = open("about:blank", "_blank");
     if (!popup || popup.closed) {
       alert(
-        "Please allow popups for this site. Doing so will allow us to open the site in an about:blank tab and prevent this site from showing up in your history. You can turn this off in the site settings."
+        "Please allow popups for this site. Doing so will allow us to open the site in an about:blank tab and prevent this site from showing up in your history. You can turn this off in the site settings.",
       );
     } else {
       const doc = popup.document;
@@ -73,7 +73,8 @@ document.addEventListener("astro:page-load", () => {
       });
       doc.head.appendChild(link);
       doc.body.appendChild(iframe);
-      const pLink = localStorage.getItem(encodeURI("pLink")) || "https://drive.google.com";
+      const pLink =
+        localStorage.getItem(encodeURI("pLink")) || "https://drive.google.com";
       location.replace(pLink);
 
       const script = doc.createElement("script");
