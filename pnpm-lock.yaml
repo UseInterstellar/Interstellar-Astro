@@ -39,8 +39,8 @@ importers:
         specifier: 2.1.13
         version: 2.1.13
       '@mercuryworkshop/wisp-js':
-        specifier: ^0.3.2
-        version: 0.3.2
+        specifier: ^0.3.3
+        version: 0.3.3
       '@titaniumnetwork-dev/ultraviolet':
         specifier: ^3.2.7
         version: 3.2.7
@@ -770,8 +770,8 @@ packages:
   '@mercuryworkshop/epoxy-transport@2.1.13':
     resolution: {integrity: sha512-2F3B+QCuuLSbi0449Xn31VdyrTzRcAlA6z4OLEVGNs9bi4HfTkFVKryarcts55euCZuVVGH7XtLqTXJUn0MX0g==}
 
-  '@mercuryworkshop/wisp-js@0.3.2':
-    resolution: {integrity: sha512-Gt8fVo41cecIQhh9E86b9eUS9WUpChfADKtnEIRiE2282JlHOVVSIRftMsnJgeh8erH3w1/hECLnVBNlPNctTw==}
+  '@mercuryworkshop/wisp-js@0.3.3':
+    resolution: {integrity: sha512-egc9jbBmNqPXGOkvOOG142SLaBL3jBkz0IGnhYYWOnmg5FeC6KfGSRU5xlk+dKYecE3tuH03bFNi3/vBAOoJKA==}
     hasBin: true
 
   '@nodelib/fs.scandir@2.1.5':
@@ -3479,7 +3479,7 @@ snapshots:
     dependencies:
       '@mercuryworkshop/epoxy-tls': 2.1.6-1
 
-  '@mercuryworkshop/wisp-js@0.3.2':
+  '@mercuryworkshop/wisp-js@0.3.3':
     dependencies:
       bufferutil: 4.0.8
       commander: 12.1.0
