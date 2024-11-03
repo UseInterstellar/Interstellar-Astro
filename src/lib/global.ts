@@ -2,7 +2,8 @@ document.addEventListener("astro:page-load", () => {
   // Cloak
   document.title = localStorage.getItem("title") ?? "Home";
   const icon = localStorage.getItem("icon") ?? "/assets/media/favicons/default.png";
-  document.getElementById("icon")?.setAttribute("href", icon);
+  const iconElm = document.getElementById("icon");
+  if (iconElm) iconElm.href = icon;
 
   // Nav
   const hamburger = document.getElementById("hamburger");
