@@ -6,7 +6,7 @@ import { PlusCircle } from "lucide-astro";
 
 export const prerender = false;
 
-const apps: Asset[] = await (await fetch(`${ASSET_URL}/json/apps.json`)).json();
+const apps: Asset[] = await (await fetch(`${ASSET_URL}/json/apps.min.json`)).json();
 const customApps = (Astro.cookies.get("asset.app")?.json() as Asset[]) ?? [];
 
 const all = [...customApps, ...apps].sort((a, b) => {
