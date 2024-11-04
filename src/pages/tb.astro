@@ -2,19 +2,14 @@
 import Layout from "@/layouts/Layout.astro";
 import { ArrowLeft, ArrowRight, Home, Loader2, Maximize2, Plus, RotateCw, Star } from "lucide-astro";
 ---
+
 <script src="@/lib/tabs.ts"></script>
 <Layout>
   <div class="bg-background-secondary h-10 flex items-center border-b border-border px-2">
     <div class="flex space-x-2">
-      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-accent text-text shadow-sm">
-        Tab 1
-      </button>
-      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-interactive text-interactive-secondary hover:bg-accent-secondary">
-        Tab 2
-      </button>
-      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-interactive text-interactive-secondary hover:bg-accent-secondary">
-        Tab 3
-      </button>
+      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-accent text-text shadow-sm"> Tab 1 </button>
+      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-interactive text-interactive-secondary hover:bg-accent-secondary"> Tab 2 </button>
+      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-interactive text-interactive-secondary hover:bg-accent-secondary"> Tab 3 </button>
     </div>
     <div class="flex-grow"></div>
     <button class="p-2 rounded-full bg-interactive hover:bg-accent-secondary">
