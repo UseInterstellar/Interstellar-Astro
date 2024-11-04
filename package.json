@@ -3,7 +3,7 @@
   "type": "module",
   "version": "6.0.0",
   "scripts": {
-    "dev": "astro dev && astro preferences disable --global devToolbar",
+    "dev": "astro preferences disable --global devToolbar && astro dev",
     "start": "tsx index.ts",
     "build": "pnpm i && astro check && astro build",
     "typecheck": "astro check",

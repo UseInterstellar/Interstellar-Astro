@@ -67,6 +67,7 @@ if (typeof window !== "undefined") {
         if (!link) return alert("Invalid link");
         if (!type) return alert("Invalid type");
         addAsset(name, link, type);
+        location.reload();
       });
     }
 
