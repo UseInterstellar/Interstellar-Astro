@@ -9,6 +9,35 @@ import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { build } from "astro";
 import Fastify from "fastify";
 import inConfig from "./config";
+
+const renamedFiles: { [key: string]: string } = {};
+
+function RandomizeNames() {
+  const pagesDir = path.join(process.cwd(), "src", "pages");
+  const files = fs.readdirSync(pagesDir);
+
+  for (const file of files) {
+    if (file !== "index.astro" && file.endsWith(".astro")) {
+      const randomName = `${Math.random().toString(36).slice(2, 11)}.astro`;
+      const oldPath = path.join(pagesDir, file);
+      const newPath = path.join(pagesDir, randomName);
+      renamedFiles[randomName] = file;
+      fs.renameSync(oldPath, newPath);
+    }
+  }
+}
+
+function RevertNames() {
+  const pagesDir = path.join(process.cwd(), "src", "pages");
+
+  for (const [randomName, originalName] of Object.entries(renamedFiles)) {
+    const oldPath = path.join(pagesDir, randomName);
+    const newPath = path.join(pagesDir, originalName);
+
+    fs.renameSync(oldPath, newPath);
+  }
+}
+
 const port = Number.parseInt(process.env.PORT as string) || inConfig.port || 8080;
 const app = Fastify({
   serverFactory: (handler) =>
@@ -18,16 +47,22 @@ const app = Fastify({
         : socket.destroy(),
     ),
 });
+
+// This is necessary to randomize the page names while preventing them from being committed by contributors.
 if (!fs.existsSync("dist")) {
+  RandomizeNames();
   console.log("Interstellar's not built yet! Building now...");
   await build({}).catch((err) => {
     console.error(err);
     process.exit(1);
   });
+  RevertNames();
 }
+
 await app.register(import("@fastify/compress"), {
   encodings: ["br", "gzip", "deflate"],
 });
+
 if (inConfig.auth?.challenge) {
   await app.register(import("@fastify/basic-auth"), {
     authenticate: true,
@@ -43,6 +78,7 @@ if (inConfig.auth?.challenge) {
   await app.after();
   app.addHook("onRequest", app.basicAuth);
 }
+
 // @ts-ignore
 const { handler } = await import("./dist/server/entry.mjs");
 await app
