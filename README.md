@@ -15,6 +15,5 @@ pnpm dev
 ```sh
 pnpm i
 pnpm disable # Optional: Disables Astro's Telemetry - https://astro.build/telemetry
-pnpm build
 pnpm start
 ```
