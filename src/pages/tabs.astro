@@ -6,10 +6,10 @@ import { ArrowLeft, ArrowRight, Home, Loader2, Maximize2, Plus, RotateCw, Star }
 <script src="@/lib/tabs.ts"></script>
 <Layout>
   <div class="bg-background-secondary h-10 flex items-center border-b border-border px-2">
-    <div class="flex space-x-2">
-      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-accent text-text shadow-sm"> Tab 1 </button>
-      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-interactive text-interactive-secondary hover:bg-accent-secondary"> Tab 2 </button>
-      <button class="flex items-center px-4 py-1.5 rounded-t-lg bg-interactive text-interactive-secondary hover:bg-accent-secondary"> Tab 3 </button>
+    <div class="flex space-x-1">
+      <button class="flex items-center px-3 py-1 rounded-md bg-accent text-text shadow-sm">Tab 1</button>
+      <button class="flex items-center px-3 py-1 rounded-md bg-interactive text-interactive-secondary hover:bg-accent-secondary">Tab 2</button>
+      <button class="flex items-center px-3 py-1 rounded-md bg-interactive text-interactive-secondary hover:bg-accent-secondary">Tab 3</button>
     </div>
     <div class="flex-grow"></div>
     <button class="p-2 rounded-full bg-interactive hover:bg-accent-secondary">
@@ -17,18 +17,18 @@ import { ArrowLeft, ArrowRight, Home, Loader2, Maximize2, Plus, RotateCw, Star }
     </button>
   </div>
   <div class="bg-background-secondary h-12 flex items-center justify-between px-4">
-    <div class="flex items-center">
+    <div class="flex items-center space-x-2">
       <a href="/" id="home" title="Home Page" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <Home class="w-5 h-5 cursor-pointer text-text-secondary" />
+        <Home class="w-5 h-5 text-text-secondary" />
       </a>
-      <button title="Click to go back." id="back" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <ArrowLeft class="w-5 h-5 cursor-pointer text-text-secondary" />
+      <button title="Go back" id="back" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
+        <ArrowLeft class="w-5 h-5 text-text-secondary" />
       </button>
-      <button title="Click to go forward." id="forward" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <ArrowRight class="w-5 h-5 cursor-pointer text-text-secondary" />
+      <button title="Go forward" id="forward" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
+        <ArrowRight class="w-5 h-5 text-text-secondary" />
       </button>
-      <button title="Click to reload this page." id="reload" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <RotateCw class="w-5 h-5 cursor-pointer text-text-secondary" />
+      <button title="Reload page" id="reload" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
+        <RotateCw class="w-5 h-5 text-text-secondary" />
       </button>
     </div>
     <div class="flex-grow flex items-center justify-center mx-4">
@@ -36,15 +36,15 @@ import { ArrowLeft, ArrowRight, Home, Loader2, Maximize2, Plus, RotateCw, Star }
         type="text"
         placeholder="Search or enter a new URL"
         id="inp"
-        class="w-10/12 h-8 px-4 rounded-md bg-interactive text-text border border-border outline-none focus:ring-2 focus:ring-accent placeholder:text-placeholder"
+        class="w-full h-9 px-4 rounded-md text-text border border-border bg-background-secondary shadow-sm outline-none focus:ring-1 focus:ring-accent placeholder:text-placeholder"
       />
     </div>
-    <div class="flex items-center">
-      <button title="Click to use fullscreen." id="fullscreen" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <Maximize2 class="w-5 h-5 cursor-pointer text-text-secondary" />
+    <div class="flex items-center space-x-2">
+      <button title="Fullscreen" id="fullscreen" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
+        <Maximize2 class="w-5 h-5 text-text-secondary" />
       </button>
-      <button title="Click to bookmark this page." id="bookmark" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <Star class="w-5 h-5 cursor-pointer text-text-secondary" />
+      <button title="Bookmark this page" id="bookmark" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
+        <Star class="w-5 h-5 text-text-secondary" />
       </button>
     </div>
   </div>
