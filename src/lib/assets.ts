@@ -40,7 +40,7 @@ if (typeof window !== "undefined") {
         if (asset.say) alert(asset.say);
         if (asset.link) {
           sessionStorage.setItem("goUrl", asset.link);
-          return location.replace("/tb");
+          return location.replace("/tabs");
         }
         if (asset.links) {
           const selection = prompt(
@@ -50,7 +50,7 @@ if (typeof window !== "undefined") {
           const link = asset.links[Number.parseInt(selection) - 1];
           if (!link) return alert("Invalid selection");
           sessionStorage.setItem("goUrl", link.url);
-          return location.replace("/tb");
+          return location.replace("/tabs");
         }
       });
     }
