@@ -39,6 +39,7 @@ function RandomizeNames() {
     fs.writeFileSync(astroFile, fileContent, "utf-8");
   }
 }
+
 function FindAstroFiles(dir: string): string[] {
   let results: string[] = [];
   const list = fs.readdirSync(dir);
@@ -64,6 +65,18 @@ function Revert() {
       path.join(pagesDir, `${newPath.replace("/", "")}.astro`),
       path.join(pagesDir, `${oldPath.replace("/", "")}.astro`),
     );
+  }
+
+  const AstroFiles = FindAstroFiles(process.cwd());
+  for (const astroFile of AstroFiles) {
+    let fileContent = fs.readFileSync(astroFile, "utf-8");
+
+    for (const [oldName, newName] of Object.entries(RenamedFiles)) {
+      const regex = new RegExp(`"${newName}"`, "g");
+      fileContent = fileContent.replace(regex, `"${oldName}"`);
+    }
+
+    fs.writeFileSync(astroFile, fileContent, "utf-8");
   }
 }
 
