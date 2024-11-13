@@ -1,15 +1,31 @@
 # Interstellar V6
+This is an unstable version of the Interstellar project, completely rewritten from the ground up.
 
-This is a unstable version of Interstellar rewritten from the ground up. Expect release around the start of the 2024-2025 school year.
+# Deployment
+To deploy Interstellar on your server, follow these steps:
 
-## Development
+#### 1. Clone the Repository
+First, clone the **Interstellar** repository to your server:
 
-```sh
-pnpm i && pnpm dev
+```bash
+git clone https://github.com/UseInterstellar/Interstellar-Astro
+cd Interstellar
 ```
 
-## Production
+#### 2. Install Dependencies and Start the Project
+Once you've cloned the repository, install the required dependencies and start the application:
 
-```sh
-pnpm i && pnpm start
+```bash
+pnpm install && pnpm start
 ```
+
+This will install all the necessary dependencies and start the application in production mode.
+
+# Development
+If you are developing for Interstellar , use the following commands:
+
+```bash
+pnpm install && pnpm dev
+```
+
+This will install dependencies and start the development server, which will automatically reload when you make changes to the code.
