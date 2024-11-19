@@ -1,10 +1,8 @@
 # Deep Directories
 **/dist
-**/smoke
 **/node_modules
-**/fixtures
-**/vendor
 **/.vercel
+**/.astro
 
 # Files
 pnpm-lock.yaml
