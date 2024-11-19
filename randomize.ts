@@ -1,37 +1,15 @@
+import { execSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 
-export const RenamedFiles: { [key: string]: string } = {};
+const RenamedFiles: { [key: string]: string } = {};
 
-export function RandomizeNames() {
-  const pagesDir = path.join(process.cwd(), "src", "pages");
-  const files = fs.readdirSync(pagesDir);
-
-  for (const file of files) {
-    if (file !== "index.astro" && file.endsWith(".astro")) {
-      const randomName = `${Math.random().toString(36).slice(2, 11)}.astro`;
-      const oldPath = path.join(pagesDir, file);
-      const newPath = path.join(pagesDir, randomName);
-      RenamedFiles[`/${file.replace(".astro", "")}`] =
-        `/${randomName.replace(".astro", "")}`;
-      fs.renameSync(oldPath, newPath);
-    }
-  }
-
-  const AstroFiles = FindAstroFiles(process.cwd());
-  for (const astroFile of AstroFiles) {
-    let fileContent = fs.readFileSync(astroFile, "utf-8");
-
-    for (const [oldName, newName] of Object.entries(RenamedFiles)) {
-      const regex = new RegExp(`"${oldName}"`, "g");
-      fileContent = fileContent.replace(regex, `"${newName}"`);
-    }
-
-    fs.writeFileSync(astroFile, fileContent, "utf-8");
-  }
+export function randomizeName(filePath: string): string {
+  const extname = path.extname(filePath);
+  return `${Math.random().toString(36).slice(2, 11)}${extname}`;
 }
 
-export function FindAstroFiles(dir: string): string[] {
+export function findFiles(dir: string, filePattern: RegExp): string[] {
   let results: string[] = [];
   const list = fs.readdirSync(dir);
 
@@ -39,34 +17,104 @@ export function FindAstroFiles(dir: string): string[] {
     const resolvedFile = path.resolve(dir, file);
     const stat = fs.statSync(resolvedFile);
 
-    if (stat?.isDirectory()) {
-      results = results.concat(FindAstroFiles(resolvedFile));
-    } else if (file.endsWith(".astro")) {
+    if (stat.isDirectory()) {
+      results = results.concat(findFiles(resolvedFile, filePattern));
+    } else if (filePattern.test(file)) {
       results.push(resolvedFile);
     }
   }
+
   return results;
 }
 
-export function Revert() {
-  const pagesDir = path.join(process.cwd(), "src", "pages");
+export function RandomizeNames() {
+  const filesToRename = [
+    ...findFiles(path.join(process.cwd(), "src", "components"), /\.astro$/),
+    ...findFiles(path.join(process.cwd(), "src", "layouts"), /\.astro$/),
+    ...findFiles(path.join(process.cwd(), "src", "lib"), /\.ts$/),
+    ...findFiles(path.join(process.cwd(), "src", "pages"), /\.astro$/),
+    ...findFiles(path.join(process.cwd(), "src", "pages", "e"), /\.ts$/),
+  ];
 
-  for (const [oldPath, newPath] of Object.entries(RenamedFiles)) {
-    fs.renameSync(
-      path.join(pagesDir, `${newPath.replace("/", "")}.astro`),
-      path.join(pagesDir, `${oldPath.replace("/", "")}.astro`),
-    );
-  }
-
-  const AstroFiles = FindAstroFiles(process.cwd());
-  for (const astroFile of AstroFiles) {
-    let fileContent = fs.readFileSync(astroFile, "utf-8");
-
-    for (const [oldName, newName] of Object.entries(RenamedFiles)) {
-      const regex = new RegExp(`"${newName}"`, "g");
-      fileContent = fileContent.replace(regex, `"${oldName}"`);
+  for (const file of filesToRename) {
+    if (path.basename(file) === "index.astro") {
+      continue;
     }
 
-    fs.writeFileSync(astroFile, fileContent, "utf-8");
+    const newName = randomizeName(file);
+    const oldPath = path.resolve(file);
+    const newPath = path.resolve(path.dirname(file), newName);
+    RenamedFiles[oldPath] = newPath;
+    fs.renameSync(oldPath, newPath);
+  }
+
+  updateImports();
+}
+
+export function updateImports() {
+  const allFiles = [
+    ...findFiles(path.join(process.cwd(), "src"), /\.astro$/),
+    ...findFiles(path.join(process.cwd(), "src"), /\.ts$/),
+  ];
+
+  for (const file of allFiles) {
+    let fileContent = fs.readFileSync(file, "utf-8");
+    const rootPath = process.cwd();
+
+    for (const [oldPath, newPath] of Object.entries(RenamedFiles)) {
+      const oldImportPathAlias = oldPath
+        .replace(`${rootPath}/src/components`, "@/components")
+        .replace(`${rootPath}/src/layouts`, "@/layouts")
+        .replace(`${rootPath}/src/lib`, "@/lib")
+        .replace(/\\/g, "/");
+
+      const newImportPathAlias = newPath
+        .replace(`${rootPath}/src/components`, "@/components")
+        .replace(`${rootPath}/src/layouts`, "@/layouts")
+        .replace(`${rootPath}/src/lib`, "@/lib")
+        .replace(/\\/g, "/");
+
+      const oldImportPathAbs = oldPath.replace(rootPath, "").replace(/\\/g, "/");
+
+      const newImportPathAbs = newPath.replace(rootPath, "").replace(/\\/g, "/");
+
+      fileContent = fileContent.replace(
+        new RegExp(`['"]${oldImportPathAlias}['"]`, "g"),
+        `'${newImportPathAlias}'`,
+      );
+      fileContent = fileContent.replace(
+        new RegExp(`['"]${oldImportPathAbs}['"]`, "g"),
+        `'${newImportPathAbs}'`,
+      );
+    }
+
+    fs.writeFileSync(file, fileContent, "utf-8");
   }
 }
+
+export function renameEDirectory() {
+  const eDirPath = path.join(process.cwd(), "src", "pages", "e");
+  if (fs.existsSync(eDirPath)) {
+    const newEDirName = `/${Math.random().toString(36).slice(2, 6)}`;
+    const newEDirPath = path.join(process.cwd(), "src", "pages", newEDirName);
+    fs.renameSync(eDirPath, newEDirPath);
+  }
+}
+
+export async function Revert() {
+  try {
+    console.log("Reverting Changes.");
+    execSync("git restore src/", { cwd: process.cwd(), stdio: "inherit" });
+    execSync("git clean -fdx src/", { cwd: process.cwd(), stdio: "inherit" });
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+    console.log("Revert completed.");
+  } catch (error) {
+    console.error(
+      "Error during revert:",
+      error instanceof Error ? error.message : error,
+    );
+  }
+}
+
+updateImports();

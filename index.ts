@@ -18,11 +18,13 @@ async function Start() {
   if (!fs.existsSync("dist")) {
     RandomizeNames();
     console.log("Interstellar's not built yet! Building now...");
+
     await build({}).catch((err) => {
       console.error(err);
       process.exit(1);
     });
-    Revert();
+
+    await Revert();
 
     if (FirstRun) {
       console.log("Restarting Server...");
