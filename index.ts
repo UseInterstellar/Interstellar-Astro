@@ -1,15 +1,15 @@
+import { execSync } from "node:child_process";
 import fs from "node:fs";
 import { createServer } from "node:http";
 import type { Socket } from "node:net";
 import path from "node:path";
-import { execSync } from "node:child_process";
 import fastifyMiddie from "@fastify/middie";
 import fastifyStatic from "@fastify/static";
-// @ts-expect-error shut
+// @ts-expect-error
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { build } from "astro";
 import Fastify from "fastify";
-import inConfig from "./config";
+import INConfig from "./config";
 
 const RenamedFiles: { [key: string]: string } = {};
 
@@ -95,12 +95,13 @@ async function Start() {
 
     if (FirstRun) {
       console.log("Restarting Server...");
-      execSync("pnpm disable &&  pnpm start", { stdio: "inherit" });
+      execSync("pnpm disable && pnpm start", { stdio: "inherit" });
       process.exit(0);
     }
   }
 
-  const port = Number.parseInt(process.env.PORT as string) || inConfig.port || 8080;
+  const port = INConfig.port || 8080;
+
   const app = Fastify({
     serverFactory: (handler) =>
       createServer(handler).on("upgrade", (req, socket: Socket, head) =>
@@ -114,11 +115,11 @@ async function Start() {
     encodings: ["br", "gzip", "deflate"],
   });
 
-  if (inConfig.auth?.challenge) {
+  if (INConfig.auth?.challenge) {
     await app.register(import("@fastify/basic-auth"), {
       authenticate: true,
       validate(username, password, _req, _reply, done) {
-        for (const [user, pass] of Object.entries(inConfig.auth?.users || {})) {
+        for (const [user, pass] of Object.entries(INConfig.auth?.users || {})) {
           if (username === user && password === pass) {
             return done();
           }
