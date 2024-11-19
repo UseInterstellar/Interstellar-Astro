@@ -4,7 +4,7 @@
   "version": "6.0.0",
   "scripts": {
     "dev": "astro preferences disable --global devToolbar && astro dev",
-    "start": "pnpm disable && tsx index.ts",
+    "start": "tsx index.ts",
     "build": "astro check && astro build",
     "typecheck": "astro check",
     "astro": "astro",
