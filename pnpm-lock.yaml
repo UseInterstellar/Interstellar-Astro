@@ -42,8 +42,8 @@ importers:
         specifier: ^0.3.3
         version: 0.3.3
       '@titaniumnetwork-dev/ultraviolet':
-        specifier: ^3.2.7
-        version: 3.2.7
+        specifier: ^3.2.10
+        version: 3.2.10
       astro:
         specifier: ^4.16.2
         version: 4.16.2(@types/node@22.9.1)(rollup@4.24.0)(typescript@5.6.3)
@@ -764,6 +764,9 @@ packages:
   '@mercuryworkshop/bare-mux@2.0.9':
     resolution: {integrity: sha512-g+F/Oz33iSQwLf3rJU3Vr1bh5cbxHRKS/Tnr6ayk060UzcJ+EDGad5pUdRJFz1MRyinpYC5MrG67QDA9Dlta9A==}
 
+  '@mercuryworkshop/bare-mux@2.1.7':
+    resolution: {integrity: sha512-BUamyc7jsIFbWQVVWjVjaD+Wot77EPwolkrbP3UuIs6QeHR1RY52+IR2fq3GkRAbOOrAZNT7EgZSsupkh1NowQ==}
+
   '@mercuryworkshop/epoxy-tls@2.1.6-1':
     resolution: {integrity: sha512-drnffDo9Ls73Fpmcup2Ys1z+BjzK+WLnzyfS4APFfWr9cJ0gu7567tx4M06XH5PUZMOS1J1Z3wqnRaBh/RX5bQ==}
 
@@ -897,8 +900,8 @@ packages:
   '@shikijs/vscode-textmate@9.3.0':
     resolution: {integrity: sha512-jn7/7ky30idSkd/O5yDBfAnVt+JJpepofP/POZ1iMOxK59cOfqIgg/Dj0eFsjOTMw+4ycJN0uhZH/Eb0bs/EUA==}
 
-  '@titaniumnetwork-dev/ultraviolet@3.2.7':
-    resolution: {integrity: sha512-leR8Cxtgld9NykRbEbYejbD85dOLh0rqQe6tfcsaFEBIChWG9QF10x1qoJBQ3wXSvZ+wqh3cBNYrucYpHOWpUA==}
+  '@titaniumnetwork-dev/ultraviolet@3.2.10':
+    resolution: {integrity: sha512-Sf0Leb+NMEwFA8EQxCLW/wJW6TNR/EITBPKHadiq4DNOEbgXJdmIW8PKmsNkyOvAIN6o2peE86S6qxQt6ft1Ew==}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -1039,6 +1042,10 @@ packages:
 
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
+
+  astring@1.9.0:
+    resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
+    hasBin: true
 
   astro@4.16.2:
     resolution: {integrity: sha512-Dfkpyt6sA+nv6LnOJr+7bt+gQF5Qh02yqVgyes4c4SvcPScteq1bLX22/z/XW+VU0vlciJOMiM8GWtcDiF6gUQ==}
@@ -1566,6 +1573,9 @@ packages:
     resolution: {integrity: sha512-FtwrG/euBzaEjYeRqOgly7G0qviiXoJWnvEH2Z1plBdXgbyjv34pHTSb9zoeHMyDy33+DWy5Wt9Wo+TURtOYSQ==}
     engines: {node: '>= 0.8'}
 
+  idb@8.0.0:
+    resolution: {integrity: sha512-l//qvlAKGmQO31Qn7xdzagVPPaHTxXx199MhrAFuVBTPqydcPYBWjkrbv4Y0ktB+GmWOiwHl237UUOrLmQxLvw==}
+
   ieee754@1.2.1:
     resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
 
@@ -1812,6 +1822,10 @@ packages:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
 
+  meriyah@6.0.3:
+    resolution: {integrity: sha512-NqUbuQIjIH8dxUBPTMHS1kwIHd6n6nF3F7oeLXGWqBkpVP2lZxVHdab5JxbFBisIB4axZ9b/lT4HLJfZxmFK7Q==}
+    engines: {node: '>=18.0.0'}
+
   micromark-core-commonmark@2.0.1:
     resolution: {integrity: sha512-CUQyKr1e///ZODyD1U3xit6zXwy1a8q2a1S1HKtIlmgvurrEpaw/Y9y6KSIbF8P59cn/NjzHyO+Q2fAyYLQrAA==}
 
@@ -2040,6 +2054,9 @@ packages:
 
   parse5@7.1.2:
     resolution: {integrity: sha512-Czj1WaSVpaoj0wbhMzLmWD69anp2WH7FXMB9n1Sy8/ZFF9jolSQVMu1Ij5WIyGmcBmhk7EOndpO4mIpihVqAXw==}
+
+  parse5@7.2.1:
+    resolution: {integrity: sha512-BuBYQYlv1ckiPdQi/ohiivi9Sagc9JG+Ozs0r7b/0iK3sKmrb0b9FdWdBbOdx6hBCM/F9Ir82ofnBhtZOjCRPQ==}
 
   path-browserify@1.0.1:
     resolution: {integrity: sha512-b7uo2UCUOYZcnF/3ID0lulOJi/bafxa1xPe7ZPsammBSpjSWQkjNxlt635YGS2MiR9GjvuXCtz2emr3jbsz98g==}
@@ -2360,6 +2377,9 @@ packages:
 
   set-cookie-parser@2.7.0:
     resolution: {integrity: sha512-lXLOiqpkUumhRdFF3k1osNXCy9akgx/dyPZ5p8qAg9seJzXr5ZrlqZuWIMuY6ejOsVLE6flJ5/h3lsn57fQ/PQ==}
+
+  set-cookie-parser@2.7.1:
+    resolution: {integrity: sha512-IOc8uWeOZgnb3ptbCURJWNjWUPcO3ZnTTdzsurqERrP6nPyv+paC55vJM0LpOlT2ne+Ix+9+CRG1MNLlyZ4GjQ==}
 
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
@@ -3473,6 +3493,8 @@ snapshots:
 
   '@mercuryworkshop/bare-mux@2.0.9': {}
 
+  '@mercuryworkshop/bare-mux@2.1.7': {}
+
   '@mercuryworkshop/epoxy-tls@2.1.6-1': {}
 
   '@mercuryworkshop/epoxy-transport@2.1.13':
@@ -3588,7 +3610,15 @@ snapshots:
 
   '@shikijs/vscode-textmate@9.3.0': {}
 
-  '@titaniumnetwork-dev/ultraviolet@3.2.7': {}
+  '@titaniumnetwork-dev/ultraviolet@3.2.10':
+    dependencies:
+      '@mercuryworkshop/bare-mux': 2.1.7
+      astring: 1.9.0
+      events: 3.3.0
+      idb: 8.0.0
+      meriyah: 6.0.3
+      parse5: 7.2.1
+      set-cookie-parser: 2.7.1
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -3748,6 +3778,8 @@ snapshots:
   aria-query@5.3.2: {}
 
   array-iterate@2.0.1: {}
+
+  astring@1.9.0: {}
 
   astro@4.16.2(@types/node@22.9.1)(rollup@4.24.0)(typescript@5.6.3):
     dependencies:
@@ -4418,6 +4450,8 @@ snapshots:
       statuses: 2.0.1
       toidentifier: 1.0.1
 
+  idb@8.0.0: {}
+
   ieee754@1.2.1: {}
 
   import-meta-resolve@4.1.0: {}
@@ -4699,6 +4733,8 @@ snapshots:
       '@types/mdast': 4.0.4
 
   merge2@1.4.1: {}
+
+  meriyah@6.0.3: {}
 
   micromark-core-commonmark@2.0.1:
     dependencies:
@@ -5013,6 +5049,10 @@ snapshots:
       vfile: 6.0.3
 
   parse5@7.1.2:
+    dependencies:
+      entities: 4.5.0
+
+  parse5@7.2.1:
     dependencies:
       entities: 4.5.0
 
@@ -5398,6 +5438,8 @@ snapshots:
   server-destroy@1.0.1: {}
 
   set-cookie-parser@2.7.0: {}
+
+  set-cookie-parser@2.7.1: {}
 
   setprototypeof@1.2.0: {}
 
