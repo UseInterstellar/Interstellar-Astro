@@ -5,6 +5,9 @@ export interface Config {
     // The port to run the HTTP server on
     // Default: 8080
     port?: number;
+
+    // The source of static assets, limited to specific values
+    assets?: "local" | "github";
   };
 
   // Authentication configuration
