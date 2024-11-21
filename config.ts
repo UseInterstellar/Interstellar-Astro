@@ -1,14 +1,19 @@
 import type { Config } from "@/types/config";
 
 const config: Config = {
-  // Customize the port Interstellar runs on (Default: 8080)
-  port: 8080,
+  // Server Configuration
+  port: 8080, // The port on which Interstellar runs (Default: 8080)
 
-  // Protect your Instance with logins (Optional)
+  // Authentication Configuration (Optional)
   auth: {
-    challenge: false, // Password protection (Default: False)
+    // Enable password protection for your instance.
+    // Set challenge to true to require users to log in.
+    challenge: false,
+
+    // Format: username: "password",
+    // IMPORTANT: Replace default credentials before deployment
     users: {
-      interstellar: "password", // Add usernames and passwords here
+      interstellar: "password", 
     },
   },
 };
