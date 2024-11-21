@@ -2,7 +2,9 @@ import type { Config } from "@/types/config";
 
 const config: Config = {
   // Server Configuration
-  port: 8080, // The port on which Interstellar runs (Default: 8080)
+  server: {
+    port: 8080, // The port on which Interstellar runs (Default: 8080)
+  },
 
   // Authentication Configuration (Optional)
   auth: {
@@ -13,7 +15,7 @@ const config: Config = {
     // Format: username: "password",
     // IMPORTANT: Replace default credentials before deployment
     users: {
-      interstellar: "password", 
+      interstellar: "password",
     },
   },
 };

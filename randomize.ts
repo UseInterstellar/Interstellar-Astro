@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 
 const RenamedFiles: { [key: string]: string } = {};
-const PageRoutes: { [key: string]: string } = {};  
+const PageRoutes: { [key: string]: string } = {};
 
 export function randomizeName(filePath: string): string {
   const extname = path.extname(filePath);
@@ -49,9 +49,13 @@ export function RandomizeNames() {
     fs.renameSync(oldPath, newPath);
 
     if (file.startsWith(path.join(process.cwd(), "src", "pages"))) {
-      const oldRoute = oldPath.replace(process.cwd() + "/src/pages", "").replace(/\\/g, "/");
-      const newRoute = newPath.replace(process.cwd() + "/src/pages", "").replace(/\\/g, "/");
-      PageRoutes[oldRoute] = newRoute;  
+      const oldRoute = oldPath
+        .replace(`${process.cwd()}/src/pages`, "")
+        .replace(/\\/g, "/");
+      const newRoute = newPath
+        .replace(`${process.cwd()}/src/pages`, "")
+        .replace(/\\/g, "/");
+      PageRoutes[oldRoute] = newRoute;
     }
   }
 
@@ -112,7 +116,7 @@ export function updatePageRoutes() {
     for (const [oldRoute, newRoute] of Object.entries(PageRoutes)) {
       fileContent = fileContent.replace(
         new RegExp(`['"]${oldRoute.replace(".astro", "")}['"]`, "g"),
-        `'${newRoute.replace(".astro", "")}'`
+        `'${newRoute.replace(".astro", "")}'`,
       );
     }
 
@@ -133,7 +137,7 @@ export async function Revert() {
   try {
     console.log("Reverting Changes.");
     execSync("git restore src/", { cwd: process.cwd(), stdio: "inherit" });
-   execSync("git clean -fdx src/", { cwd: process.cwd(), stdio: "inherit" });
+    execSync("git clean -fdx src/", { cwd: process.cwd(), stdio: "inherit" });
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log("Revert completed.");

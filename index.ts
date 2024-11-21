@@ -33,7 +33,7 @@ async function Start() {
     }
   }
 
-  const port = INConfig.port || 8080;
+  const port = INConfig.server?.port || 8080;
 
   const app = Fastify({
     serverFactory: (handler) =>
