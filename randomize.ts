@@ -199,7 +199,7 @@ export function UpdateImports() {
 
       OriginalPatterns.forEach((pattern, index) => {
         content = content.replace(
-          new RegExp(`['"]${pattern.replace(/\./g, "\\.")}['"]`, "g"),
+          new RegExp(`['"]${pattern.replace(/\\/g, "\\\\").replace(/\./g, "\\.")}['"]`, "g"),
           `'${NewPatterns[index]}'`,
         );
       });
