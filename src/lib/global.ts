@@ -93,8 +93,9 @@ document.addEventListener("astro:page-load", () => {
   const PanicKeys = Key.split(",").map((key) => key.trim());
   let PanicLink = localStorage.getItem("link") || "";
   try {
-    PanicLink = new URL(PanicLink).toString();
-    PanicLink = DOMPurify.sanitize(PanicLink);
+    const sanitizedLink = DOMPurify.sanitize(PanicLink);
+    const url = new URL(sanitizedLink);
+    PanicLink = url.toString();
   } catch (e) {
     PanicLink = "";
   }
