@@ -20,7 +20,7 @@
     "@fastify/compress": "^8.0.1",
     "@fastify/middie": "^9.0.2",
     "@fastify/static": "^8.0.2",
-    "@mercuryworkshop/bare-mux": "2.0.9",
+    "@mercuryworkshop/bare-mux": "2.1.7",
     "@mercuryworkshop/epoxy-transport": "2.1.26",
     "@mercuryworkshop/wisp-js": "^0.3.3",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
