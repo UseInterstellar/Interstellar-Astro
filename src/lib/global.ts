@@ -116,7 +116,7 @@ document.addEventListener("astro:page-load", () => {
       Typed.length === PanicKeys.length &&
       PanicKeys.every((key, index) => key === Typed[index])
     ) {
-      window.location.href = PanicLink;
+      window.location.href = encodeURIComponent(PanicLink);
       Typed = [];
     }
   });
