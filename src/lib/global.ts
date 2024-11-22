@@ -1,7 +1,9 @@
+import DOMPurify from 'dompurify';
+
 document.addEventListener("astro:page-load", () => {
   // Cloak
   document.title = localStorage.getItem("title") ?? "Home";
-  const icon = localStorage.getItem("icon") ?? "/assets/media/favicons/default.png";
+  const icon = DOMPurify.sanitize(localStorage.getItem("icon") ?? "/assets/media/favicons/default.png");
   const iconElm = document.getElementById("icon");
   if (iconElm) (iconElm as HTMLLinkElement).href = icon;
 
