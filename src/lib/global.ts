@@ -94,6 +94,7 @@ document.addEventListener("astro:page-load", () => {
   let PanicLink = localStorage.getItem("link") || "";
   try {
     PanicLink = new URL(PanicLink).toString();
+    PanicLink = DOMPurify.sanitize(PanicLink);
   } catch (e) {
     PanicLink = "";
   }
