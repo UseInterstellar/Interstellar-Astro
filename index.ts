@@ -10,13 +10,13 @@ import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { build } from "astro";
 import Fastify from "fastify";
 import INConfig from "./config";
-import { RandomizeNames, Revert } from "./randomize";
+import { Main, Revert } from "./randomize";
 
 async function Start() {
   const FirstRun = process.env.FIRST === "true";
 
   if (!fs.existsSync("dist")) {
-    RandomizeNames();
+    Main();
     console.log("Interstellar's not built yet! Building now...");
 
     await build({}).catch((err) => {
