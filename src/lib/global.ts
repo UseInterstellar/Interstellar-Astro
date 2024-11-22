@@ -89,7 +89,12 @@ document.addEventListener("astro:page-load", () => {
 document.addEventListener("astro:page-load", () => {
   const Key = localStorage.getItem("key") || "";
   const PanicKeys = Key.split(",").map((key) => key.trim());
-  const PanicLink = localStorage.getItem("link") || "";
+  let PanicLink = localStorage.getItem("link") || "";
+  try {
+    PanicLink = new URL(PanicLink).toString();
+  } catch (e) {
+    PanicLink = "";
+  }
   let Typed: string[] = [];
   let Shift = false;
 
