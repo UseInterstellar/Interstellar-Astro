@@ -9,6 +9,8 @@ import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { defineConfig } from "astro/config";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import path from "path";
+
 // https://astro.build/config
 export default defineConfig({
   output: "hybrid",
@@ -34,6 +36,11 @@ export default defineConfig({
       __COMMIT_DATE__: JSON.stringify(
         execSync("git show --no-patch --format=%ci").toString().trim(),
       ),
+    },
+    resolve: {
+      alias: {
+        "@": path.resolve("./src"), 
+      },
     },
     plugins: [
       {
