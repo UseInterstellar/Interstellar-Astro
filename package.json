@@ -37,7 +37,7 @@
     "dompurify": "^3.2.1"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.3",
+    "@biomejs/biome": "1.9.4",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^22.9.1",
     "prettier": "^3.3.3",
