@@ -1,0 +1,4 @@
+[submodule "public/assets/media/icons"]
+	path = public/assets/media/icons
+	url = https://github.com/UseInterstellar/Interstellar-Assets.git
+	branch = Images
