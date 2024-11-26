@@ -2,3 +2,7 @@
 	path = public/assets/media/icons
 	url = https://github.com/UseInterstellar/Interstellar-Assets.git
 	branch = Images
+[submodule "public/assets/json"]
+	path = public/assets/json
+	url = https://github.com/UseInterstellar/Interstellar-Assets.git
+	branch = JSON
