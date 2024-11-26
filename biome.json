@@ -6,7 +6,8 @@
       "**/pnpm-lock.yaml",
       "**/dist/**",
       "**/node_modules/**",
-      "**/assets/bundled/**"
+      "**/assets/bundled/**",
+      "**/assets/json/**"
     ]
   },
   "linter": {
@@ -18,7 +19,8 @@
       "**/pnpm-lock.yaml",
       "**/dist/**",
       "**/node_modules/**",
-      "**/assets/bundled/**"
+      "**/assets/bundled/**",
+      "**/assets/json/**"
     ]
   },
   "formatter": {
@@ -33,7 +35,8 @@
       "**/.astro/**",
       "**/node_modules/**",
       "**/assets/bundled/**",
-      "*.astro"
+      "*.astro",
+      "**/assets/json/**"
     ]
   },
   "javascript": {
