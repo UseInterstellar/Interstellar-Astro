@@ -1,7 +1,8 @@
-let searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
-let input = document.getElementById("search") as HTMLInputElement | null;
+const searchUrl =
+  localStorage.getItem("engine") || "https://www.google.com/search?q=";
+const input = document.getElementById("search") as HTMLInputElement | null;
 
-function isUrl(val: string = ""): boolean {
+function isUrl(val = ""): boolean {
   return /^http(s?):\/\//.test(val) || (val.includes(".") && !val.includes(" "));
 }
 

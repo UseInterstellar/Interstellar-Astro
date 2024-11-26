@@ -1,9 +1,10 @@
-import Cookies from "js-cookie";
 import INConfig from "config.ts";
+import Cookies from "js-cookie";
 
-export const ASSET_URL = INConfig.server && INConfig.server.assets === "external"
-  ? "https://raw.githubusercontent.com/UseInterstellar/Interstellar-Assets/main"
-  : "/assets";
+export const ASSET_URL =
+  INConfig.server && INConfig.server.assets === "external"
+    ? "https://raw.githubusercontent.com/UseInterstellar/Interstellar-Assets/main"
+    : "/assets";
 
 export type Asset = {
   name: string;

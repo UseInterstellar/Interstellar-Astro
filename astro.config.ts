@@ -1,4 +1,5 @@
 import { execSync } from "node:child_process";
+import path from "node:path";
 import node from "@astrojs/node";
 import tailwind from "@astrojs/tailwind";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
@@ -9,7 +10,6 @@ import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { defineConfig } from "astro/config";
 import { viteStaticCopy } from "vite-plugin-static-copy";
-import path from "path";
 
 // https://astro.build/config
 export default defineConfig({
@@ -39,7 +39,7 @@ export default defineConfig({
     },
     resolve: {
       alias: {
-        "@": path.resolve("./src"), 
+        "@": path.resolve("./src"),
       },
     },
     plugins: [

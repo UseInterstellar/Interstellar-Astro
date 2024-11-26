@@ -1,24 +1,24 @@
 ---
+import fs from "node:fs";
+import path from "node:path";
 import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/assets.ts";
 import { PlusCircle } from "lucide-astro";
-import fs from 'fs';
-import path from 'path';
 
 export const prerender = false;
 
-const local = path.resolve('./public/assets/json/apps.min.json');
+const local = path.resolve("./public/assets/json/apps.min.json");
 const external = `${ASSET_URL}/json/apps.min.json`;
 
-let apps: Asset[]
+let apps: Asset[];
 
 if (ASSET_URL === "/assets") {
   try {
-    const data = fs.readFileSync(local, 'utf-8');
-    apps = JSON.parse(data); 
+    const data = fs.readFileSync(local, "utf-8");
+    apps = JSON.parse(data);
   } catch (error) {
-    apps = []; 
+    apps = [];
   }
 } else {
   const response = await fetch(external);
