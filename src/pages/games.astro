@@ -3,10 +3,28 @@ import AssetCard from "@/components/AssetCard.astro";
 import Layout from "@/layouts/Main.astro";
 import { ASSET_URL, type Asset } from "@/lib/assets.ts";
 import { PlusCircle } from "lucide-astro";
+import fs from 'fs';
+import path from 'path';
 
 export const prerender = false;
 
-const games: Asset[] = await (await fetch(`${ASSET_URL}/json/games.min.json`)).json();
+const local = path.resolve('./public/assets/json/games.min.json');
+const external = `${ASSET_URL}/json/games.min.json`;
+
+let games: Asset[];
+
+if (ASSET_URL === "/assets") {
+  try {
+    const data = fs.readFileSync(local, 'utf-8');
+    games = JSON.parse(data); 
+  } catch (error) {
+    games = []; 
+  }
+} else {
+  const response = await fetch(external);
+  games = await response.json();
+}
+
 const customGames = (Astro.cookies.get("asset.game")?.json() as Asset[]) ?? [];
 
 const all = [...customGames, ...games].sort((a, b) => {

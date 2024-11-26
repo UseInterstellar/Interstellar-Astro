@@ -33,7 +33,6 @@ export function addAsset(name: string, link: string, type: string) {
 
 if (typeof window !== "undefined") {
   document.addEventListener("astro:page-load", () => {
-    console.log("ASSET_URL is set to:", ASSET_URL);
     const buttons = document.querySelectorAll(
       "[data-asset]",
     ) as NodeListOf<HTMLButtonElement>;
