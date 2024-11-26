@@ -6,8 +6,8 @@ export interface Config {
     // Default: 8080
     port?: number;
 
-    // The source of static assets, limited to specific values
-    assets?: "local" | "github";
+    // The source of static assets
+    assets?: "local" | "external";
   };
 
   // Authentication configuration

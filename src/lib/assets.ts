@@ -1,7 +1,9 @@
 import Cookies from "js-cookie";
+import INConfig from "config.ts";
 
-export const ASSET_URL =
-  "https://raw.githubusercontent.com/UseInterstellar/Interstellar-Assets/main";
+export const ASSET_URL = INConfig.server && INConfig.server.assets === "external"
+  ? "https://raw.githubusercontent.com/UseInterstellar/Interstellar-Assets/main"
+  : "/assets";
 
 export type Asset = {
   name: string;
@@ -31,6 +33,7 @@ export function addAsset(name: string, link: string, type: string) {
 
 if (typeof window !== "undefined") {
   document.addEventListener("astro:page-load", () => {
+    console.log("ASSET_URL is set to:", ASSET_URL);
     const buttons = document.querySelectorAll(
       "[data-asset]",
     ) as NodeListOf<HTMLButtonElement>;
