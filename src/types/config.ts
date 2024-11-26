@@ -6,7 +6,7 @@ export interface Config {
     // Default: 8080
     port?: number;
 
-    // The source of static assets
+    // Source for app/game images and JSON
     assets?: "local" | "external";
   };
 

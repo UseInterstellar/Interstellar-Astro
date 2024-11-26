@@ -4,7 +4,7 @@ const config: Config = {
   // Server Configuration
   server: {
     port: 8080, // The port on which Interstellar runs (Default: 8080)
-    assets: "external", // Assets Source. Use 'local' for storing assets locally.
+    assets: "external",  // Source for app/game images and JSON. Use 'local' for storing assets locally.
   },
 
   // Authentication Configuration (Optional)
