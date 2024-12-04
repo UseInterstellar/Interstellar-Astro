@@ -33,7 +33,7 @@
     "tailwindcss": "^3.4.15",
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
-    "vite-plugin-static-copy": "^2.1.0",
+    "vite-plugin-static-copy": "^2.2.0",
     "dompurify": "^3.2.2"
   },
   "devDependencies": {
