@@ -21,8 +21,8 @@ importers:
         specifier: ^5.1.3
         version: 5.1.3(astro@4.16.2(@types/node@22.10.1)(rollup@4.24.0)(typescript@5.6.3))(tailwindcss@3.4.16)
       '@fastify/basic-auth':
-        specifier: ^6.0.1
-        version: 6.0.1
+        specifier: ^6.0.2
+        version: 6.0.2
       '@fastify/compress':
         specifier: ^8.0.1
         version: 8.0.1
@@ -609,8 +609,8 @@ packages:
   '@fastify/ajv-compiler@4.0.1':
     resolution: {integrity: sha512-DxrBdgsjNLP0YM6W5Hd6/Fmj43S8zMKiFJYgi+Ri3htTGAowPVG/tG1wpnWLMjufEnehRivUCKZ1pLDIoZdTuw==}
 
-  '@fastify/basic-auth@6.0.1':
-    resolution: {integrity: sha512-qEc2GvqqKg6LdkG4/a/95lmOfJVY1iImv+F8hyYtmnQjqihmB1s0GZJUgSUjGpJRZcl7bta09/nKIlRfGbhu1w==}
+  '@fastify/basic-auth@6.0.2':
+    resolution: {integrity: sha512-tnFVBPGHSqO/+g134I1S1bWxDKBAuByThy35zNdpCls/pyZ/sy7B0TwxtfG6MmESP4WiqwmLUTMfW+YOKe83vA==}
 
   '@fastify/compress@8.0.1':
     resolution: {integrity: sha512-yWNfKhvL4orfN45LKCHCo8Fcsbj1kdNgwyShw2xpdHfzPf4A3MESmgSfUm3TCKQwgqDdrPnLfy1E+3I/DVP+BQ==}
@@ -3337,7 +3337,7 @@ snapshots:
       ajv-formats: 3.0.1(ajv@8.17.1)
       fast-uri: 3.0.2
 
-  '@fastify/basic-auth@6.0.1':
+  '@fastify/basic-auth@6.0.2':
     dependencies:
       '@fastify/error': 4.0.0
       fastify-plugin: 5.0.1
