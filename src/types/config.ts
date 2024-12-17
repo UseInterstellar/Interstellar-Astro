@@ -5,9 +5,6 @@ export interface Config {
     // The port to run the HTTP server on
     // Default: 8080
     port?: number;
-
-    // Source for app/game images and JSON
-    assets?: "local" | "external";
   };
 
   // Authentication configuration

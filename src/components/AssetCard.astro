@@ -3,7 +3,7 @@ interface Props {
   asset: Asset;
 }
 import { Image } from "astro:assets";
-import { ASSET_URL, type Asset } from "@/lib/assets.ts";
+import { type Asset } from "@/lib/assets.ts";
 import { Ban, CircleAlert, UserRoundPlus } from "lucide-astro";
 
 const { asset } = Astro.props;
@@ -14,7 +14,7 @@ export const prerender = false;
   <div class="relative group cursor-pointer transition-all duration-150 hover:scale-105">
     <Image
       loading="lazy"
-      src={ASSET_URL + asset.image}
+      src={asset.image}
       alt={asset.name}
       height={145}
       width={145}
