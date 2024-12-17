@@ -57,8 +57,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
       lucide-astro:
-        specifier: ^0.460.0
-        version: 0.460.0(astro@4.16.2(@types/node@22.10.2)(rollup@4.24.0)(typescript@5.6.3))
+        specifier: ^0.468.0
+        version: 0.468.0(astro@4.16.2(@types/node@22.10.2)(rollup@4.24.0)(typescript@5.6.3))
       mime:
         specifier: ^4.0.4
         version: 4.0.4
@@ -1767,8 +1767,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-astro@0.460.0:
-    resolution: {integrity: sha512-4iteWvZ2l/KjXXKnaKXdeCXOd2zsO6gqdhSm7krjYgDlb68mPpylPSvWciBP26h2IRKkorKqkkKCmkFBbChFiA==}
+  lucide-astro@0.468.0:
+    resolution: {integrity: sha512-jl4jmNX9KUje4sDYvdwZ6EjYQ200s+5+JZsNu/vQqINxqVO/Kn8GvPlFu2T7dvfDW6pP63J8hRwspnXF6RiGVA==}
     peerDependencies:
       astro: '>=2.7.1'
 
@@ -4599,7 +4599,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-astro@0.460.0(astro@4.16.2(@types/node@22.10.2)(rollup@4.24.0)(typescript@5.6.3)):
+  lucide-astro@0.468.0(astro@4.16.2(@types/node@22.10.2)(rollup@4.24.0)(typescript@5.6.3)):
     dependencies:
       astro: 4.16.2(@types/node@22.10.2)(rollup@4.24.0)(typescript@5.6.3)
 

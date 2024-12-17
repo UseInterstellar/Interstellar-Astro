@@ -27,7 +27,7 @@
     "astro": "^4.16.2",
     "fastify": "^5.1.0",
     "js-cookie": "^3.0.5",
-    "lucide-astro": "^0.460.0",
+    "lucide-astro": "^0.468.0",
     "mime": "^4.0.4",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.16",
