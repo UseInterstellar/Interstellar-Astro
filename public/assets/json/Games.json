@@ -89,7 +89,7 @@
   {
     "name": "Rooftop Snipers 2",
     "link": "https://h5cdn.github.io/s6/rooftop-snipers-2/",
-    "image": "/assets/media/icons/1Gzm5Ojx7m4lqZJHAImm58072eAxs8ETwn2.webp",
+    "image": "/assets/media/icons/Rooftop-Snipers-2.webp",
     "categories": ["all"]
   },
   {
@@ -125,7 +125,7 @@
   {
     "name": "Big Tower Tiny Square",
     "link": "https://www.coolmathgames.com/0-big-tower-tiny-square/play",
-    "image": "/assets/media/icons/8UWHcleeq6WOei.webp",
+    "image": "/assets/media/icons/Big-Tower-Tiny-Square.webp",
     "categories": ["all"]
   },
   {
@@ -143,7 +143,7 @@
   {
     "name": "skribbl",
     "link": "https://skribbl.io/",
-    "image": "/assets/media/icons/5jDJZewfBU2c5u4iuVeAhakoKyqwkt.webp",
+    "image": "/assets/media/icons/Skribbl-IO.webp",
     "categories": ["all", "2P"]
   },
   {
@@ -239,7 +239,7 @@
   {
     "name": "Bandit.RIP",
     "link": "https://bandit.rip/",
-    "image": "/assets/media/icons/0yXCHiQXsbsbTUOs3gyqTWpDm.webp",
+    "image": "/assets/media/icons/Bandit-RIP.webp",
     "categories": ["all", "2P"]
   },
   {
@@ -329,7 +329,7 @@
   {
     "name": "Minecraft Classic",
     "link": "https://classic.minecraft.net",
-    "image": "/assets/media/icons/3Kh4tMEALEgwVNjz4sADYN3O1JYjN9isBM2e5.webp",
+    "image": "/assets/media/icons/Minecraft.webp",
     "categories": ["all", "2P"]
   },
   {
@@ -385,7 +385,7 @@
   {
     "name": "Jetpack Joyride",
     "link": "/e/jetpack-joyride/index.html",
-    "image": "/assets/media/icons/0JEn1ydND9eREAwimoyiVuE44Yh3eCwE4uSIDm.webp",
+    "image": "/assets/media/icons/Jetpack-Joyride.webp",
     "categories": ["all", "local"]
   },
   {
@@ -415,7 +415,7 @@
   {
     "name": "Papa's Burgeria",
     "link": "https://www.coolmathgames.com/0-papas-burgeria/play",
-    "image": "/assets/media/icons/3Yf7yglsDmd8JRJbfIso4IRFU9XVP.webp",
+    "image": "/assets/media/icons/Papas-Burgeria.webp",
     "categories": ["all"]
   },
   {
@@ -553,7 +553,7 @@
   {
     "name": "Duck Life 4",
     "link": "/e/ducklife4/index.html",
-    "image": "/assets/media/icons/01wa15vqVWq0sfZqWTUEoBqd.webp",
+    "image": "/assets/media/icons/Duck-Life-4.webp",
     "categories": ["all", "local"],
     "load": true
   },
@@ -566,7 +566,7 @@
   {
     "name": "Evades",
     "link": "https://evades.io",
-    "image": "/assets/media/icons/4jQkZFTIAAhLY3iWmtZEEQJ9J.webp",
+    "image": "/assets/media/icons/Evades.webp",
     "categories": ["all,", "2P"]
   },
   {
@@ -608,7 +608,7 @@
   {
     "name": "FNAF Web",
     "link": "https://wellsousaaa.github.io/Five-Nights-at-Freddys-Web/",
-    "image": "/assets/media/icons/4f0hH5hPQQon61RNl1e6JO.webp",
+    "image": "/assets/media/icons/FNAF-Web.webp",
     "categories": ["all"]
   },
   {
@@ -824,7 +824,7 @@
   {
     "name": "BTD 4",
     "link": "https://en.gameslol.net/data/bloons-td-4/index.html",
-    "image": "/assets/media/icons/7EEZecYIT4eEd.webp",
+    "image": "/assets/media/icons/BTD-4.webp",
     "categories": ["all"]
   },
   {
@@ -890,7 +890,7 @@
   {
     "name": "Diep.io",
     "link": "https://diep.io/",
-    "image": "/assets/media/icons/3usjuHAH7ziAP73Pk7jdbDzSI9Abgoz6cx.webp",
+    "image": "/assets/media/icons/Diep-IO.webp",
     "categories": ["all"]
   },
   {
@@ -920,7 +920,7 @@
   {
     "name": "Drift Boss",
     "link": "https://watchdocumentaries.com/wp-content/uploads/games/drift-boss/",
-    "image": "/assets/media/icons/5KLvCO3whTOygnhpi5ZGsZvlLpV.webp",
+    "image": "/assets/media/icons/Drift-Boss.webp",
     "categories": ["all"]
   },
   {
@@ -938,7 +938,7 @@
   {
     "name": "Fallout 2",
     "link": "https://jonasz-o.itch.io/fallout2remake3d",
-    "image": "/assets/media/icons/1cnxDfdxYxJzWVtvizV.webp",
+    "image": "/assets/media/icons/Fallout-2.webp",
     "categories": ["all"]
   },
   {
@@ -956,7 +956,7 @@
   {
     "name": "FNF - Lofi Mod",
     "link": "https://fnf.kdata1.com/lofi-funkin/2/",
-    "image": "/assets/media/icons/4fElbrN0BMw5iv5A2FXR7.webp",
+    "image": "/assets/media/icons/FNF-Lofi-Mod.webp",
     "categories": ["all"]
   },
   {
@@ -974,7 +974,7 @@
   {
     "name": "Kirby Mirror (GBA)",
     "link": "https://www.retrogames.onl/gba/kirby-mirror-gba.html",
-    "image": "/assets/media/icons/8MJ3NKJ8uqAJOXh5qIf.webp",
+    "image": "/assets/media/icons/Kirby-Mirror.webp",
     "categories": ["all"]
   },
   {
@@ -1004,7 +1004,7 @@
   {
     "name": "Golden Eye 007",
     "link": "https://f.kbhgames.com/r/n64/game.php?file=007-golden-eye.zip",
-    "image": "/assets/media/icons/3hKeo64z3h6GUdA6FTtSVLGpv5HTBLU2.webp",
+    "image": "/assets/media/icons/Golden-Eye-007.webp",
     "categories": ["all"]
   },
   {
@@ -1190,7 +1190,7 @@
   {
     "name": "Papa's Cupcakeria",
     "link": "https://f.silvergames.com/emu/waffle/?id=3246",
-    "image": "/assets/media/icons/0y8sIxYm3PjSCNu1MzkTR.webp",
+    "image": "/assets/media/icons/Papas-Cupcakeria.webp",
     "categories": ["all"]
   },
   {
@@ -1220,7 +1220,7 @@
   {
     "name": "Paper Mario 64",
     "link": "https://f.kbhgames.com/r/n64/game.php?file=Paper%20Mario%20(USA).zip",
-    "image": "/assets/media/icons/0uX13qerqvh0trO1oOusR7HIvI8tUiSaZ1VGu.webp",
+    "image": "/assets/media/icons/Paper-Mario-64.webp",
     "categories": ["all"]
   },
   {
@@ -1232,13 +1232,13 @@
   {
     "name": "Pixel Shooter",
     "link": "https://94bfktj403i6m18as4vkvtreqd0ohci4-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://274019683-173520394482650759.preview.editmysite.com/uploads/b/139890129-131715539788281629/files/ps.xml",
-    "image": "/assets/media/icons/8PHVt0goizbMXN2P6g9PTofZ4.webp",
+    "image": "/assets/media/icons/Pixel-Shooter.webp",
     "categories": ["all"]
   },
   {
     "name": "Pizza Tower",
     "link": "https://gamaverse.com/c/e/g/pizza-tower-1678640389/index.html",
-    "image": "/assets/media/icons/8Wrcq4Whp0yvp.webp",
+    "image": "/assets/media/icons/Pizza-Tower.webp",
     "categories": ["all"]
   },
   {
@@ -1268,7 +1268,7 @@
   {
     "name": "Deadshot",
     "link": "https://deadshot.io",
-    "image": "/assets/media/icons/5akOw5EHywSFNJBvRm2P3JV8W.webp",
+    "image": "/assets/media/icons/Deadshot.webp",
     "categories": ["all"]
   },
   {
@@ -1310,7 +1310,7 @@
   {
     "name": "Precision Client",
     "link": "https://raw.githack.com/3kh0/3kh0-assets/main/precision-client/index.html",
-    "image": "/assets/media/icons/0CGAilRgbbh.webp",
+    "image": "/assets/media/icons/Precision-Client.webp",
     "categories": ["all"]
   },
   {
@@ -1352,7 +1352,7 @@
   {
     "name": "Retro Arch",
     "link": "https://binbashbanana.github.io/webretro/",
-    "image": "/assets/media/icons/None",
+    "image": "/assets/media/icons/m6Z56Ept7X52DF4pAUWsfCe.webp",
     "categories": ["all"]
   },
   {
@@ -1370,19 +1370,19 @@
   {
     "name": "Rocket Pult",
     "link": "https://v6p9d9t4.ssl.hwcdn.net/html/565140/index.html",
-    "image": "/assets/media/icons/4JtvbTC7Pk49GrDal8H9XYXXSBgDag.webp",
+    "image": "/assets/media/icons/Rocket-Pult.webp",
     "categories": ["all"]
   },
   {
     "name": "Rooftop Snipers",
     "link": "https://html5.gamedistribution.com/rvvASMiM/c3a70ae98547407a92ebedca8b79fdfa/index.html",
-    "image": "/assets/media/icons/6DzOFzgjYBv.webp",
+    "image": "/assets/media/icons/Rooftop-Snipers.webp",
     "categories": ["all"]
   },
   {
     "name": "Sand Spiel",
     "link": "https://sandspiel.club/",
-    "image": "/assets/media/icons/2Tg4Ld6EBLaIfh.webp",
+    "image": "/assets/media/icons/Sand-Spiel.webp",
     "categories": ["all"]
   },
   {
@@ -1400,7 +1400,7 @@
   {
     "name": "Shell Shockers",
     "link": "https://shellshock.io/",
-    "image": "/assets/media/icons/5WEE60ZH8fSicgvl8v.webp",
+    "image": "/assets/media/icons/Shell-Shockers.webp",
     "categories": ["all"]
   },
   {
@@ -1410,9 +1410,9 @@
     "categories": ["all"]
   },
   {
-    "name": "Smash Bros 64",
+    "name": "Super Smash Bros 64",
     "link": "https://emulatorgames.online/games/n64/super-smash-bros",
-    "image": "/assets/media/icons/7F0k6QHIGnCiZprUj.webp",
+    "image": "/assets/media/icons/Smash-Bros-64.webp",
     "categories": ["all"]
   },
   {
@@ -1448,7 +1448,7 @@
   {
     "name": "Sugar Sugar HTML5",
     "link": "https://66564262-37c6-4095-a731-535342e4bbe4.poki-gdn.com/5bd6e8c6-381d-4de5-9823-96662d29afaf/index.html",
-    "image": "/assets/media/icons/4TpQUYXrvksYE07GGPJaVLu.webp",
+    "image": "/assets/media/icons/Sugar-Sugar-HTML5.webp",
     "categories": ["all"]
   },
   {
@@ -1460,7 +1460,7 @@
   {
     "name": "Super Mario 64",
     "link": "https://f.kbhgames.com/r/n64/game.php?file=32112_super-mario-64-usa.zip",
-    "image": "/assets/media/icons/6sWf8Ad0B7m1OaupbiirwZA1R8PoVHD0OLmwc.webp",
+    "image": "/assets/media/icons/Super-Mario-64.webp",
     "categories": ["all"]
   },
   {
@@ -1478,7 +1478,7 @@
   {
     "name": "Taming.io",
     "link": "https://taming.io/",
-    "image": "/assets/media/icons/8kUBRT2E7s8X1m1achybwb8Z7nt3Dv0FYo.webp",
+    "image": "/assets/media/icons/Taming-IO.webp",
     "categories": ["all"]
   },
   {
@@ -1490,7 +1490,7 @@
   {
     "name": "Tanuki Sunset",
     "link": "https://watchdocumentaries.com/wp-content/uploads/games/tanuki-sunset",
-    "image": "/assets/media/icons/4jYph3w6aY.webp",
+    "image": "/assets/media/icons/Tanuki-Sunset.webp",
     "categories": ["all"]
   },
   {
@@ -1556,7 +1556,7 @@
   {
     "name": "Madden NFL 24",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.ea.gp.maddennfl21mobile&partner=interstellar",
-    "image": "/assets/media/icons/3oIZOCnIyFa.webp",
+    "image": "/assets/media/icons/Madden-NFL-24.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1610,7 +1610,7 @@
   {
     "name": "Bloons TD Battles",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.ninjakiwi.bloonstdbattles&partner=interstellar",
-    "image": "/assets/media/icons/6sFyW8lm5QxA01.webp",
+    "image": "/assets/media/icons/Bloons-TD-Battles.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1634,7 +1634,7 @@
   {
     "name": "Akinator",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.digidust.elokence.akinator.freemium&partner=interstellar",
-    "image": "/assets/media/icons/0e9Eknd4ZS31hgTiL1UarTdIXu59K.webp",
+    "image": "/assets/media/icons/Akinator.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1682,25 +1682,25 @@
   {
     "name": "Roblox (NowGG.me) [Working]",
     "link": "https://nowgg.me/apps/roblox-corporation/5349/roblox.html",
-    "image": "/assets/media/icons/None",
+    "image": "/assets/media/icons/LXZTNchn1kt8I2RizD92nri93i.webp",
     "categories": ["all", "emu", "android"]
   },
   {
     "name": "Now.GG (NowGG.me) [Working]",
     "link": "https://nowgg.me",
-    "image": "/assets/media/icons/None",
+    "image": "/assets/media/icons/LXZTNchn1kt8I2RizD92nri93i.webp",
     "categories": ["all", "emu", "android"]
   },
   {
     "name": "Parappa the Rapper",
     "link": "https://retrogamesonline.io/parappa-the-rapper.embed",
-    "image": "/assets/media/icons/3zBLPwpsynRFNUochxiug.webp",
+    "image": "/assets/media/icons/Parappa-The-Rapper.webp",
     "categories": ["all", "emu"]
   },
   {
     "name": "Half-Life",
     "link": "https://x8bitrain.github.io/webXash/",
-    "image": "/assets/media/icons/6u4qKf3VSx35XSqhP6k6mDwjr.webp",
+    "image": "/assets/media/icons/Half-Life.webp",
     "categories": ["all"]
   },
   {
@@ -1724,7 +1724,7 @@
   {
     "name": "Narrow One",
     "link": "https://narrow.one",
-    "image": "/assets/media/icons/6sR56uZwmyMNAnEA0GujEbJ5Ysr6lzjmQxmhA.webp",
+    "image": "/assets/media/icons/Narrow-One.webp",
     "categories": ["all"]
   },
   {
@@ -1754,25 +1754,25 @@
   {
     "name": "Minecraft 1.5.2 (Eaglercraft)",
     "link": "/e/1/ec-15/index.html",
-    "image": "/assets/media/icons/3Kh4tMEALEgwVNjz4sADYN3O1JYjN9isBM2e5.webp",
+    "image": "/assets/media/icons/Minecraft.webp",
     "categories": ["all", "2P", "emu", "local"]
   },
   {
     "name": "Minecraft 1.8 (Eaglercraft)",
     "link": "/e/1/ec-18/index.html",
-    "image": "/assets/media/icons/3Kh4tMEALEgwVNjz4sADYN3O1JYjN9isBM2e5.webp",
+    "image": "/assets/media/icons/Minecraft.webp",
     "categories": ["all", "2P", "emu", "local"]
   },
   {
-    "name": "Getaway S.",
+    "name": "Getaway Sho...",
     "link": "https://www.twoplayergames.org/embed/getaway-shootout",
-    "image": "/assets/media/icons/1XxmGOM0P8imAywGK.webp",
+    "image": "/assets/media/icons/Getaway-Shootout.webp",
     "categories": ["all", "2P"]
   },
   {
     "name": "Eaglercraft 1.5.2 [Singleplayer]",
     "link": "https://interstellar-assets.pages.dev/minecraft-15/",
-    "image": "/assets/media/icons/3Kh4tMEALEgwVNjz4sADYN3O1JYjN9isBM2e5.webp",
+    "image": "/assets/media/icons/Minecraft.webp",
     "categories": ["all", "2P", "emu"],
     "blank": "true"
   },
@@ -1922,8 +1922,8 @@
   },
   {
     "name": "Globle",
-    "link": "https://globle.org/?",
-    "image": "/assets/media/icons/None",
+    "link": "https://globle.org",
+    "image": "/assets/media/icons/OHv1YXMfwymIaBUbQssu1V.webp",
     "categories": ["all"]
   },
   {
@@ -1977,7 +1977,7 @@
   {
     "name": "13 Days In Hell",
     "link": "https://selenite.cc/semag/13/index.html",
-    "image": "/assets/media/icons/8TldMZgV1Jp7.webp",
+    "image": "/assets/media/icons/13-Days-In-Hell.webp",
     "categories": ["all"]
   },
   {

@@ -40,7 +40,7 @@
   {
     "name": "Temu",
     "link": "https://www.temu.com/",
-    "image": "/assets/media/icons/2YKNsjprELcgFWKPAWlftnubpA0jls6wC.png",
+    "image": "/assets/media/icons/Temu.png",
     "categories": ["all"]
   },
   {
@@ -130,7 +130,7 @@
   {
     "name": "GitHub",
     "link": "https://github.com",
-    "image": "/assets/media/icons/4ZAOJSbER23SmOiSW7fHNW5CwYQGOSjldb.webp",
+    "image": "/assets/media/icons/GitHub.webp",
     "categories": ["all"]
   },
   {
@@ -184,7 +184,7 @@
   {
     "name": "Pixlr",
     "link": "https://pixlr.com/",
-    "image": "/assets/media/icons/7GsERYYoepFqKluLcCB6Chil.webp",
+    "image": "/assets/media/icons/Pixlr.webp",
     "categories": ["all"]
   },
   {
@@ -260,9 +260,9 @@
     "categories": ["all", "social"]
   },
   {
-    "name": "Twitch",
+    "name": "Twitch.TV",
     "link": "https://twitch.tv",
-    "image": "/assets/media/icons/8z3eDWSuHptl2NnFYUtG.webp",
+    "image": "/assets/media/icons/Twitch-TV.webp",
     "categories": ["all", "stream"]
   },
   {
@@ -324,7 +324,7 @@
   {
     "name": "HD Today",
     "link": "https://hdtoday.tv",
-    "image": "/assets/media/icons/2xLhejNmr1JVmV1aTL1xkrdWn6QoQ0Y0gqMe.webp",
+    "image": "/assets/media/icons/HD-Today.webp",
     "categories": ["all", "stream", "media"]
   },
   {
@@ -355,7 +355,7 @@
   {
     "name": "Google Gemini",
     "link": "https://gemini.google.com",
-    "image": "/assets/media/icons/0hsyp69faJidsxRFIlJwt4dmaUtbVLtOyQ4.webp",
+    "image": "/assets/media/icons/Google-Gemini.webp",
     "categories": ["all", "ai"]
   },
   {
@@ -437,7 +437,7 @@
   {
     "name": "CodeSandbox",
     "link": "https://codesandbox.io/",
-    "image": "/assets/media/icons/4JmgqwfLIsYtgU8aDUe.png",
+    "image": "/assets/media/icons/CodeSandbox.png",
     "categories": ["all"]
   },
   {
