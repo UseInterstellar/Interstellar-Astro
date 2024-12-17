@@ -1,4 +1,3 @@
-import INConfig from "config.ts";
 import Cookies from "js-cookie";
 
 export type Asset = {

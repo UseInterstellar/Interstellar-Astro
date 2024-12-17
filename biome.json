@@ -7,7 +7,7 @@
       "**/dist/**",
       "**/node_modules/**",
       "**/assets/bundled/**",
-      "**/assets/json/**"
+      "*.min.json"
     ]
   },
   "linter": {
@@ -20,7 +20,7 @@
       "**/dist/**",
       "**/node_modules/**",
       "**/assets/bundled/**",
-      "**/assets/json/**"
+      "*.min.json"
     ]
   },
   "formatter": {
@@ -32,11 +32,9 @@
     "ignore": [
       "**/pnpm-lock.yaml",
       "**/dist/**",
-      "**/.astro/**",
       "**/node_modules/**",
       "**/assets/bundled/**",
-      "*.astro",
-      "**/assets/json/**"
+      "*.min.json"
     ]
   },
   "javascript": {
