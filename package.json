@@ -34,7 +34,7 @@
     "tsx": "^4.19.2",
     "typescript": "^5.6.3",
     "vite-plugin-static-copy": "^2.2.0",
-    "dompurify": "^3.2.2"
+    "dompurify": "^3.2.3"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
