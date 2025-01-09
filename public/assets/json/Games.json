@@ -14,7 +14,7 @@
   {
     "name": "Amazon Luna",
     "link": "https://luna.amazon.com/",
-    "image": "/assets/media/icons/FHLuaDMnRvpktf0cfmD0tjytNQ.webp",
+    "image": "/assets/media/icons/Amazon-Luna.webp",
     "categories": ["all"],
     "blank": "true"
   },
@@ -65,7 +65,7 @@
   {
     "name": "Twisted Cooking Mama",
     "link": "https://twisted-cooking-mama.game-files.crazygames.com/ruffle/twisted-cooking-mama/1/twistedcookingmama.html?v=1.273",
-    "image": "/assets/media/icons/fBNZMaISKW.webp",
+    "image": "/assets/media/icons/Twisted-Cooking-Mama.webp",
     "categories": ["all"]
   },
   {
@@ -149,13 +149,13 @@
   {
     "name": "Wings!",
     "link": "https://wings.io/",
-    "image": "/assets/media/icons/CnNiczlS6lwQHtWzjUwjRrYgSK6.webp",
+    "image": "/assets/media/icons/Wings.webp",
     "categories": ["all", "2P"]
   },
   {
     "name": "Stomped.io",
     "link": "https://stomped.io",
-    "image": "/assets/media/icons/dFgfsQ2NkKMJL82ufH6YCHCeXD.webp",
+    "image": "/assets/media/icons/Stomped-IO.webp",
     "categories": ["all"]
   },
   {
@@ -263,7 +263,7 @@
   {
     "name": "Brain Test 2",
     "link": "https://games.poki.com/458768/df221093-aae9-4c0d-b458-efb16ae8e3ab",
-    "image": "/assets/media/icons/ESHQHYZUzqX639LxVSyp31g2VA8LRZDKcQ46d.webp",
+    "image": "/assets/media/icons/Brain-Test-2.webp",
     "categories": ["all"]
   },
   {
@@ -347,9 +347,9 @@
     "say": "Neal.fun does not work on Interstellar because of Cloudflare protection."
   },
   {
-    "name": "YoHoHo.io",
+    "name": "Yohoho.io",
     "link": "https://yohoho.io/",
-    "image": "/assets/media/icons/Dfkv2lXLnj3T6BxI5ZVzqb7jWMEBcVbfPGtrCu.webp",
+    "image": "/assets/media/icons/Yohoho-IO.webp",
     "categories": ["all", "2P"]
   },
   {
@@ -395,15 +395,15 @@
     "categories": ["all"]
   },
   {
-    "name": "florr.io",
+    "name": "Florr.io",
     "link": "https://florr.io",
-    "image": "/assets/media/icons/cW3J1DBKVmOazqo2mvQ24pIDIz1dS6cztZ7wBTzh.webp",
+    "image": "/assets/media/icons/Florr-IO.webp",
     "categories": ["all", "2P"]
   },
   {
     "name": "Rocket Bot Royale",
     "link": "https://rocketbotroyale2.winterpixel.io/",
-    "image": "/assets/media/icons/efg6SmIyPN7p3AtejDnzKtByO6.webp",
+    "image": "/assets/media/icons/Rocket-Bot-Royale.webp",
     "categories": ["all"]
   },
   {
@@ -427,7 +427,7 @@
   {
     "name": "Papa's Pancakeria",
     "link": "https://www.coolmathgames.com/0-papas-pancakeria/play",
-    "image": "/assets/media/icons/cSAFTRAWRIaDuFltrLjRlKgwZ.webp",
+    "image": "/assets/media/icons/Papas-Pancakeria.webp",
     "categories": ["all"]
   },
   {
@@ -457,7 +457,7 @@
   {
     "name": "Papa's Sushiria",
     "link": "https://files.crazygames.com/ruffle/papassushiria.html",
-    "image": "/assets/media/icons/DV51n5jPkLxqZAlhkPDahMvlq1M8aeP6UeCY.webp",
+    "image": "/assets/media/icons/Papas-Sushiria.webp",
     "categories": ["all"]
   },
   {
@@ -487,7 +487,7 @@
   {
     "name": "Fireboy And Watergirl 6: Fairy Tales",
     "link": "https://html5.gamedistribution.com/rvvASMiM/be3cff113c4e4f069b7614851825ffe9/index.html",
-    "image": "/assets/media/icons/eDJlP4dAhLk5wVDhj0Wa7MAgBlU8KsfFeAJwf.webp",
+    "image": "/assets/media/icons/Fireboy-And-Watergirl-6.webp",
     "categories": ["all", "2P"]
   },
   {
@@ -527,27 +527,27 @@
     "categories": ["all"]
   },
   {
-    "name": "bloxd.io",
+    "name": "Bloxd.io",
     "link": "https://bloxd.io",
-    "image": "/assets/media/icons/CZZLaa9CE4E0q2wx95jnS.webp",
+    "image": "/assets/media/icons/Bloxd-IO.webp",
     "categories": ["all", "2P"]
   },
   {
     "name": "Duck Life 1",
     "link": "https://www.hoodamath.com/mobile/games/duck-life/game.html",
-    "image": "/assets/media/icons/Eqp2X8LKGj0kyrzO6vNSHr6jJZxfL0w1.webp",
+    "image": "/assets/media/icons/Duck-Life.webp",
     "categories": ["all"]
   },
   {
     "name": "Duck Life 2",
     "link": "https://www.hoodamath.com/mobile/games/duck-life-2-world-champion/game.html",
-    "image": "/assets/media/icons/Eqp2X8LKGj0kyrzO6vNSHr6jJZxfL0w1.webp",
+    "image": "/assets/media/icons/Duck-Life.webp",
     "categories": ["all"]
   },
   {
     "name": "Duck Life 3",
     "link": "https://www.hoodamath.com/mobile/games/duck-life-3-evolution/game.html",
-    "image": "/assets/media/icons/Eqp2X8LKGj0kyrzO6vNSHr6jJZxfL0w1.webp",
+    "image": "/assets/media/icons/Duck-Life.webp",
     "categories": ["all"]
   },
   {
@@ -584,7 +584,7 @@
   {
     "name": "Cubes 2048",
     "link": "https://www.crazygames.com/game/cubes-2048-io",
-    "image": "/assets/media/icons/Du6DPYGbdT5qjJJLKcpm4S7.webp",
+    "image": "/assets/media/icons/Cubes-2048.webp",
     "categories": ["all,", "2P"]
   },
   {
@@ -704,7 +704,7 @@
   {
     "name": "Bomb Party",
     "link": "https://jklm.fun",
-    "image": "/assets/media/icons/CWBrPfSh9GFP5UrHTcDe3.webp",
+    "image": "/assets/media/icons/JKLM.webp",
     "categories": ["all,", "2P"]
   },
   {
@@ -764,7 +764,7 @@
   {
     "name": "Adventure Capitalist",
     "link": "https://than1089.github.io/adventure-capitalist/",
-    "image": "/assets/media/icons/ezYyFLlXzCR90.webp",
+    "image": "/assets/media/icons/Adventure-Capitalist.webp",
     "categories": ["all"]
   },
   {
@@ -788,7 +788,7 @@
   {
     "name": "Basket Random",
     "link": "https://html5.gamedistribution.com/rvvASMiM/bf1268dccb5d43e7970bb3edaa54afc8/index.html",
-    "image": "/assets/media/icons/DWJDxivN5vbPgpBtz3pfJaEbjBNtxlYSqgo5o6.webp",
+    "image": "/assets/media/icons/Basket-Random.webp",
     "categories": ["all"]
   },
   {
@@ -878,7 +878,7 @@
   {
     "name": "Crossy Road",
     "link": "https://5dd2e1e3-015f-11ea-ad56-9cb6d0d995f7.poki-gdn.com/169dc11d-e718-4b36-9e60-d5ed5bc07a31/index.html",
-    "image": "/assets/media/icons/FpjNLB0Rn1B65rBKxVfBnoZmUvCO7YvhS7leBv.webp",
+    "image": "/assets/media/icons/Crossy-Road.webp",
     "categories": ["all"]
   },
   {
@@ -950,7 +950,7 @@
   {
     "name": "Friday Night Funkin'",
     "link": "https://w8.snokido.com/games/html5/friday-night-funkin/0281/index.html",
-    "image": "/assets/media/icons/dehverdBZO1pbf141.webp",
+    "image": "/assets/media/icons/Friday-Night-Funkin.webp",
     "categories": ["all"]
   },
   {
@@ -978,9 +978,9 @@
     "categories": ["all"]
   },
   {
-    "name": "Krunker",
+    "name": "Krunker.io",
     "link": "https://krunker.io",
-    "image": "/assets/media/icons/egCzCtu63dzQy2k5bgNeJa9G.webp",
+    "image": "/assets/media/icons/Krunker-IO.webp",
     "categories": ["all"]
   },
   {
@@ -1040,7 +1040,7 @@
   {
     "name": "Idle Breakout",
     "link": "/e/1/idle-breakout/index.html",
-    "image": "/assets/media/icons/DA6JWXQliLD83ZoSswe7Y.webp",
+    "image": "/assets/media/icons/Idle-Breakout.webp",
     "categories": ["all", "local"]
   },
   {
@@ -1052,7 +1052,7 @@
   {
     "name": "Interactive Buddy",
     "link": "https://f.silvergames.com/ruffle/player.php?id=204",
-    "image": "/assets/media/icons/CPHVN7g823tnBsTGWf.webp",
+    "image": "/assets/media/icons/Interactive-Buddy.webp",
     "categories": ["all"]
   },
   {
@@ -1064,7 +1064,7 @@
   {
     "name": "Jacksmith",
     "link": "https://www.coolmathgames.com/0-jacksmith/play",
-    "image": "/assets/media/icons/CLkAkhGlrT2EXDwY7jkZvB2BJZsKcQL2p0KKHXW.webp",
+    "image": "/assets/media/icons/Jacksmith.webp",
     "categories": ["all"]
   },
   {
@@ -1250,7 +1250,7 @@
   {
     "name": "Pokemon Showdown",
     "link": "https://play.pokemonshowdown.com",
-    "image": "/assets/media/icons/CW6Cf94UkT4ZQFJxk9BNeow.webp",
+    "image": "/assets/media/icons/Pokemon-Shadow.webp",
     "categories": ["all"]
   },
   {
@@ -1298,7 +1298,7 @@
   {
     "name": "Madalin Stunt Cars 3",
     "link": "https://games.crazygames.com/en_US/madalin-stunt-cars-3/index.html",
-    "image": "/assets/media/icons/eYrXxvW4U4xhHdKwdEJgQmqnDjV0mxVi0wWdSAb.webp",
+    "image": "/assets/media/icons/Madalin-Stunt-Cars-3.webp",
     "categories": ["all"]
   },
   {
@@ -1346,7 +1346,7 @@
   {
     "name": "Red Ball 4 Vol. 3",
     "link": "https://www.algebrashelper.com/red-ball-4v3",
-    "image": "/assets/media/icons/e5bRzxlPpd3eCwjQkDknKn7spYLm.webp",
+    "image": "/assets/media/icons/Red-Ball-4-Vol-3.webp",
     "categories": ["all"]
   },
   {
@@ -1394,7 +1394,7 @@
   {
     "name": "Shapez.IO",
     "link": "https://shapez.io",
-    "image": "/assets/media/icons/FDDjjdQSrmNWPfc4QcdPFS2Yt.webp",
+    "image": "/assets/media/icons/Shapez-IO.webp",
     "categories": ["all"]
   },
   {
@@ -1484,7 +1484,7 @@
   {
     "name": "Temple of Boom",
     "link": "https://temple-of-boom.github.io/file/",
-    "image": "/assets/media/icons/EStt5WLtLq9RKdQ2khFDlUfqn.webp",
+    "image": "/assets/media/icons/Temple-Of-Boom.webp",
     "categories": ["all", "2P"]
   },
   {
@@ -1580,7 +1580,7 @@
   {
     "name": "EA SPORTS FC\u2122 MOBILE 24 SOCCER",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.ea.gp.fifamobile&partner=interstellar",
-    "image": "/assets/media/icons/D8NZMlS0Yn65gpeNm.webp",
+    "image": "/assets/media/icons/EA-Sports-FC-Mobile-24-Soccer.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1604,7 +1604,7 @@
   {
     "name": "Bloons TD Battles 2",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.ninjakiwi.bloonstdbattles2&partner=interstellar",
-    "image": "/assets/media/icons/FBNnhV87cTCWQoYw7uLnx3eJbh3dKUcAYYc7kC0S.webp",
+    "image": "/assets/media/icons/Bloons-TD-Battles-2.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1676,7 +1676,7 @@
   {
     "name": "Now.GG",
     "link": "https://now.gg",
-    "image": "/assets/media/icons/djOQkhq6UaJz.webp",
+    "image": "/assets/media/icons/Now-GG.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1736,7 +1736,7 @@
   {
     "name": "Cryzen",
     "link": "https://cryzen.io",
-    "image": "/assets/media/icons/EWjh0zstVi8wW4By.webp",
+    "image": "/assets/media/icons/Cryzen-IO.webp",
     "categories": ["all"]
   },
   {
@@ -1851,13 +1851,13 @@
   {
     "name": "Idle Startup Tycoon",
     "link": "https://www.mortgagecalculator.org/money-games/idle-startup-tycoon/",
-    "image": "/assets/media/icons/ctVGgeiBgZrxNRYzj7WM7nA42.webp",
+    "image": "/assets/media/icons/Idle-Startup-Tycoon.webp",
     "categories": ["all"]
   },
   {
     "name": "Two Player Games",
     "link": "https://www.twoplayergames.org/",
-    "image": "/assets/media/icons/F8dR7EQReuLSajF.webp",
+    "image": "/assets/media/icons/Two-Player-Games.webp",
     "categories": ["all"]
   },
   {
@@ -1959,7 +1959,7 @@
   {
     "name": "Flappy Bird",
     "link": "https://playcanv.as/p/2OlkUaxF/",
-    "image": "/assets/media/icons/ftIvoqd5vxuJItESXf42nf191Jb.jpg",
+    "image": "/assets/media/icons/Flappy-Bird.jpg",
     "categories": ["all"]
   },
   {

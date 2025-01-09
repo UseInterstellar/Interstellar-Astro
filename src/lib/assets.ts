@@ -17,7 +17,7 @@ export function addAsset(name: string, link: string, type: string) {
   currentAssets.push({
     name: name,
     link: link,
-    image: "/icons/custom.webp",
+    image: "/icons/Custom.webp",
     custom: true,
   });
   Cookies.set(`asset.${type}`, JSON.stringify(currentAssets), {

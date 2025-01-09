@@ -118,7 +118,7 @@
   {
     "name": "Flix HQ",
     "link": "https://flixhq.to",
-    "image": "/assets/media/icons/daynDJ0tVc01lZKaND4T90xTahZJLQuY5a7g.webp",
+    "image": "/assets/media/icons/Flix-HQ.webp",
     "categories": ["all", "media"]
   },
   {
@@ -136,7 +136,7 @@
   {
     "name": "Google",
     "link": "https://google.com",
-    "image": "/assets/media/icons/frCxNsJ1qaPtkjSzpO8UIvGeLtZ54LSfC61dtg.webp",
+    "image": "/assets/media/icons/Google.webp",
     "categories": ["all"]
   },
   {
@@ -226,7 +226,7 @@
   {
     "name": "FreeMediaHeckYeah",
     "link": "https://fmhy.pages.dev",
-    "image": "/assets/media/icons/DXSAFyEiwy.jpg",
+    "image": "/assets/media/icons/Placeholder.jpg",
     "categories": ["all", "media"]
   },
   {
@@ -330,7 +330,7 @@
   {
     "name": "Now.GG",
     "link": "https://now.gg",
-    "image": "/assets/media/icons/djOQkhq6UaJz.webp",
+    "image": "/assets/media/icons/Now-GG.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -348,7 +348,7 @@
   {
     "name": "Amazon Luna",
     "link": "https://luna.amazon.com/",
-    "image": "/assets/media/icons/FHLuaDMnRvpktf0cfmD0tjytNQ.webp",
+    "image": "/assets/media/icons/Amazon-Luna.webp",
     "categories": ["all", "game", "cloud"],
     "blank": "true"
   },
@@ -369,7 +369,7 @@
   {
     "name": "Outlook",
     "link": "https://outlook.live.com/",
-    "image": "/assets/media/icons/eIcUUiHCRLR9zcoVo4Mvpbs3shd17rCwRQA.webp",
+    "image": "/assets/media/icons/Outlook.webp",
     "categories": ["all", "mail"],
     "partial": "true"
   },
@@ -400,7 +400,7 @@
   {
     "name": "SpaceHey",
     "link": "https://www.spacehey.com",
-    "image": "/assets/media/icons/dkXTTbGotpKsgGAtE76C42dqPZr5qVtuxTfDI.png",
+    "image": "/assets/media/icons/Space-Hey.png",
     "categories": ["all", "social"]
   },
   {
@@ -412,7 +412,7 @@
   {
     "name": "EMovies.si",
     "link": "https://emovies.si",
-    "image": "/assets/media/icons/DXSAFyEiwy.jpg",
+    "image": "/assets/media/icons/Placeholder.jpg",
     "categories": ["all", "media"]
   },
   {
@@ -467,7 +467,7 @@
   {
     "name": "ChatGPT",
     "link": "https://chat.openai.com",
-    "image": "/assets/media/icons/EzesYVEtAMSdk38rGh4R9v682zSZ1DxaJA.jpg",
+    "image": "/assets/media/icons/Chat-GPT.jpg",
     "categories": ["all", "ai"],
     "error": "true",
     "say": "You must have a ChatGPT account to use the site, also the site may have some issues if you don't minimize tabs while using it."
