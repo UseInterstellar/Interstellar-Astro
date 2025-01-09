@@ -21,7 +21,7 @@
   {
     "name": "Gartic Phone",
     "link": "https://garticphone.com",
-    "image": "/assets/media/icons/GJzR7wSAxXWYsO1bQObuEyk8.webp",
+    "image": "/assets/media/icons/Gartic-Phone.webp",
     "categories": ["all"]
   },
   {
@@ -33,13 +33,13 @@
   {
     "name": "Pranx",
     "link": "https://pranx.com/",
-    "image": "/assets/media/icons/HbtSDGKP6q4ReEIGF.webp",
+    "image": "/assets/media/icons/Pranx.webp",
     "categories": ["all"]
   },
   {
     "name": "Steam Store",
     "link": "https://store.steampowered.com/",
-    "image": "/assets/media/icons/iDMHLPdRtfO1exvuaI4x39.webp",
+    "image": "/assets/media/icons/Steam-Store.webp",
     "categories": ["all"],
     "say": "Steam can't actually be added because it's an app, not a website. This only lets you browse the Steam website, you can't actually play any games unless you use Geforce Now.",
     "partial": true
@@ -77,7 +77,7 @@
   {
     "name": "Fancy Pants Adventure",
     "link": "https://games.crazygames.com/en_US/fancy-pants-adventure-world/index.html?v=1.273",
-    "image": "/assets/media/icons/i1DPlYGMAx6koGVOngpZ1eCvan1HXN0Uq2oCGgq.webp",
+    "image": "/assets/media/icons/Fancy-Pants-Adventure.webp",
     "categories": ["all"]
   },
   {
@@ -95,7 +95,7 @@
   {
     "name": "Stickman Archero Fight",
     "link": "https://html5.gamedistribution.com/rvvASMiM/3f4c166817ad4fd4b5b05d9adba22fcd/index.html",
-    "image": "/assets/media/icons/Gi1YjtpU0m5fvH115TnPsSZJtLtTdGNXgVj.webp",
+    "image": "/assets/media/icons/Stickman-Archero-Fight.webp",
     "categories": ["all"]
   },
   {
@@ -197,19 +197,19 @@
   {
     "name": "Starblast",
     "link": "https://starblast.io",
-    "image": "/assets/media/icons/Gu9clejJ8blLo9lQ4xaDN8fk.webp",
+    "image": "/assets/media/icons/Starblast.webp",
     "categories": ["all", "2P"]
   },
   {
     "name": "CSGO Parkour",
     "link": "https://yandex.com/games/app/203069?flags={%22adv_sticky_banner_disabled%22:true}",
-    "image": "/assets/media/icons/i8lSSsPGYCVZ8Ekdf2urDsswjvU41B8IPTQfY9.webp",
+    "image": "/assets/media/icons/CSGO-Parkour.webp",
     "categories": ["all"]
   },
   {
     "name": "Parkour Block 3D",
     "link": "https://html5.gamedistribution.com/1461d40bb77f48e6be72489959a1ac04/",
-    "image": "/assets/media/icons/gslxiWGGIAYVWn.webp",
+    "image": "/assets/media/icons/Parkour-Block-3D.webp",
     "categories": ["all"]
   },
   {
@@ -221,7 +221,7 @@
   {
     "name": "Tyran.io",
     "link": "https://tyran.io",
-    "image": "/assets/media/icons/IVx5lzMstsmEFJt7jjGC9.webp",
+    "image": "/assets/media/icons/Tryan-IO.webp",
     "categories": ["all", "2P"]
   },
   {
@@ -367,7 +367,7 @@
   {
     "name": "Time Shooter 2",
     "link": "https://html5.gamedistribution.com/62a72f2da7cb4b609579a47653546e6a/",
-    "image": "/assets/media/icons/gqBQN8WkJDZs4iFPNQa74nsYy0zz.webp",
+    "image": "/assets/media/icons/Time-Shooter-2.webp",
     "categories": ["all"]
   },
   {
@@ -409,7 +409,7 @@
   {
     "name": "Happy Wheels",
     "link": "https://files.crazygames.com/ruffle/happywheels.html",
-    "image": "/assets/media/icons/HnGi9ZRbmUrijbztX1FFclY4DED.webp",
+    "image": "/assets/media/icons/Happy-Wheels.webp",
     "categories": ["all"]
   },
   {
@@ -523,7 +523,7 @@
   {
     "name": "Johnny Upgrade",
     "link": "https://lagged.com/api/play2/johnny-upgrade3/",
-    "image": "/assets/media/icons/ijIMuF5RFk9ZmKnMhoKwXmFpxO8R99NDgswr.webp",
+    "image": "/assets/media/icons/Johnny-Upgrade.webp",
     "categories": ["all"]
   },
   {
@@ -602,7 +602,7 @@
   {
     "name": "FNAF 3",
     "link": "https://sussygamedeveloper.github.io/fnaf3/",
-    "image": "/assets/media/icons/Hy2INTae2HMNx9wN1kIGValCclvdyy.webp",
+    "image": "/assets/media/icons/FNAF-3.webp",
     "categories": ["all"]
   },
   {
@@ -644,7 +644,7 @@
   {
     "name": "Nintendo DS Emulator",
     "link": "https://ds.44670.org/",
-    "image": "/assets/media/icons/GcZHBnDtcQHbX4Rh9ECkVg1S4Dz9lF5B8HUax.webp",
+    "image": "/assets/media/icons/Nintendo-DS-Emulator.webp",
     "categories": ["all,", "emu"]
   },
   {
@@ -698,7 +698,7 @@
   {
     "name": "Fortnite (Geforce NOW)",
     "link": "https://play.geforcenow.com/mall/#/deeplink?game-id=46bfab06-d864-465d-9e56-2d9e45cdee0a",
-    "image": "/assets/media/icons/IaTdhrN06IHvTKMRnUilTaCsiyXnRZL.webp",
+    "image": "/assets/media/icons/Fortnite.webp",
     "categories": ["all"]
   },
   {
@@ -746,13 +746,13 @@
   {
     "name": "A Dark Room",
     "link": "https://adarkroom.doublespeakgames.com",
-    "image": "/assets/media/icons/I66Y3An38PJoMm.webp",
+    "image": "/assets/media/icons/A-Dark-Room.webp",
     "categories": ["all"]
   },
   {
     "name": "Ace Attorney",
     "link": "https://f.kbhgames.com/r/gba/?r=ace-attorney",
-    "image": "/assets/media/icons/ikh6Uc0QdKT28QCcSRTFPuKFvZjhhcO5AZLaN2.webp",
+    "image": "/assets/media/icons/Ace-Attorney.webp",
     "categories": ["all"]
   },
   {
@@ -794,7 +794,7 @@
   {
     "name": "Basketball Stars",
     "link": "https://html5.gamedistribution.com/69d78d071f704fa183d75b4114ae40ec/",
-    "image": "/assets/media/icons/I7dWxmZQQ1GttwQ1qnE90tr0Vigp.webp",
+    "image": "/assets/media/icons/Basketball-Stars.webp",
     "categories": ["all"]
   },
   {
@@ -818,7 +818,7 @@
   {
     "name": "Bitlife",
     "link": "https://xlegends.github.io/bitlife/",
-    "image": "/assets/media/icons/ib7MCyXjK0ieEJ6eifbj.webp",
+    "image": "/assets/media/icons/Bitlife.webp",
     "categories": ["all"]
   },
   {
@@ -830,7 +830,7 @@
   {
     "name": "BuildNow.GG",
     "link": "https://games.crazygames.com/en_US/buildnow-gg/index.html",
-    "image": "/assets/media/icons/huKD6xLaIQM5F82XzZrGQdN.webp",
+    "image": "/assets/media/icons/Build-Now-GG.webp",
     "categories": ["all"]
   },
   {
@@ -926,7 +926,7 @@
   {
     "name": "Drift Hunters",
     "link": "https://webglmath.github.io/drift-hunters/",
-    "image": "/assets/media/icons/gXsLHqitjVWeWMe1ZpEvEdsPvyGeeM8qtBD7vT.webp",
+    "image": "/assets/media/icons/Drift-Hunters.webp",
     "categories": ["all"]
   },
   {
@@ -1176,9 +1176,9 @@
     "categories": ["all"]
   },
   {
-    "name": "Online Soccer M.",
+    "name": "Online Soccer Manager",
     "link": "https://www.onlinesoccermanager.com/",
-    "image": "/assets/media/icons/HqoCJICFjN6aLkEHQNtpQWA.webp",
+    "image": "/assets/media/icons/Online-Soccer-Manager.webp",
     "categories": ["all"]
   },
   {
@@ -1196,7 +1196,7 @@
   {
     "name": "Papa Louie 1",
     "link": "https://f.silvergames.com/ruffle/player.php?id=1373",
-    "image": "/assets/media/icons/HkCpu46t5fNU6tHLZwg.webp",
+    "image": "/assets/media/icons/Papa-Louie-1.webp",
     "categories": ["all"]
   },
   {
@@ -1208,7 +1208,7 @@
   {
     "name": "Papa Louie 3",
     "link": "https://f.silvergames.com/emu/waffle/?id=4693",
-    "image": "/assets/media/icons/gicds51R6TxKS5cAgc.webp",
+    "image": "/assets/media/icons/Papa-Louie-3.webp",
     "categories": ["all"]
   },
   {
@@ -1256,7 +1256,7 @@
   {
     "name": "Google Baseball",
     "link": "https://www.google.com/logos/2019/july4th19/r6/july4th19.html",
-    "image": "/assets/media/icons/IQgybgIlLECzATSA.webp",
+    "image": "/assets/media/icons/Google-Baseball.webp",
     "categories": ["all"]
   },
   {
@@ -1358,7 +1358,7 @@
   {
     "name": "Riddle School 2",
     "link": "https://f.silvergames.com/ruffle/player.php?id=8564",
-    "image": "/assets/media/icons/gZR2nSXigX7Gg9Tvbb1nLW5udeuN8OI.webp",
+    "image": "/assets/media/icons/Riddle-School-2.webp",
     "categories": ["all"]
   },
   {
@@ -1430,7 +1430,7 @@
   {
     "name": "Space Plan",
     "link": "https://jhollands.co.uk/spaceplan/",
-    "image": "/assets/media/icons/HAY7ZtO6WMXBq8vMNXoWN96mQ2.webp",
+    "image": "/assets/media/icons/Space-Plan.webp",
     "categories": ["all"]
   },
   {
@@ -1502,7 +1502,7 @@
   {
     "name": "Temple Run 2",
     "link": "https://watchdocumentaries.com/wp-content/uploads/games/temple-run-2/",
-    "image": "/assets/media/icons/j7Y7VPU1H0AS6zlaCKeC.webp",
+    "image": "/assets/media/icons/Temple-Run-2.webp",
     "categories": ["all"]
   },
   {
@@ -1526,7 +1526,7 @@
   {
     "name": "Zombs Royale",
     "link": "https://zombsroyale.io",
-    "image": "/assets/media/icons/h9Uwm9HaewzyIL1m.webp",
+    "image": "/assets/media/icons/Zombs-Royale.webp",
     "categories": ["all,", "2P"]
   },
   {
@@ -1574,7 +1574,7 @@
   {
     "name": "Fortnite (Now.GG)",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.epicgames.fortnite&partner=interstellar",
-    "image": "/assets/media/icons/IaTdhrN06IHvTKMRnUilTaCsiyXnRZL.webp",
+    "image": "/assets/media/icons/Fortnite.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1592,7 +1592,7 @@
   {
     "name": "Melon Playground",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.studio27.MelonPlayground&partner=interstellar",
-    "image": "/assets/media/icons/GbjBYcD7WCSTM901.webp",
+    "image": "/assets/media/icons/Melon-Playground.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1622,7 +1622,7 @@
   {
     "name": "Character AI",
     "link": "https://now.gg/iframe/snippet?app_pkg=ai.character.app&partner=interstellar",
-    "image": "/assets/media/icons/hvXUMPehUfEdoOz6f9OR1GTwXcSX.webp",
+    "image": "/assets/media/icons/Character-AI.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1652,13 +1652,13 @@
   {
     "name": "Toca Hair Salon 4",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.tocaboca.tocahairsalon4&partner=interstellar",
-    "image": "/assets/media/icons/gcW2DeA1lnA3ja3kXO5wNMwrVAszcAaZNkgJMhU.webp",
+    "image": "/assets/media/icons/Toca-Hair-Salon-4.webp",
     "categories": ["all", "emu", "android"]
   },
   {
     "name": "Toca Kitchen 2",
     "link": "https://now.gg/iframe/snippet?app_pkg=com.tocaboca.tocakitchen2&partner=interstellar",
-    "image": "/assets/media/icons/Hf8kV58JuuM.webp",
+    "image": "/assets/media/icons/Toca-Kitchen-2.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -1791,7 +1791,7 @@
   {
     "name": "Vex 7",
     "link": "/e/1/vex7/index.html",
-    "image": "/assets/media/icons/IMugoq6FwO6SAJz4mNF.webp",
+    "image": "/assets/media/icons/Vex-7.webp",
     "categories": ["all", "local"]
   },
   {

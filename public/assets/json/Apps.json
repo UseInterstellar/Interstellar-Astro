@@ -14,7 +14,7 @@
   {
     "name": "Steam Store",
     "link": "https://store.steampowered.com/",
-    "image": "/assets/media/icons/iDMHLPdRtfO1exvuaI4x39.webp",
+    "image": "/assets/media/icons/Steam-Store.webp",
     "categories": ["all"],
     "say": "Steam can't actually be added because it's an app, not a website. This only lets you browse the Steam store, you can't actually play any games unless you use Geforce Now.",
     "partial": true
@@ -46,7 +46,7 @@
   {
     "name": "Character AI",
     "link": "https://now.gg/iframe/snippet?app_pkg=ai.character.app&partner=interstellar",
-    "image": "/assets/media/icons/hvXUMPehUfEdoOz6f9OR1GTwXcSX.webp",
+    "image": "/assets/media/icons/Character-AI.webp",
     "categories": ["all", "emu", "android"]
   },
   {
@@ -58,7 +58,7 @@
   {
     "name": "Scratch",
     "link": "https://scratch.mit.edu",
-    "image": "/assets/media/icons/HVRhll185HOFDQbq75MbMRPandThRUFc6eMV.webp",
+    "image": "/assets/media/icons/Scratch.webp",
     "categories": ["all", "social", "game"]
   },
   {
@@ -94,13 +94,13 @@
   {
     "name": "DuckDuckGo",
     "link": "https://start.duckduckgo.com/",
-    "image": "/assets/media/icons/FYrMkfE187B.webp",
+    "image": "/assets/media/icons/DuckDuckGo.webp",
     "categories": ["all"]
   },
   {
     "name": "ESPN",
     "link": "https://www.espn.com/watch/",
-    "image": "/assets/media/icons/IpjFPigQdqH.webp",
+    "image": "/assets/media/icons/ESPN.webp",
     "categories": ["all"]
   },
   {
@@ -142,7 +142,7 @@
   {
     "name": "HBO MAX",
     "link": "https://www.hbomax.com/",
-    "image": "/assets/media/icons/gbCnlTieMzwD5V.webp",
+    "image": "/assets/media/icons/HBO-MAX.webp",
     "categories": ["all", "stream"]
   },
   {
@@ -160,19 +160,19 @@
   {
     "name": "NFL",
     "link": "https://nfl.com",
-    "image": "/assets/media/icons/g3XZ9GsSYcwIv5nMj0nKpQ0bNVmeYXcpRGjHI5Z7.webp",
+    "image": "/assets/media/icons/NFL.webp",
     "categories": ["all"]
   },
   {
     "name": "NBA",
     "link": "https://nba.com",
-    "image": "/assets/media/icons/g1FSwv5au3s8Yy4KXS.webp",
+    "image": "/assets/media/icons/NBA.webp",
     "categories": ["all"]
   },
   {
     "name": "Paramount Plus",
     "link": "https://paramountplus.com",
-    "image": "/assets/media/icons/H7W9QXY84ZktOq2o8rspR4.webp",
+    "image": "/assets/media/icons/Paramount-Plus.webp",
     "categories": ["all", "stream"]
   },
   {
@@ -250,13 +250,13 @@
   {
     "name": "Trello",
     "link": "https://trello.com",
-    "image": "/assets/media/icons/hIBBPWInsrE406.webp",
+    "image": "/assets/media/icons/Trello.webp",
     "categories": ["all"]
   },
   {
     "name": "Tumblr",
     "link": "https://tumblr.com/",
-    "image": "/assets/media/icons/G3PcBfS1MwD9rcEInkgx4gCEfzkFnxDFHu.webp",
+    "image": "/assets/media/icons/Tumblr.webp",
     "categories": ["all", "social"]
   },
   {
@@ -461,7 +461,7 @@
   {
     "name": "ZeroGPT.com",
     "link": "https://www.zerogpt.com/",
-    "image": "/assets/media/icons/hRYBxmynAy7NoOCRYUF4yjjm1VIhme0Yp9pmpjIr.webp",
+    "image": "/assets/media/icons/ZeroGPT.webp",
     "categories": ["all", "ai-detector"]
   },
   {
@@ -481,7 +481,7 @@
   {
     "name": "Edpuzzle Answers",
     "link": "https://github.com/ai-detectoring2210/edpuzzle-answers",
-    "image": "/assets/media/icons/GwfxlX09mOZHKDZmGCqXN6tD8s4MTcdF8knG.png",
+    "image": "/assets/media/icons/Edpuzzle.png",
     "categories": ["all", "edpuzzle", "cs"]
   }
 ]
