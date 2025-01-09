@@ -28,7 +28,7 @@
   {
     "name": "Guilded",
     "link": "https://www.guilded.gg/",
-    "image": "/assets/media/icons/anuhvAzE0uRleJt7Q68aNu4EaaXC1erN.webp",
+    "image": "/assets/media/icons/Guilded.webp",
     "categories": ["all", "social"]
   },
   {
@@ -112,7 +112,7 @@
   {
     "name": "Firefox Web Browser",
     "link": "https://replit.com/@cooleddie001/Firefox-Legacy?v=1",
-    "image": "/assets/media/icons/bUte2Jdarrsj3iYz6ewT8YKC5bAuVCeO5UE.webp",
+    "image": "/assets/media/icons/Firefox-Web-Browser.webp",
     "categories": ["all"]
   },
   {
@@ -238,7 +238,7 @@
   {
     "name": "Wikipedia",
     "link": "https://en.wikipedia.org",
-    "image": "/assets/media/icons/9nWY0LaEX17DtX9bg.webp",
+    "image": "/assets/media/icons/Wikipedia.webp",
     "categories": ["all"]
   },
   {
@@ -274,7 +274,7 @@
   {
     "name": "VS Code",
     "link": "https://vscode.dev",
-    "image": "/assets/media/icons/bo8yroF8rPfKnbVYGJUe.webp",
+    "image": "/assets/media/icons/VS-Code.webp",
     "categories": ["all", "tool"]
   },
   {
@@ -298,7 +298,7 @@
   {
     "name": "Wattpad",
     "link": "https://www.wattpad.com/",
-    "image": "/assets/media/icons/9u8NSianXOIVm1nO7HRVWyFMMGuxQQbFZX.webp",
+    "image": "/assets/media/icons/Wattpad.webp",
     "categories": ["all", "social"]
   },
   {
@@ -380,9 +380,9 @@
     "error": "true"
   },
   {
-    "name": "W3Schools",
+    "name": "W3 Schools",
     "link": "https://www.w3schools.com",
-    "image": "/assets/media/icons/aM0oypjJmShkHlpYV.webp",
+    "image": "/assets/media/icons/W3-Schools.webp",
     "categories": ["all"]
   },
   {
@@ -406,7 +406,7 @@
   {
     "name": "FMovies.to",
     "link": "https://fmovies24.to/",
-    "image": "/assets/media/icons/as52oj7pcp6U.png",
+    "image": "/assets/media/icons/FMovies-To.png",
     "categories": ["all", "media"]
   },
   {
@@ -425,13 +425,13 @@
   {
     "name": "Brave",
     "link": "https://search.brave.com",
-    "image": "/assets/media/icons/AFetVf7vbDW.png",
+    "image": "/assets/media/icons/Brave.png",
     "categories": ["all"]
   },
   {
     "name": "Replit",
     "link": "https://replit.com",
-    "image": "/assets/media/icons/18juxZGmltYgdkuY2HHe.png",
+    "image": "/assets/media/icons/Replit.png",
     "categories": ["all"]
   },
   {
@@ -449,7 +449,7 @@
   {
     "name": "Youtube Music",
     "link": "https://music.youtube.com/",
-    "image": "/assets/media/icons/bdGlIL8NMzorlapVw3U7YJEsJz5Eock7C7DGx.jpg",
+    "image": "/assets/media/icons/YouTube-Music.jpg",
     "categories": ["all"]
   },
   {
