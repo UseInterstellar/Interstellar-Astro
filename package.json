@@ -32,7 +32,7 @@
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.17",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3",
+    "typescript": "^5.7.3",
     "vite-plugin-static-copy": "^2.2.0",
     "dompurify": "^3.2.3"
   },
