@@ -25,7 +25,7 @@
     "@mercuryworkshop/wisp-js": "^0.3.3",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "astro": "^4.16.18",
-    "fastify": "^5.1.0",
+    "fastify": "^5.2.1",
     "js-cookie": "^3.0.5",
     "lucide-astro": "^0.468.0",
     "mime": "^4.0.6",
