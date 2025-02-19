@@ -37,7 +37,7 @@ jobs:
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
-          project: "xyz-thech-interstella-65"
+          project: "xyz-thech-interstella-92"
           entrypoint: "server/entry.mjs"
           root: "dist"
           
