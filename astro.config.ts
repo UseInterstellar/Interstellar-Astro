@@ -13,7 +13,7 @@ import { viteStaticCopy } from "vite-plugin-static-copy";
 
 // https://astro.build/config
 export default defineConfig({
-  output: "hybrid",
+  output: "server",
   adapter: node({
     mode: "middleware",
   }),
