@@ -1,0 +1,4 @@
+git clone https://github.com/UseInterstellar/Interstellar-Astro
+cd Interstellar
+pnpm install && pnpm start
+pnpm install && pnpm dev
