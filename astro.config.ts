@@ -33,9 +33,7 @@ export default defineConfig({
   },
   vite: {
     define: {
-      __COMMIT_DATE__: JSON.stringify(
-        execSync("git show --no-patch --format=%ci").toString().trim(),
-      ),
+      __COMMIT_DATE__: JSON.stringify(execSync("git show --no-patch --format=%ci").toString().trim()),
     },
     resolve: {
       alias: {
@@ -46,11 +44,7 @@ export default defineConfig({
       {
         name: "vite-wisp-server",
         configureServer(server) {
-          server.httpServer?.on("upgrade", (req, socket, head) =>
-            req.url?.startsWith("/f")
-              ? wisp.routeRequest(req, socket, head)
-              : undefined,
-          );
+          server.httpServer?.on("upgrade", (req, socket, head) => (req.url?.startsWith("/f") ? wisp.routeRequest(req, socket, head) : undefined));
         },
       },
       viteStaticCopy({
@@ -71,8 +65,7 @@ export default defineConfig({
             src: `${uvPath}/**/*.js`.replace(/\\/g, "/"),
             dest: "assets/bundled",
             overwrite: false,
-            rename: (name) =>
-              `${name.replace("uv", "v").replace(/[aeiou]/gi, "")}.js`,
+            rename: (name) => `${name.replace("uv", "v").replace(/[aeiou]/gi, "")}.js`,
           },
         ],
       }),

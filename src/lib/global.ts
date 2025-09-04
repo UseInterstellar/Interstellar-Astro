@@ -3,9 +3,7 @@ import DOMPurify from "dompurify";
 document.addEventListener("astro:page-load", () => {
   // Cloak
   document.title = localStorage.getItem("title") ?? "Home";
-  const icon = DOMPurify.sanitize(
-    localStorage.getItem("icon") ?? "/assets/media/favicons/default.png",
-  );
+  const icon = DOMPurify.sanitize(localStorage.getItem("icon") ?? "/assets/media/favicons/default.png");
   const iconElm = document.getElementById("icon");
   if (iconElm) (iconElm as HTMLLinkElement).href = icon;
 
@@ -31,12 +29,7 @@ document.addEventListener("astro:page-load", () => {
 
   document.addEventListener("click", (e) => {
     const target = e.target as Node;
-    if (
-      menu !== null &&
-      !menu.classList.contains("hidden") &&
-      !menu.contains(target) &&
-      !hamburger?.contains(target)
-    ) {
+    if (menu !== null && !menu.classList.contains("hidden") && !menu.contains(target) && !hamburger?.contains(target)) {
       menu?.classList.add("hidden");
       localStorage.removeItem("hamburger-open");
     }
@@ -45,16 +38,10 @@ document.addEventListener("astro:page-load", () => {
   // Popup behavior
   if (!localStorage.getItem("ab")) localStorage.setItem("ab", "true");
 
-  if (
-    localStorage.getItem("ab") === "true" &&
-    window !== window.top &&
-    !navigator.userAgent.includes("Firefox")
-  ) {
+  if (localStorage.getItem("ab") === "true" && window !== window.top && !navigator.userAgent.includes("Firefox")) {
     const popup = open("about:blank", "_blank");
     if (!popup || popup.closed) {
-      alert(
-        "Please allow popups for this site. Doing so will allow us to open the site in an about:blank tab and prevent this site from showing up in your history. You can turn this off in the site settings.",
-      );
+      alert("Please allow popups for this site. Doing so will allow us to open the site in an about:blank tab and prevent this site from showing up in your history. You can turn this off in the site settings.");
     } else {
       const doc = popup.document;
       doc.title = localStorage.getItem("name") || "My Drive - Google Drive";
@@ -72,14 +59,11 @@ document.addEventListener("astro:page-load", () => {
       });
       const link = Object.assign(doc.createElement("link"), {
         rel: "icon",
-        href:
-          localStorage.getItem("icon") ||
-          "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png",
+        href: localStorage.getItem("icon") || "https://ssl.gstatic.com/docs/doclist/images/drive_2022q3_32dp.png",
       });
       doc.head.appendChild(link);
       doc.body.appendChild(iframe);
-      const pLink =
-        localStorage.getItem(encodeURI("pLink")) || "https://drive.google.com";
+      const pLink = localStorage.getItem(encodeURI("pLink")) || "https://drive.google.com";
       location.replace(pLink);
 
       const script = doc.createElement("script");
@@ -114,10 +98,7 @@ document.addEventListener("astro:page-load", () => {
     if (Typed.length > PanicKeys.length) {
       Typed.shift();
     }
-    if (
-      Typed.length === PanicKeys.length &&
-      PanicKeys.every((key, index) => key === Typed[index])
-    ) {
+    if (Typed.length === PanicKeys.length && PanicKeys.every((key, index) => key === Typed[index])) {
       window.location.href = PanicLink;
       Typed = [];
     }

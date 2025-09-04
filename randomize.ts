@@ -30,13 +30,7 @@ export function FindFiles(directory: string, pattern: RegExp): string[] {
 }
 
 export function RandomizeFavicons() {
-  const FaviconDir = path.join(
-    process.cwd(),
-    "public",
-    "assets",
-    "media",
-    "favicons",
-  );
+  const FaviconDir = path.join(process.cwd(), "public", "assets", "media", "favicons");
 
   if (!fs.existsSync(FaviconDir)) {
     return;
@@ -57,32 +51,18 @@ export function RandomizeFavicons() {
 }
 
 export function UpdateFaviconRoutes() {
-  const FilesToUpdate = [
-    ...FindFiles(path.join(process.cwd(), "src"), /\.astro$/),
-    ...FindFiles(path.join(process.cwd(), "src"), /\.ts$/),
-  ];
+  const FilesToUpdate = [...FindFiles(path.join(process.cwd(), "src"), /\.astro$/), ...FindFiles(path.join(process.cwd(), "src"), /\.ts$/)];
 
   for (const file of FilesToUpdate) {
     let content = fs.readFileSync(file, "utf-8");
 
     for (const [OldName, RandomizedName] of Object.entries(FaviconMap)) {
-      const patterns = [
-        `/assets/media/favicons/${OldName}`,
-        `assets/media/favicons/${OldName}`,
-        `'${OldName}'`,
-        `"${OldName}"`,
-      ];
+      const patterns = [`/assets/media/favicons/${OldName}`, `assets/media/favicons/${OldName}`, `'${OldName}'`, `"${OldName}"`];
 
       for (const pattern of patterns) {
         content = content.replace(
           new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g"),
-          pattern.startsWith("/")
-            ? `/assets/media/favicons/${RandomizedName}`
-            : pattern.startsWith("assets")
-              ? `assets/media/favicons/${RandomizedName}`
-              : pattern.startsWith("'")
-                ? `'${RandomizedName}'`
-                : `"${RandomizedName}"`,
+          pattern.startsWith("/") ? `/assets/media/favicons/${RandomizedName}` : pattern.startsWith("assets") ? `assets/media/favicons/${RandomizedName}` : pattern.startsWith("'") ? `'${RandomizedName}'` : `"${RandomizedName}"`,
         );
       }
     }
@@ -114,10 +94,7 @@ export function Main() {
     FilesMap[OriginalPath] = NewPath;
 
     if (file.startsWith(path.join(process.cwd(), "src", "pages"))) {
-      const OriginalRoute = OriginalPath.replace(
-        path.join(process.cwd(), "src", "pages"),
-        "",
-      )
+      const OriginalRoute = OriginalPath.replace(path.join(process.cwd(), "src", "pages"), "")
         .replace(/\\/g, "/")
         .replace(/\.astro$/, "");
 
@@ -128,9 +105,7 @@ export function Main() {
       RouteMap[OriginalRoute] = NewRoute;
 
       if (OriginalRoute.startsWith("/")) {
-        RouteMap[OriginalRoute.substring(1)] = NewRoute.startsWith("/")
-          ? NewRoute.substring(1)
-          : NewRoute;
+        RouteMap[OriginalRoute.substring(1)] = NewRoute.startsWith("/") ? NewRoute.substring(1) : NewRoute;
       } else {
         RouteMap[OriginalRoute] = NewRoute;
       }
@@ -148,10 +123,7 @@ export function Main() {
 }
 
 export function UpdateRoutes() {
-  const FilesToUpdate = [
-    ...FindFiles(path.join(process.cwd(), "src"), /\.astro$/),
-    ...FindFiles(path.join(process.cwd(), "src"), /\.ts$/),
-  ];
+  const FilesToUpdate = [...FindFiles(path.join(process.cwd(), "src"), /\.astro$/), ...FindFiles(path.join(process.cwd(), "src"), /\.ts$/)];
 
   for (const file of FilesToUpdate) {
     let content = fs.readFileSync(file, "utf-8");
@@ -167,10 +139,7 @@ export function UpdateRoutes() {
 }
 
 export function UpdateImports() {
-  const FilesToUpdate = [
-    ...FindFiles(path.join(process.cwd(), "src"), /\.astro$/),
-    ...FindFiles(path.join(process.cwd(), "src"), /\.ts$/),
-  ];
+  const FilesToUpdate = [...FindFiles(path.join(process.cwd(), "src"), /\.astro$/), ...FindFiles(path.join(process.cwd(), "src"), /\.ts$/)];
 
   const root = process.cwd();
 
@@ -181,30 +150,12 @@ export function UpdateImports() {
       const OriginalName = path.basename(OriginalPath);
       const RandomizedName = path.basename(NewPath);
 
-      const OriginalPatterns = [
-        `@/components/${OriginalName}`,
-        `@/layouts/${OriginalName}`,
-        `@/lib/${OriginalName}`,
-        OriginalPath.replace(root, "").replace(/\\/g, "/"),
-        OriginalName,
-      ];
+      const OriginalPatterns = [`@/components/${OriginalName}`, `@/layouts/${OriginalName}`, `@/lib/${OriginalName}`, OriginalPath.replace(root, "").replace(/\\/g, "/"), OriginalName];
 
-      const NewPatterns = [
-        `@/components/${RandomizedName}`,
-        `@/layouts/${RandomizedName}`,
-        `@/lib/${RandomizedName}`,
-        NewPath.replace(root, "").replace(/\\/g, "/"),
-        RandomizedName,
-      ];
+      const NewPatterns = [`@/components/${RandomizedName}`, `@/layouts/${RandomizedName}`, `@/lib/${RandomizedName}`, NewPath.replace(root, "").replace(/\\/g, "/"), RandomizedName];
 
       OriginalPatterns.forEach((pattern, index) => {
-        content = content.replace(
-          new RegExp(
-            `['"]${pattern.replace(/\\/g, "\\\\").replace(/\./g, "\\.")}['"]`,
-            "g",
-          ),
-          `'${NewPatterns[index]}'`,
-        );
+        content = content.replace(new RegExp(`['"]${pattern.replace(/\\/g, "\\\\").replace(/\./g, "\\.")}['"]`, "g"), `'${NewPatterns[index]}'`);
       });
     }
 
@@ -223,9 +174,6 @@ export async function Revert() {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log("Revert completed.");
   } catch (error) {
-    console.error(
-      "Error while reverting:",
-      error instanceof Error ? error.message : error,
-    );
+    console.error("Error while reverting:", error instanceof Error ? error.message : error);
   }
 }

@@ -28,9 +28,7 @@ export function addAsset(name: string, link: string, type: string) {
 
 if (typeof window !== "undefined") {
   document.addEventListener("astro:page-load", () => {
-    const buttons = document.querySelectorAll(
-      "[data-asset]",
-    ) as NodeListOf<HTMLButtonElement>;
+    const buttons = document.querySelectorAll("[data-asset]") as NodeListOf<HTMLButtonElement>;
     for (const button of buttons) {
       button.addEventListener("click", () => {
         const asset: Asset = JSON.parse(button.dataset.asset as string);
@@ -40,9 +38,7 @@ if (typeof window !== "undefined") {
           return location.replace("/tabs");
         }
         if (asset.links) {
-          const selection = prompt(
-            `Select a link to go to: ${asset.links.map(({ name }, idx) => `\n${name}: ${idx + 1}`).join("")}`,
-          );
+          const selection = prompt(`Select a link to go to: ${asset.links.map(({ name }, idx) => `\n${name}: ${idx + 1}`).join("")}`);
           if (!selection) return;
           const link = asset.links[Number.parseInt(selection) - 1];
           if (!link) return alert("Invalid selection");
@@ -52,9 +48,7 @@ if (typeof window !== "undefined") {
       });
     }
 
-    const assetAdd = document.getElementById(
-      "add-asset",
-    ) as HTMLButtonElement | null;
+    const assetAdd = document.getElementById("add-asset") as HTMLButtonElement | null;
     if (assetAdd) {
       assetAdd.addEventListener("click", async () => {
         const type = assetAdd.dataset.type;

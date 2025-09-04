@@ -1,16 +1,9 @@
-const getFrame = () =>
-  document.getElementById("frame__1") as HTMLIFrameElement | null;
+const getFrame = () => document.getElementById("frame__1") as HTMLIFrameElement | null;
 document.addEventListener("astro:page-load", () => {
   console.log("page loaded");
   const frame = getFrame();
   if (frame) {
-    frame.src =
-      window.__uv$config.prefix +
-      window.__uv$config.encodeUrl(
-        sessionStorage.getItem("goUrl") ||
-          localStorage.getItem("engine") ||
-          "https://www.google.com",
-      );
+    frame.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(sessionStorage.getItem("goUrl") || localStorage.getItem("engine") || "https://www.google.com");
   } else {
     console.error("No iFrame found");
   }
@@ -26,15 +19,11 @@ document.addEventListener("astro:page-load", () => {
   }
 
   if (forward) {
-    forward.addEventListener("click", () =>
-      getFrame()?.contentWindow?.history.forward(),
-    );
+    forward.addEventListener("click", () => getFrame()?.contentWindow?.history.forward());
   }
 
   if (reloadbtn) {
-    reloadbtn.addEventListener("click", () =>
-      getFrame()?.contentWindow?.location.reload(),
-    );
+    reloadbtn.addEventListener("click", () => getFrame()?.contentWindow?.location.reload());
   }
 
   function TitleBar() {

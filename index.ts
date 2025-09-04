@@ -36,12 +36,7 @@ async function Start() {
   const port = INConfig.server?.port || 8080;
 
   const app = Fastify({
-    serverFactory: (handler) =>
-      createServer(handler).on("upgrade", (req, socket: Socket, head) =>
-        req.url?.startsWith("/f")
-          ? wisp.routeRequest(req, socket, head)
-          : socket.destroy(),
-      ),
+    serverFactory: (handler) => createServer(handler).on("upgrade", (req, socket: Socket, head) => (req.url?.startsWith("/f") ? wisp.routeRequest(req, socket, head) : socket.destroy())),
   });
 
   await app.register(import("@fastify/compress"), {

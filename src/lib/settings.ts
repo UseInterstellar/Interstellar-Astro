@@ -190,14 +190,10 @@ document.addEventListener("astro:page-load", () => {
   // Close dropdown when outside is clicked
   const outside = (event: MouseEvent) => {
     for (const toggleElement of togglebuttons) {
-      const cloakerdropdown = document.getElementById(
-        toggleElement.getAttribute("data-dropdown-toggle") || "",
-      );
+      const cloakerdropdown = document.getElementById(toggleElement.getAttribute("data-dropdown-toggle") || "");
 
       if (cloakerdropdown) {
-        const inside =
-          cloakerdropdown.contains(event.target as Node) ||
-          toggleElement.contains(event.target as Node);
+        const inside = cloakerdropdown.contains(event.target as Node) || toggleElement.contains(event.target as Node);
         if (!inside) {
           cloakerdropdown.classList.add("hidden");
         }

@@ -15,18 +15,14 @@ export const GET: APIRoute = async ({ params }) => {
     if (!Object.keys(baseUrls).includes(params.slug.charAt(0))) {
       return new Response("Invalid slug", { status: 400 });
     }
-    const url =
-      baseUrls[params.slug.charAt(0) as keyof typeof baseUrls] +
-      params.slug.slice(1);
+    const url = baseUrls[params.slug.charAt(0) as keyof typeof baseUrls] + params.slug.slice(1);
     const asset = await fetch(url);
     if (!asset.ok) {
       return new Response("Error fetching data", { status: 500 });
     }
     const ext = path.extname(url);
     const no = [".unityweb"];
-    const contentType = no.includes(ext)
-      ? "application/octet-stream"
-      : mime.getType(ext);
+    const contentType = no.includes(ext) ? "application/octet-stream" : mime.getType(ext);
     return new Response(asset.body, {
       headers: {
         "content-type": contentType || "application/octet-stream",
