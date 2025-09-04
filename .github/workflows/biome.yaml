@@ -1,4 +1,6 @@
 name: Code quality
+permissions:
+  contents: read
 
 on:
   push:
