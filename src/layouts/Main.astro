@@ -14,21 +14,23 @@ const navLinks = [
 <Layout>
   <nav
     id="default-nav"
-    class="flex flex-row justify-between backdrop-blur-lg bg-background-secondary border-none w-[98vw] h-20 px-6 rounded-xl mx-4 mt-4 fixed top-0 z-[99999] shadow-lg"
+    class="flex flex-row justify-between backdrop-blur-xl bg-background-secondary/80 border border-accent/20 w-[98vw] h-20 px-6 rounded-2xl mx-4 mt-4 fixed top-0 z-[99999] shadow-2xl drop-shadow-xl"
+    style="box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05);"
   >
-    <a href="/" class="uppercase flex items-center text-text hover:scale-105 duration-150 text-6xl font-black">in</a>
-    <button id="hamburger" class="text-3xl text-text focus:outline-none hover:scale-110 transition-transform">
+    <a href="/" class="uppercase flex items-center text-text hover:scale-105 duration-200 text-6xl font-black transition-all hover:text-accent">in</a>
+    <button id="hamburger" class="text-3xl text-text focus:outline-none hover:text-accent rounded-lg p-2 hover:bg-accent/10">
       <Menu class="size-8" />
     </button>
     <ul
       id="nav"
-      class="mt-2 w-48 flex flex-col absolute top-20 right-0 bg-background-secondary border border-accent rounded-lg p-4 transition-all duration-200 shadow-md"
+      class="mt-2 w-52 flex flex-col absolute top-20 right-0 bg-background-secondary backdrop-blur-xl border border-accent/30 rounded-2xl p-2 transition-all duration-300 shadow-2xl"
+      style="box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);"
     >
       {
         navLinks.map((link) => (
           <li>
-            <a href={link.href} class="font-medium flex-row inline-flex gap-2 items-center hover:scale-105 hover:bg-accent hover:rounded-md p-3 w-full">
-              <link.Icon class="size-5" />
+            <a href={link.href} class="font-medium flex-row inline-flex gap-3 items-center hover:scale-[1.02] hover:bg-accent/20 hover:text-accent rounded-xl p-4 w-full transition-all duration-200 group">
+              <link.Icon class="size-5 group-hover:scale-110 transition-transform duration-200" />
               <Obfuscated text={link.text} />
             </a>
           </li>
