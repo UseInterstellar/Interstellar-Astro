@@ -7,7 +7,8 @@
       "**/dist/**",
       "**/node_modules/**",
       "**/assets/bundled/**",
-      "*.min.json"
+      "*.min.json",
+      "**/.astro/"
     ]
   },
   "linter": {
@@ -20,7 +21,8 @@
       "**/dist/**",
       "**/node_modules/**",
       "**/assets/bundled/**",
-      "*.min.json"
+      "*.min.json",
+      "**/.astro/"
     ]
   },
   "formatter": {
@@ -34,7 +36,8 @@
       "**/dist/**",
       "**/node_modules/**",
       "**/assets/bundled/**",
-      "*.min.json"
+      "*.min.json",
+      "**/.astro/"
     ]
   },
   "javascript": {

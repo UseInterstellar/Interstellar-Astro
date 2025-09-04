@@ -23,10 +23,7 @@ const { id, text, menu } = Astro.props;
     </svg>
   </button>
 
-  <div
-    id={id}
-    class="z-10 hidden divide-y divide-gray-100 rounded-lg shadow-lg bg-background max-h-60 overflow-auto absolute top-full left-0 mt-2 w-auto min-w-[160px] transition-all duration-300 ease-in-out"
-  >
+  <div id={id} class="z-10 hidden divide-y divide-gray-100 rounded-lg shadow-lg bg-background max-h-60 overflow-auto absolute top-full left-0 mt-2 w-auto min-w-[160px] transition-all duration-300 ease-in-out">
     <ul class="py-2 text-sm text-gray-200">
       {
         menu.map((item) => (
