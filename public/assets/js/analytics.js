@@ -35,20 +35,4 @@
   } else {
     _init();
   }
-
-  const _protect = () => {
-    const devtools = { open: false, orientation: null };
-    const threshold = 160;
-    setInterval(() => {
-      if (window.outerHeight - window.innerHeight > threshold || window.outerWidth - window.innerWidth > threshold) {
-        if (!devtools.open) {
-          devtools.open = true;
-        }
-      } else {
-        devtools.open = false;
-      }
-    }, 500);
-  };
-
-  _protect();
 })();
