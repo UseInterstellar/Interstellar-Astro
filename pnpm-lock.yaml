@@ -63,8 +63,8 @@ importers:
         specifier: ^0.471.0
         version: 0.471.0(astro@5.13.5(@types/node@22.10.2)(jiti@1.21.6)(rollup@4.50.0)(tsx@4.20.5)(typescript@5.7.3)(yaml@2.8.1))
       mime:
-        specifier: ^4.0.6
-        version: 4.0.6
+        specifier: ^4.0.7
+        version: 4.0.7
       sharp:
         specifier: ^0.34.3
         version: 0.34.3
@@ -1814,8 +1814,8 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
 
-  mime@4.0.6:
-    resolution: {integrity: sha512-4rGt7rvQHBbaSOF9POGkk1ocRP16Md1x36Xma8sz8h8/vfCUI2OtEIeCqe4Ofes853x4xDoPiFLIT47J5fI/7A==}
+  mime@4.0.7:
+    resolution: {integrity: sha512-2OfDPL+e03E0LrXaGYOtTFIYhiuzep94NSsuhrNULq+stylcJedcHdzHtz0atMUuGwJfFYs0YL5xeC/Ca2x0eQ==}
     engines: {node: '>=16'}
     hasBin: true
 
@@ -4813,7 +4813,7 @@ snapshots:
 
   mime@3.0.0: {}
 
-  mime@4.0.6: {}
+  mime@4.0.7: {}
 
   minimatch@10.0.3:
     dependencies:
