@@ -60,10 +60,7 @@ export function UpdateFaviconRoutes() {
       const patterns = [`/assets/media/favicons/${OldName}`, `assets/media/favicons/${OldName}`, `'${OldName}'`, `"${OldName}"`];
 
       for (const pattern of patterns) {
-        content = content.replace(
-          new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g"),
-          pattern.startsWith("/") ? `/assets/media/favicons/${RandomizedName}` : pattern.startsWith("assets") ? `assets/media/favicons/${RandomizedName}` : pattern.startsWith("'") ? `'${RandomizedName}'` : `"${RandomizedName}"`,
-        );
+        content = content.replace(new RegExp(pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "g"), pattern.startsWith("/") ? `/assets/media/favicons/${RandomizedName}` : pattern.startsWith("assets") ? `assets/media/favicons/${RandomizedName}` : pattern.startsWith("'") ? `'${RandomizedName}'` : `"${RandomizedName}"`);
       }
     }
 

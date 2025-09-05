@@ -15,7 +15,7 @@
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
-    "lineWidth": 250,
+    "lineWidth": 320,
     "attributePosition": "auto",
     "ignore": ["**/pnpm-lock.yaml", "**/dist/**", "**/node_modules/**", "**/assets/bundled/**", "*.min.json", "**/.astro/"]
   },
