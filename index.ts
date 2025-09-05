@@ -20,7 +20,7 @@ async function Start() {
     console.log("Interstellar's not built yet! Building now...");
 
     await build({}).catch((err) => {
-      console.error(err);
+      console.error("Build failed:", err);
       process.exit(1);
     });
 
@@ -69,10 +69,10 @@ async function Start() {
   app.use(handler);
   app.listen({ port }, (err, addr) => {
     if (err) {
-      console.error(err);
+      console.error("Server failed to start:", err);
       process.exit(1);
     }
-    console.log("Listening on %s", addr);
+    console.log("✨ Server listening on %s", addr);
   });
 }
 
