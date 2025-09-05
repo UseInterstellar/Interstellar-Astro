@@ -2,14 +2,14 @@
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "organizeImports": {
     "enabled": true,
-    "ignore": ["**/pnpm-lock.yaml", "**/dist/**", "**/node_modules/**", "**/assets/bundled/**", "*.min.json", "**/.astro/"]
+    "ignore": ["**/pnpm-lock.yaml", "**/dist/**", "**/node_modules/**", "**/assets/bundled/**", "*.min.json", "**/.astro/**"]
   },
   "linter": {
     "enabled": true,
     "rules": {
       "recommended": true
     },
-    "ignore": ["**/pnpm-lock.yaml", "**/dist/**", "**/node_modules/**", "**/assets/bundled/**", "*.min.json", "**/.astro/"]
+    "ignore": ["**/pnpm-lock.yaml", "**/dist/**", "**/node_modules/**", "**/assets/bundled/**", "*.min.json", "**/.astro/**"]
   },
   "formatter": {
     "indentStyle": "space",
@@ -17,7 +17,7 @@
     "lineEnding": "lf",
     "lineWidth": 320,
     "attributePosition": "auto",
-    "ignore": ["**/pnpm-lock.yaml", "**/dist/**", "**/node_modules/**", "**/assets/bundled/**", "*.min.json", "**/.astro/"]
+    "ignore": ["**/pnpm-lock.yaml", "**/dist/**", "**/node_modules/**", "**/assets/bundled/**", "*.min.json", "**/.astro/**"]
   },
   "javascript": {
     "formatter": {
