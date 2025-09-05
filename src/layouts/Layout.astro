@@ -16,16 +16,7 @@ import { ViewTransitions } from "astro:transitions";
     <script src="@/lib/global.ts"></script>
     <script is:inline src="/assets/bundled/v.bndl.js" defer></script>
     <script is:inline src="/assets/bundled/v.cnfg.js" defer></script>
-    <script is:inline>
-      window.dataLayer ||= [];
-
-      function gtag(...args) {
-        dataLayer.push(args);
-      }
-      gtag("js", new Date());
-      gtag("config", "G-WKJQ5QHQTJ");
-    </script>
-    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
+    <script is:inline src="/assets/js/analytics.js" defer></script>
     <script>
       import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
       window.connection = new BareMuxConnection("/assets/bundled/bm-worker.js");
