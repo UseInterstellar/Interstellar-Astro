@@ -2,9 +2,10 @@
 interface Props {
   asset: Asset;
 }
+
 import { Image } from "astro:assets";
-import type { Asset } from "@/lib/assets.ts";
 import { Ban, CircleAlert, UserRoundPlus } from "lucide-astro";
+import type { Asset } from "@/lib/assets.ts";
 
 const { asset } = Astro.props;
 export const prerender = false;
