@@ -1,7 +1,7 @@
 ---
 import "@/global.css";
 
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
@@ -12,11 +12,12 @@ import { ViewTransitions } from "astro:transitions";
     <meta name="generator" content={Astro.generator} />
     <link id="icon" rel="shortcut icon" href="/assets/media/favicons/default.png" />
     <title>Home</title>
-    <ViewTransitions />
+    <ClientRouter />
     <script src="@/lib/global.ts"></script>
     <script is:inline src="/assets/bundled/v.bndl.js" defer></script>
     <script is:inline src="/assets/bundled/v.cnfg.js" defer></script>
     <script is:inline src="/assets/js/analytics.js" defer></script>
+
     <script>
       import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
       window.connection = new BareMuxConnection("/assets/bundled/bm-worker.js");

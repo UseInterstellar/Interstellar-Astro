@@ -58,7 +58,7 @@ async function Start() {
     await app.after();
     app.addHook("onRequest", app.basicAuth);
   }
-
+// @ts-ignore
   const { handler } = await import("./dist/server/entry.mjs");
   await app
     .register(fastifyStatic, {
