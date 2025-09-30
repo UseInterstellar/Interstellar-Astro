@@ -1,13 +1,30 @@
 import DOMPurify from "dompurify";
 
 document.addEventListener("astro:page-load", () => {
-  // Cloak
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme) {
+    const themeMap: Record<string, string> = {
+      'Default': 'default',
+      'Ocean': 'ocean',
+      'Forest': 'forest',
+      'Sunset': 'sunset', 
+      'Purple': 'purple',
+      'Midnight': 'midnight',
+      'White': 'light',
+      'Black': 'black'
+    };
+    
+    const dataTheme = themeMap[savedTheme];
+    if (dataTheme && dataTheme !== 'default') {
+      document.documentElement.setAttribute('data-theme', dataTheme);
+    }
+  }
+
   document.title = localStorage.getItem("title") ?? "Home";
   const icon = DOMPurify.sanitize(localStorage.getItem("icon") ?? "/assets/media/favicons/default.png");
   const iconElm = document.getElementById("icon");
   if (iconElm) (iconElm as HTMLLinkElement).href = icon;
 
-  // Nav
   const hamburger = document.getElementById("hamburger");
   const menu = document.getElementById("nav");
 
@@ -29,13 +46,12 @@ document.addEventListener("astro:page-load", () => {
 
   document.addEventListener("click", (e) => {
     const target = e.target as Node;
-    if (menu !== null && !menu.classList.contains("hidden") && !menu.contains(target) && !hamburger?.contains(target)) {
-      menu?.classList.add("hidden");
+    if (menu && !menu.classList.contains("hidden") && !menu.contains(target) && !hamburger?.contains(target)) {
+      menu.classList.add("hidden");
       localStorage.removeItem("hamburger-open");
     }
   });
 
-  // Popup behavior
   if (!localStorage.getItem("ab")) localStorage.setItem("ab", "true");
 
   if (localStorage.getItem("ab") === "true" && window !== window.top && !navigator.userAgent.includes("Firefox")) {
@@ -71,10 +87,8 @@ document.addEventListener("astro:page-load", () => {
       doc.head.appendChild(script);
     }
   }
-});
 
-// Panic
-document.addEventListener("astro:page-load", () => {
+ 
   const Key = localStorage.getItem("key") || "";
   const PanicKeys = Key.split(",").map((key) => key.trim());
   let PanicLink = localStorage.getItem("link") || "";
@@ -85,6 +99,7 @@ document.addEventListener("astro:page-load", () => {
   } catch (e) {
     PanicLink = "";
   }
+
   let Typed: string[] = [];
   let Shift = false;
 
@@ -95,9 +110,7 @@ document.addEventListener("astro:page-load", () => {
     }
     const keyToRecord = Shift ? event.key.toUpperCase() : event.key.toLowerCase();
     Typed.push(keyToRecord);
-    if (Typed.length > PanicKeys.length) {
-      Typed.shift();
-    }
+    if (Typed.length > PanicKeys.length) Typed.shift();
     if (Typed.length === PanicKeys.length && PanicKeys.every((key, index) => key === Typed[index])) {
       window.location.href = PanicLink;
       Typed = [];
@@ -105,8 +118,6 @@ document.addEventListener("astro:page-load", () => {
   });
 
   window.addEventListener("keyup", (event: KeyboardEvent) => {
-    if (event.key === "Shift") {
-      Shift = false;
-    }
+    if (event.key === "Shift") Shift = false;
   });
 });

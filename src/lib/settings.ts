@@ -213,8 +213,13 @@ document.addEventListener("astro:page-load", () => {
   }
   const theme: { [key: string]: string } = {
     Default: "Default",
-    Black: "Black",
+    Ocean: "Ocean", 
+    Forest: "Forest",
+    Sunset: "Sunset",
+    Purple: "Purple",
+    Midnight: "Midnight",
     White: "White",
+    Black: "Black",
   };
 
   if (themedropdown) {
@@ -225,7 +230,24 @@ document.addEventListener("astro:page-load", () => {
         const value = link.getAttribute("data-value");
         if (value && theme[value]) {
           localStorage.setItem("theme", theme[value]);
-          window.location.reload();
+          
+          const themeMap = {
+            'Default': 'default',
+            'Ocean': 'ocean',
+            'Forest': 'forest',
+            'Sunset': 'sunset', 
+            'Purple': 'purple',
+            'Midnight': 'midnight',
+            'White': 'light',
+            'Black': 'black'
+          };
+          
+          const dataTheme = themeMap[theme[value]];
+          if (dataTheme && dataTheme !== 'default') {
+            document.documentElement.setAttribute('data-theme', dataTheme);
+          } else {
+            document.documentElement.removeAttribute('data-theme');
+          }
         }
       });
     }
