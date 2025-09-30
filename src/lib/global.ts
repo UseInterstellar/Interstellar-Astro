@@ -4,19 +4,19 @@ document.addEventListener("astro:page-load", () => {
   const savedTheme = localStorage.getItem("theme");
   if (savedTheme) {
     const themeMap: Record<string, string> = {
-      'Default': 'default',
-      'Ocean': 'ocean',
-      'Forest': 'forest',
-      'Sunset': 'sunset', 
-      'Purple': 'purple',
-      'Midnight': 'midnight',
-      'White': 'light',
-      'Black': 'black'
+      Default: "default",
+      Ocean: "ocean",
+      Forest: "forest",
+      Sunset: "sunset",
+      Purple: "purple",
+      Midnight: "midnight",
+      White: "light",
+      Black: "black",
     };
-    
+
     const dataTheme = themeMap[savedTheme];
-    if (dataTheme && dataTheme !== 'default') {
-      document.documentElement.setAttribute('data-theme', dataTheme);
+    if (dataTheme && dataTheme !== "default") {
+      document.documentElement.setAttribute("data-theme", dataTheme);
     }
   }
 
@@ -88,7 +88,6 @@ document.addEventListener("astro:page-load", () => {
     }
   }
 
- 
   const Key = localStorage.getItem("key") || "";
   const PanicKeys = Key.split(",").map((key) => key.trim());
   let PanicLink = localStorage.getItem("link") || "";

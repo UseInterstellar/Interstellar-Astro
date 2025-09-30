@@ -1,11 +1,62 @@
 document.addEventListener("astro:page-load", () => {
-  const togglebuttons = document.querySelectorAll("[data-dropdown-toggle]");
-  const cloakerdropdown = document.getElementById("cloaker");
-  const enginedropdown = document.getElementById("engine");
-  const menudropdown = document.getElementById("menu");
-  const themedropdown = document.getElementById("theme");
-  const engineform = document.getElementById("custom-engine") as HTMLInputElement;
-  // Tab Cloaks
+  const togglebuttons = document.querySelectorAll<HTMLElement>("[data-dropdown-toggle]");
+  const cloakerDropdown = document.getElementById("cloaker");
+  const engineDropdown = document.getElementById("engine");
+  const menuDropdown = document.getElementById("menu");
+  const themeDropdown = document.getElementById("theme");
+  const engineForm = document.getElementById("custom-engine") as HTMLInputElement;
+
+  const outsideClickHandler = (event: MouseEvent) => {
+    togglebuttons.forEach((toggleElement) => {
+      const dropdownId = toggleElement.getAttribute("data-dropdown-toggle") || "";
+      const dropdown = document.getElementById(dropdownId);
+      if (!dropdown) return;
+
+      const inside = dropdown.contains(event.target as Node) || toggleElement.contains(event.target as Node);
+      if (!inside) dropdown.classList.add("hidden");
+    });
+  };
+  document.addEventListener("click", outsideClickHandler);
+
+  togglebuttons.forEach((toggleElement) => {
+    toggleElement.addEventListener("click", () => {
+      const dropdownId = toggleElement.getAttribute("data-dropdown-toggle") || "";
+      const dropdown = document.getElementById(dropdownId);
+      if (dropdown) dropdown.classList.toggle("hidden");
+    });
+  });
+
+  if (themeDropdown) {
+    const links = themeDropdown.querySelectorAll<HTMLAnchorElement>("a");
+
+    const themeMap: Record<string, string | null> = {
+      Default: null,
+      Ocean: "ocean",
+      Forest: "forest",
+      Sunset: "sunset",
+      Purple: "purple",
+      Midnight: "midnight",
+      White: "light",
+      Black: "black",
+    };
+
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const value = link.getAttribute("data-value");
+        if (!value || !(value in themeMap)) return;
+
+        localStorage.setItem("theme", value);
+        const dataTheme = themeMap[value];
+        if (dataTheme) {
+          document.documentElement.setAttribute("data-theme", dataTheme);
+        } else {
+          document.documentElement.removeAttribute("data-theme");
+        }
+      });
+    });
+  }
+
   const cloaker: Record<string, { name: string; icon: string }> = {
     Google: { name: "Google", icon: "/assets/media/favicons/google.png" },
     Savvas: {
@@ -176,8 +227,43 @@ document.addEventListener("astro:page-load", () => {
     },
     BIM: { name: "Big Ideas Math", icon: "/assets/media/favicons/bim.ico" },
   };
-  // Engines
-  const engine: { [key: string]: string } = {
+
+  if (cloakerDropdown) {
+    const links = cloakerDropdown.querySelectorAll<HTMLAnchorElement>("a");
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const value = link.getAttribute("data-value");
+        if (!value || !(value in cloaker)) return;
+
+        const { name, icon } = cloaker[value];
+        localStorage.setItem("title", name);
+        localStorage.setItem("icon", icon);
+        window.location.reload();
+      });
+    });
+  }
+
+  const menu: Record<string, string> = {
+    Hamburger: "Hamburger",
+    Standard: "Standard",
+  };
+
+  if (menuDropdown) {
+    const links = menuDropdown.querySelectorAll<HTMLAnchorElement>("a");
+    links.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const value = link.getAttribute("data-value");
+        if (!value || !(value in menu)) return;
+
+        localStorage.setItem("menu", menu[value]);
+        window.location.reload();
+      });
+    });
+  }
+
+  const engine: Record<string, string> = {
     Google: "https://www.google.com/search?q=",
     Bing: "https://www.bing.com/search?q=",
     DuckDuckGo: "https://duckduckgo.com/?q=",
@@ -187,196 +273,83 @@ document.addEventListener("astro:page-load", () => {
     Ecosia: "https://www.ecosia.org/search?q=",
   };
 
-  // Close dropdown when outside is clicked
-  const outside = (event: MouseEvent) => {
-    for (const toggleElement of togglebuttons) {
-      const cloakerdropdown = document.getElementById(toggleElement.getAttribute("data-dropdown-toggle") || "");
-
-      if (cloakerdropdown) {
-        const inside = cloakerdropdown.contains(event.target as Node) || toggleElement.contains(event.target as Node);
-        if (!inside) {
-          cloakerdropdown.classList.add("hidden");
-        }
-      }
-    }
-  };
-
-  for (const ToggleElement of togglebuttons) {
-    ToggleElement.addEventListener("click", () => {
-      const DropdownID = ToggleElement.getAttribute("data-dropdown-toggle");
-      const dropdownmenu = document.getElementById(DropdownID || "");
-
-      if (dropdownmenu) {
-        dropdownmenu.classList.toggle("hidden");
-      }
-    });
-  }
-  const theme: { [key: string]: string } = {
-    Default: "Default",
-    Ocean: "Ocean", 
-    Forest: "Forest",
-    Sunset: "Sunset",
-    Purple: "Purple",
-    Midnight: "Midnight",
-    White: "White",
-    Black: "Black",
-  };
-
-  if (themedropdown) {
-    const menulinks = themedropdown.querySelectorAll("a");
-    for (const link of menulinks) {
+  if (engineDropdown) {
+    const links = engineDropdown.querySelectorAll<HTMLAnchorElement>("a");
+    links.forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const value = link.getAttribute("data-value");
-        if (value && theme[value]) {
-          localStorage.setItem("theme", theme[value]);
-          
-          const themeMap = {
-            'Default': 'default',
-            'Ocean': 'ocean',
-            'Forest': 'forest',
-            'Sunset': 'sunset', 
-            'Purple': 'purple',
-            'Midnight': 'midnight',
-            'White': 'light',
-            'Black': 'black'
-          };
-          
-          const dataTheme = themeMap[theme[value]];
-          if (dataTheme && dataTheme !== 'default') {
-            document.documentElement.setAttribute('data-theme', dataTheme);
-          } else {
-            document.documentElement.removeAttribute('data-theme');
-          }
-        }
-      });
-    }
-  }
+        if (!value || !(value in engine)) return;
 
-  // Cloaker Dropdown
-  if (cloakerdropdown) {
-    const links = cloakerdropdown.querySelectorAll("a");
-    for (const link of links) {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        const value = link.getAttribute("data-value");
-        if (value && cloaker[value]) {
-          const { name, icon } = cloaker[value];
-          localStorage.setItem("title", name);
-          localStorage.setItem("icon", icon);
-          window.location.reload();
-        }
-      });
-    }
-  }
-  const menu: { [key: string]: string } = {
-    Hamburger: "Hamburger",
-    Standard: "Standard",
-  };
-
-  // Menu Dropdown
-  if (menudropdown) {
-    const menulinks = menudropdown.querySelectorAll("a");
-    for (const link of menulinks) {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        const value = link.getAttribute("data-value");
-        if (value && menu[value]) {
-          localStorage.setItem("menu", menu[value]);
-          window.location.reload();
-        }
-      });
-    }
-  }
-  // Custom Cloaker
-  const customtitle = document.getElementById("custom-title") as HTMLInputElement;
-  const customicon = document.getElementById("custom-icon") as HTMLInputElement;
-  if (customtitle) {
-    customtitle.value = localStorage.getItem("title") || "";
-    customtitle.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        const title = customtitle.value.trim();
-        if (title) {
-          localStorage.setItem("title", title);
-          window.location.reload();
-        }
-      }
-    });
-  }
-  if (customicon) {
-    customicon.value = localStorage.getItem("icon") || "";
-    customicon.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        const icon = customicon.value.trim();
-        if (icon) {
-          localStorage.setItem("icon", icon);
-          window.location.reload();
-        }
-      }
-    });
-  }
-
-  // Engine Dropdown
-  if (enginedropdown) {
-    const enginelinks = enginedropdown.querySelectorAll("a");
-    for (const link of enginelinks) {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        const value = link.getAttribute("data-value");
-        if (value && engine[value]) {
-          localStorage.setItem("engine", engine[value]);
-          window.location.reload();
-        }
-      });
-    }
-  }
-  // Custom Engine
-  if (engineform) {
-    engineform.value = localStorage.getItem("engine") || "";
-    engineform.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        const customEngine = engineform.value.trim();
-        if (customEngine) {
-          localStorage.setItem("engine", customEngine);
-          window.location.reload();
-        }
-      }
-    });
-  }
-
-  document.addEventListener("click", outside);
-});
-// Panic Key
-const panickey = document.getElementById("key") as HTMLInputElement;
-const paniclink = document.getElementById("link") as HTMLInputElement;
-
-if (panickey) {
-  panickey.value = localStorage.getItem("key") || "";
-  panickey.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const key = panickey.value.trim();
-      if (key) {
-        localStorage.setItem("key", key);
+        localStorage.setItem("engine", engine[value]);
         window.location.reload();
-      }
-    }
+      });
+    });
+  }
+
+  if (engineForm) {
+    engineForm.value = localStorage.getItem("engine") || "";
+    engineForm.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      const customEngine = engineForm.value.trim();
+      if (!customEngine) return;
+      localStorage.setItem("engine", customEngine);
+      window.location.reload();
+    });
+  }
+
+  const customTitle = document.getElementById("custom-title") as HTMLInputElement;
+  const customIcon = document.getElementById("custom-icon") as HTMLInputElement;
+
+  if (customTitle) {
+    customTitle.value = localStorage.getItem("title") || "";
+    customTitle.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      const title = customTitle.value.trim();
+      if (!title) return;
+      localStorage.setItem("title", title);
+      window.location.reload();
+    });
+  }
+
+  if (customIcon) {
+    customIcon.value = localStorage.getItem("icon") || "";
+    customIcon.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      const icon = customIcon.value.trim();
+      if (!icon) return;
+      localStorage.setItem("icon", icon);
+      window.location.reload();
+    });
+  }
+});
+
+const panicKey = document.getElementById("key") as HTMLInputElement;
+const panicLink = document.getElementById("link") as HTMLInputElement;
+
+if (panicKey) {
+  panicKey.value = localStorage.getItem("key") || "";
+  panicKey.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    const key = panicKey.value.trim();
+    if (!key) return;
+    localStorage.setItem("key", key);
+    window.location.reload();
   });
 }
 
-if (paniclink) {
-  paniclink.value = localStorage.getItem("link") || "";
-  paniclink.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const link = paniclink.value.trim();
-      if (link) {
-        localStorage.setItem("link", link);
-        window.location.reload();
-      }
-    }
+if (panicLink) {
+  panicLink.value = localStorage.getItem("link") || "";
+  panicLink.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    const link = panicLink.value.trim();
+    if (!link) return;
+    localStorage.setItem("link", link);
+    window.location.reload();
   });
 }
