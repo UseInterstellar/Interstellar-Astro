@@ -1,4 +1,4 @@
-const searchUrl = localStorage.getItem("engine") || "https://www.google.com/search?q=";
+const searchUrl = localStorage.getItem("engine") || "https://duckduckgo.com/?q=";
 const input = document.getElementById("search") as HTMLInputElement | null;
 
 function isUrl(val = ""): boolean {

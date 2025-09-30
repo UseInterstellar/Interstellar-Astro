@@ -3,7 +3,7 @@ document.addEventListener("astro:page-load", () => {
   console.log("page loaded");
   const frame = getFrame();
   if (frame) {
-    frame.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(sessionStorage.getItem("goUrl") || localStorage.getItem("engine") || "https://www.google.com");
+    frame.src = window.__uv$config.prefix + window.__uv$config.encodeUrl(sessionStorage.getItem("goUrl") || localStorage.getItem("engine") || "https://duckduckgo.com/?q=");
   } else {
     console.error("No iFrame found");
   }
