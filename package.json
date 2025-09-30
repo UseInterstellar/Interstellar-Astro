@@ -27,7 +27,7 @@
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "astro": "^5.13.10",
     "dompurify": "^3.2.4",
-    "fastify": "^5.6.0",
+    "fastify": "^5.6.1",
     "js-cookie": "^3.0.5",
     "lucide-astro": "^0.471.0",
     "mime": "^4.0.7",
