@@ -38,6 +38,10 @@ document.addEventListener("astro:page-load", () => {
       Midnight: "midnight",
       White: "light",
       Black: "black",
+      Dusk: "dusk",
+      Rosewood: "rosewood",
+      Citrine: "citrine",
+      Slate: "slate",
     };
 
     links.forEach((link) => {
