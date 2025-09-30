@@ -6,7 +6,7 @@
     "rules": {
       "recommended": true
     },
-    "includes": ["**", "!**/pnpm-lock.yaml", "!**/dist/**", "!**/node_modules/**", "!**/assets/bundled/**", "!**/*.min.json", "!**/.astro/**"]
+    "includes": ["**", "!**/pnpm-lock.yaml", "!**/dist/**", "!**/node_modules/**", "!**/assets/bundled/**", "!**/.astro/**"]
   },
   "formatter": {
     "indentStyle": "space",
@@ -14,7 +14,7 @@
     "lineEnding": "lf",
     "lineWidth": 320,
     "attributePosition": "auto",
-    "includes": ["**", "!**/pnpm-lock.yaml", "!**/dist/**", "!**/node_modules/**", "!**/assets/bundled/**", "!**/*.min.json", "!**/.astro/**"]
+    "includes": ["**", "!**/pnpm-lock.yaml", "!**/dist/**", "!**/node_modules/**", "!**/assets/bundled/**", "!**/.astro/**"]
   },
   "javascript": {
     "formatter": {

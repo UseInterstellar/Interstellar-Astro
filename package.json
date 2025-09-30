@@ -23,6 +23,7 @@
     "@mercuryworkshop/bare-mux": "2.1.7",
     "@mercuryworkshop/epoxy-transport": "2.1.27",
     "@mercuryworkshop/wisp-js": "^0.3.3",
+    "@playform/compress": "^0.2.0",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
     "astro": "^5.13.10",
     "dompurify": "^3.2.4",

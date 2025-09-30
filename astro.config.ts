@@ -7,6 +7,7 @@ import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
 // @ts-expect-error shut
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
+import compress from "@playform/compress";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { defineConfig } from "astro/config";
 import { viteStaticCopy } from "vite-plugin-static-copy";
@@ -17,7 +18,12 @@ export default defineConfig({
   adapter: node({
     mode: "middleware",
   }),
-  integrations: [tailwind({ applyBaseStyles: false })],
+  integrations: [
+    tailwind({ applyBaseStyles: false }),
+    compress({
+      Image: false,
+    }),
+  ],
   prefetch: {
     defaultStrategy: "viewport",
     prefetchAll: false,
