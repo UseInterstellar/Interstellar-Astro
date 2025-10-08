@@ -29,7 +29,7 @@
     "dompurify": "^3.2.4",
     "fastify": "^5.6.0",
     "js-cookie": "^3.0.5",
-    "lucide-astro": "^0.471.0",
+    "lucide-astro": "^0.545.0",
     "mime": "^4.0.7",
     "sharp": "^0.34.4",
     "tailwindcss": "^3.4.17",
