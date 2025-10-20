@@ -25,7 +25,7 @@
     "@mercuryworkshop/wisp-js": "^0.3.3",
     "@playform/compress": "^0.2.0",
     "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
-    "astro": "^5.13.10",
+    "astro": "^5.14.6",
     "dompurify": "^3.2.4",
     "fastify": "^5.6.0",
     "js-cookie": "^3.0.5",
