@@ -21,7 +21,11 @@ export default defineConfig({
   integrations: [
     tailwind({ applyBaseStyles: false }),
     compress({
+      CSS: false,
+      HTML: true,
       Image: false,
+      JavaScript: true,
+      SVG: true,
     }),
   ],
   prefetch: {
