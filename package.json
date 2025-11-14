@@ -9,7 +9,7 @@
     "typecheck": "astro check",
     "astro": "astro",
     "disable": "npx astro telemetry disable",
-    "precommit": "pnpm check && pnpm typecheck",
+    "precommit": "pnpm typecheck && pnpm check",
     "check": "prettier --write . && biome check --write ."
   },
   "dependencies": {

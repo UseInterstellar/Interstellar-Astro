@@ -1,7 +1,7 @@
 import { execSync } from "node:child_process";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import crypto from "node:crypto";
 
 interface FileMapping {
   original: string;
@@ -20,15 +20,15 @@ class BuildObfuscator {
 
   private generateName(extension: string, isRoute: boolean = false): string {
     let name: string;
-    
+
     do {
       if (isRoute) {
         name = this.generateRealisticRouteName();
       } else {
         const strategy = Math.random();
-        
+
         if (strategy < 0.25) {
-          const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+          const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
           name = chars[Math.floor(Math.random() * chars.length)];
         } else if (strategy < 0.5) {
           const length = Math.floor(Math.random() * 3) + 2;
@@ -37,63 +37,98 @@ class BuildObfuscator {
           const length = Math.floor(Math.random() * 8) + 5;
           name = crypto.randomBytes(length).toString("base64url").slice(0, length);
         } else {
-          const segments = [
-            crypto.randomBytes(4).toString('hex'),
-            crypto.randomBytes(2).toString('hex'),
-            crypto.randomBytes(2).toString('hex'),
-            crypto.randomBytes(2).toString('hex'),
-            crypto.randomBytes(6).toString('hex'),
-          ];
-          name = segments.join('-');
+          const segments = [crypto.randomBytes(4).toString("hex"), crypto.randomBytes(2).toString("hex"), crypto.randomBytes(2).toString("hex"), crypto.randomBytes(2).toString("hex"), crypto.randomBytes(6).toString("hex")];
+          name = segments.join("-");
         }
       }
     } while (this.usedNames.has(name));
-    
+
     this.usedNames.add(name);
-    
+
     return `${name}${extension}`;
   }
 
   private generateRealisticRouteName(): string {
     const routeStyles = [
-      () => this.pickRandom([
-        'dashboard', 'profile', 'settings', 'account', 'preferences',
-        'notifications', 'messages', 'inbox', 'archive', 'favorites',
-        'history', 'activity', 'analytics', 'reports', 'downloads',
-        'uploads', 'gallery', 'library', 'collection', 'playlist',
-        'workspace', 'projects', 'tasks', 'calendar', 'schedule',
-        'contacts', 'teams', 'members', 'groups', 'communities',
-        'explore', 'discover', 'trending', 'featured', 'popular',
-        'search', 'results', 'filter', 'sort', 'categories',
-        'tags', 'labels', 'bookmarks', 'saved', 'drafts',
-        'published', 'pending', 'reviews', 'feedback', 'support',
-        'help', 'docs', 'guides', 'tutorials', 'faq'
-      ]),
-      
+      () =>
+        this.pickRandom([
+          "dashboard",
+          "profile",
+          "settings",
+          "account",
+          "preferences",
+          "notifications",
+          "messages",
+          "inbox",
+          "archive",
+          "favorites",
+          "history",
+          "activity",
+          "analytics",
+          "reports",
+          "downloads",
+          "uploads",
+          "gallery",
+          "library",
+          "collection",
+          "playlist",
+          "workspace",
+          "projects",
+          "tasks",
+          "calendar",
+          "schedule",
+          "contacts",
+          "teams",
+          "members",
+          "groups",
+          "communities",
+          "explore",
+          "discover",
+          "trending",
+          "featured",
+          "popular",
+          "search",
+          "results",
+          "filter",
+          "sort",
+          "categories",
+          "tags",
+          "labels",
+          "bookmarks",
+          "saved",
+          "drafts",
+          "published",
+          "pending",
+          "reviews",
+          "feedback",
+          "support",
+          "help",
+          "docs",
+          "guides",
+          "tutorials",
+          "faq",
+        ]),
+
       () => {
-        const part1 = this.pickRandom(['user', 'admin', 'my', 'view', 'edit', 'new', 'create']);
-        const part2 = this.pickRandom(['profile', 'settings', 'dashboard', 'content', 'posts', 'items']);
+        const part1 = this.pickRandom(["user", "admin", "my", "view", "edit", "new", "create"]);
+        const part2 = this.pickRandom(["profile", "settings", "dashboard", "content", "posts", "items"]);
         return `${part1}-${part2}`;
       },
-      
+
       () => {
-        const prefix = this.pickRandom(['item', 'post', 'page', 'doc', 'file', 'media']);
+        const prefix = this.pickRandom(["item", "post", "page", "doc", "file", "media"]);
         const id = Math.floor(Math.random() * 10000);
         return `${prefix}-${id}`;
       },
-      
+
       () => {
         const length = Math.floor(Math.random() * 2) + 2;
-        return crypto.randomBytes(length).toString('hex').slice(0, length);
+        return crypto.randomBytes(length).toString("hex").slice(0, length);
       },
-      
-      () => this.pickRandom([
-        'login', 'logout', 'signup', 'register', 'reset',
-        'verify', 'confirm', 'activate', 'deactivate', 'delete',
-        'create', 'update', 'edit', 'remove', 'add'
-      ]),
+
+      () => this.pickRandom(["login", "logout", "signup", "register", "reset", "verify", "confirm", "activate", "deactivate", "delete", "create", "update", "edit", "remove", "add"]),
     ];
-    
+
     const generator = this.pickRandom(routeStyles);
     return generator();
   }
@@ -104,15 +139,15 @@ class BuildObfuscator {
 
   private findFiles(directory: string, extensions: string[]): string[] {
     const results: string[] = [];
-    
+
     if (!fs.existsSync(directory)) return results;
-    
+
     const traverse = (dir: string) => {
       const entries = fs.readdirSync(dir, { withFileTypes: true });
-      
+
       for (const entry of entries) {
         const fullPath = path.join(dir, entry.name);
-        
+
         if (entry.isDirectory()) {
           traverse(fullPath);
         } else if (extensions.includes(path.extname(entry.name))) {
@@ -120,23 +155,23 @@ class BuildObfuscator {
         }
       }
     };
-    
+
     traverse(directory);
     return results;
   }
 
   private processFavicons(): void {
     const faviconDir = path.join(this.root, "public", "assets", "media", "favicons");
-    
+
     if (!fs.existsSync(faviconDir)) return;
 
     const favicons = fs.readdirSync(faviconDir);
-    
+
     for (const file of favicons) {
       const originalPath = path.join(faviconDir, file);
       const randomizedName = this.generateName(path.extname(file));
       const newPath = path.join(faviconDir, randomizedName);
-      
+
       this.mappings.set(originalPath, {
         original: originalPath,
         randomized: newPath,
@@ -146,26 +181,21 @@ class BuildObfuscator {
   }
 
   private processSourceFiles(): void {
-    const directories = [
-      "src/components",
-      "src/layouts",
-      "src/lib",
-      "src/pages",
-    ];
+    const directories = ["src/components", "src/layouts", "src/lib", "src/pages"];
 
     for (const dir of directories) {
       const dirPath = path.join(this.root, dir);
       if (!fs.existsSync(dirPath)) continue;
 
       const files = this.findFiles(dirPath, [".astro", ".ts"]);
-      
+
       for (const file of files) {
         if (path.basename(file) === "index.astro") continue;
 
         const isRoute = file.includes("/pages/");
         const randomizedName = this.generateName(path.extname(file), isRoute);
         const newPath = path.join(path.dirname(file), randomizedName);
-        
+
         const mapping: FileMapping = {
           original: file,
           randomized: newPath,
@@ -179,7 +209,7 @@ class BuildObfuscator {
 
   private updateFileContents(): void {
     const filesToUpdate = this.findFiles(path.join(this.root, "src"), [".astro", ".ts"]);
-    
+
     for (const file of filesToUpdate) {
       let content = fs.readFileSync(file, "utf-8");
       let modified = false;
@@ -187,8 +217,6 @@ class BuildObfuscator {
       for (const [originalPath, mapping] of this.mappings) {
         const originalName = path.basename(mapping.original);
         const newName = path.basename(mapping.randomized);
-        const originalNameWithoutExt = path.basename(mapping.original, path.extname(mapping.original));
-        const newNameWithoutExt = path.basename(mapping.randomized, path.extname(mapping.randomized));
 
         if (mapping.type === "favicon") {
           const faviconName = path.basename(originalPath);
@@ -207,18 +235,12 @@ class BuildObfuscator {
           }
         } else {
           const relDir = path.dirname(mapping.original).replace(path.join(this.root, "src"), "");
-          const componentType = relDir.includes("/components") ? "components"
-            : relDir.includes("/layouts") ? "layouts"
-            : relDir.includes("/lib") ? "lib"
-            : null;
+          const componentType = relDir.includes("/components") ? "components" : relDir.includes("/layouts") ? "layouts" : relDir.includes("/lib") ? "lib" : null;
 
           if (componentType) {
             const aliasPattern = `@/${componentType}/${originalName}`;
             if (content.includes(aliasPattern)) {
-              content = content.replace(
-                new RegExp(this.escapeRegex(aliasPattern), "g"),
-                `@/${componentType}/${newName}`
-              );
+              content = content.replace(new RegExp(this.escapeRegex(aliasPattern), "g"), `@/${componentType}/${newName}`);
               modified = true;
             }
           }
@@ -226,7 +248,7 @@ class BuildObfuscator {
           if (mapping.type === "route") {
             const originalFileName = path.basename(mapping.original, path.extname(mapping.original));
             const newFileName = path.basename(mapping.randomized, path.extname(mapping.randomized));
-            
+
             const routeReplacements = [
               { from: `/${originalFileName}`, to: `/${newFileName}` },
               { from: `"/${originalFileName}"`, to: `"/${newFileName}"` },
@@ -253,8 +275,7 @@ class BuildObfuscator {
   }
 
   private renameFiles(): void {
-    const sortedMappings = Array.from(this.mappings.values())
-      .sort((a, b) => b.original.split(path.sep).length - a.original.split(path.sep).length);
+    const sortedMappings = Array.from(this.mappings.values()).sort((a, b) => b.original.split(path.sep).length - a.original.split(path.sep).length);
 
     for (const mapping of sortedMappings) {
       if (fs.existsSync(mapping.original)) {
@@ -269,7 +290,7 @@ class BuildObfuscator {
 
   public async obfuscate(): Promise<void> {
     console.log("Starting build obfuscation...");
-    
+
     this.processFavicons();
     this.processSourceFiles();
     this.updateFileContents();
@@ -283,7 +304,7 @@ class BuildObfuscator {
         routeMappings[originalRoute] = newRoute;
       }
     }
-    
+
     console.log("Routes updated:", routeMappings);
   }
 
