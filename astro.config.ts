@@ -11,15 +11,12 @@ import compress from "@playform/compress";
 import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { defineConfig } from "astro/config";
 import { viteStaticCopy } from "vite-plugin-static-copy";
+import INConfig from "./config";
 
-// https://astro.build/config
-export default defineConfig({
-  output: "server",
-  adapter: node({
-    mode: "middleware",
-  }),
-  integrations: [
-    tailwind({ applyBaseStyles: false }),
+const integrations = [tailwind({ applyBaseStyles: false })];
+
+if (INConfig.server?.compress !== false) {
+  integrations.push(
     compress({
       CSS: false,
       HTML: true,
@@ -27,7 +24,16 @@ export default defineConfig({
       JavaScript: true,
       SVG: true,
     }),
-  ],
+  );
+}
+
+// https://astro.build/config
+export default defineConfig({
+  output: "server",
+  adapter: node({
+    mode: "middleware",
+  }),
+  integrations,
   prefetch: {
     defaultStrategy: "viewport",
     prefetchAll: false,

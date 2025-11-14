@@ -9,13 +9,19 @@ interface FileMapping {
   type: "file" | "route" | "favicon";
 }
 
+interface ObfuscatorConfig {
+  enabled: boolean;
+}
+
 class BuildObfuscator {
   private mappings = new Map<string, FileMapping>();
   private usedNames = new Set<string>();
   private root: string;
+  private config: ObfuscatorConfig;
 
-  constructor() {
+  constructor(config: ObfuscatorConfig = { enabled: true }) {
     this.root = process.cwd();
+    this.config = config;
   }
 
   private generateName(extension: string, isRoute: boolean = false): string {
@@ -238,9 +244,11 @@ class BuildObfuscator {
           const componentType = relDir.includes("/components") ? "components" : relDir.includes("/layouts") ? "layouts" : relDir.includes("/lib") ? "lib" : null;
 
           if (componentType) {
-            const aliasPattern = `@/${componentType}/${originalName}`;
-            if (content.includes(aliasPattern)) {
-              content = content.replace(new RegExp(this.escapeRegex(aliasPattern), "g"), `@/${componentType}/${newName}`);
+            const aliasPattern = `@/${componentType}/${this.escapeRegex(originalName)}`;
+            const regex = new RegExp(`(['"\`])${aliasPattern}(['"\`])`, "g");
+            const newContent = content.replace(regex, `$1@/${componentType}/${newName}$2`);
+            if (newContent !== content) {
+              content = newContent;
               modified = true;
             }
           }
@@ -250,17 +258,14 @@ class BuildObfuscator {
             const newFileName = path.basename(mapping.randomized, path.extname(mapping.randomized));
 
             const routeReplacements = [
-              { from: `/${originalFileName}`, to: `/${newFileName}` },
-              { from: `"/${originalFileName}"`, to: `"/${newFileName}"` },
-              { from: `'/${originalFileName}'`, to: `'/${newFileName}'` },
-              { from: `\`/${originalFileName}\``, to: `\`/${newFileName}\`` },
-              { from: `href="/${originalFileName}"`, to: `href="/${newFileName}"` },
-              { from: `href='/${originalFileName}'`, to: `href='/${newFileName}'` },
+              { pattern: new RegExp(`(['"\`])/${this.escapeRegex(originalFileName)}(['"\`])`, "g"), replacement: `$1/${newFileName}$2` },
+              { pattern: new RegExp(`(href\\s*=\\s*['"\`])/${this.escapeRegex(originalFileName)}(['"\`])`, "g"), replacement: `$1/${newFileName}$2` },
             ];
 
-            for (const { from, to } of routeReplacements) {
-              if (content.includes(from)) {
-                content = content.replace(new RegExp(this.escapeRegex(from), "g"), to);
+            for (const { pattern, replacement } of routeReplacements) {
+              const newContent = content.replace(pattern, replacement);
+              if (newContent !== content) {
+                content = newContent;
                 modified = true;
               }
             }
@@ -289,6 +294,11 @@ class BuildObfuscator {
   }
 
   public async obfuscate(): Promise<void> {
+    if (!this.config.enabled) {
+      console.log("Build obfuscation is disabled in config.");
+      return;
+    }
+
     console.log("Starting build obfuscation...");
 
     this.processFavicons();
@@ -322,8 +332,8 @@ class BuildObfuscator {
   }
 }
 
-export async function Main(): Promise<void> {
-  const obfuscator = new BuildObfuscator();
+export async function Main(config?: ObfuscatorConfig): Promise<void> {
+  const obfuscator = new BuildObfuscator(config);
   await obfuscator.obfuscate();
 }
 

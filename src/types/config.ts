@@ -5,6 +5,14 @@ export interface Config {
     // The port to run the HTTP server on
     // Default: 8080
     port?: number;
+
+    // Enable build obfuscation
+    // Default: true
+    obfuscate?: boolean;
+
+    // Enable compression
+    // Default: true
+    compress?: boolean;
   };
 
   // Authentication configuration

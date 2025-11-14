@@ -4,16 +4,16 @@ const config: Config = {
   // Server Configuration
   server: {
     port: 8080, // The port on which Interstellar runs (Default: 8080)
+    obfuscate: false, // Set to false to disable obfuscation
+    compress: false, // Set to false to disable compression
   },
 
-  // Authentication Configuration (Optional)
+  // Password Protection (Optional)
   auth: {
     // Enable password protection for your instance.
-    // Set challenge to true to require users to log in.
-    challenge: false,
-
-    // Format: username: "password",
-    // IMPORTANT: Replace default credentials before deployment
+    challenge: false, // Set to true to require users to log in.
+    // Add your users here: username: "password"
+    // WARNING: Change default credentials before using
     users: {
       interstellar: "password",
     },

@@ -16,7 +16,10 @@ async function Start() {
   const FirstRun = process.env.FIRST === "true";
 
   if (!fs.existsSync("dist")) {
-    Main();
+    if (INConfig.server?.obfuscate !== false) {
+      await Main({ enabled: true });
+    }
+
     console.log("Interstellar's not built yet! Building now...");
 
     await build({}).catch((err) => {
@@ -24,7 +27,9 @@ async function Start() {
       process.exit(1);
     });
 
-    await Revert();
+    if (INConfig.server?.obfuscate !== false) {
+      await Revert();
+    }
 
     if (FirstRun) {
       console.log("Restarting Server...");
@@ -39,9 +44,11 @@ async function Start() {
     serverFactory: (handler) => createServer(handler).on("upgrade", (req, socket: Socket, head) => (req.url?.startsWith("/f") ? wisp.routeRequest(req, socket, head) : socket.destroy())),
   });
 
-  await app.register(import("@fastify/compress"), {
-    encodings: ["br", "gzip", "deflate"],
-  });
+  if (INConfig.server?.compress !== false) {
+    await app.register(import("@fastify/compress"), {
+      encodings: ["br", "gzip", "deflate"],
+    });
+  }
 
   if (INConfig.auth?.challenge) {
     await app.register(import("@fastify/basic-auth"), {
