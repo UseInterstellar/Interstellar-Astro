@@ -1,30 +1,16 @@
-import { ChevronLeft, ChevronRight, Home, Lock, Menu, MoreVertical, Plus, RotateCw, Star, X, Maximize2 } from "lucide-react";
-import { useMemo, useState, useRef, useEffect } from "react";
-import {
-  type Tab,
-  formatUrl,
-  classNames,
-  iconButtonClass,
-  tabButtonClass,
-  closeButtonClass,
-  addressInputClass,
-  actionBarClass,
-  getDefaultUrl,
-  encodeProxyUrl,
-  getActualUrl,
-} from "@/lib/browser";
+import { ChevronLeft, ChevronRight, Home, Lock, Maximize2, Menu, MoreVertical, Plus, RotateCw, Star, X } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, iconButtonClass, type Tab, tabButtonClass } from "@/lib/tabs";
 
 export default function Browser() {
-  const [tabs, setTabs] = useState<Tab[]>([
-    { id: 1, title: "New Tab", url: "about:blank", active: true, reloadKey: 0 },
-  ]);
+  const [tabs, setTabs] = useState<Tab[]>([{ id: 1, title: "New Tab", url: "about:blank", active: true, reloadKey: 0 }]);
   const [url, setUrl] = useState("about:blank");
   const activeTab = useMemo(() => tabs.find((tab) => tab.active), [tabs]);
   const iframeRefs = useRef<{ [key: number]: HTMLIFrameElement | null }>({});
 
   useEffect(() => {
     const defaultUrl = getDefaultUrl();
-    setTabs(prev => prev.map(tab => ({ ...tab, url: defaultUrl })));
+    setTabs((prev) => prev.map((tab) => ({ ...tab, url: defaultUrl })));
     setUrl(defaultUrl);
   }, []);
 
@@ -44,16 +30,10 @@ export default function Browser() {
       const actualUrl = getActualUrl(iframe);
       if (actualUrl && actualUrl !== url) {
         setUrl(actualUrl);
-        
+
         try {
           const hostname = new URL(actualUrl).hostname;
-          setTabs((prev) =>
-            prev.map((tab) =>
-              tab.id === activeTab.id
-                ? { ...tab, title: hostname || "New Tab" }
-                : tab
-            )
-          );
+          setTabs((prev) => prev.map((tab) => (tab.id === activeTab.id ? { ...tab, title: hostname || "New Tab" } : tab)));
         } catch (e) {
           // Invalid URL
         }
@@ -61,7 +41,7 @@ export default function Browser() {
     };
 
     iframe.addEventListener("load", updateUrlBar);
-    
+
     const interval = setInterval(updateUrlBar, 1000);
 
     return () => {
@@ -117,7 +97,7 @@ export default function Browser() {
   const handleNavigate = (value: string) => {
     if (!activeTab) return;
     const formattedUrl = formatUrl(value);
-    
+
     setTabs((prev) =>
       prev.map((tab) =>
         tab.id === activeTab.id
@@ -169,10 +149,10 @@ export default function Browser() {
     if (!activeTab) return;
     const iframe = iframeRefs.current[activeTab.id];
     const actualUrl = getActualUrl(iframe) || activeTab.url;
-    
+
     const title = prompt("Enter a Title for this bookmark:", activeTab.title || "New Bookmark");
-    
-    if (title && typeof localStorage !== 'undefined') {
+
+    if (title && typeof localStorage !== "undefined") {
       try {
         const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
         bookmarks.push({ Title: title, url: actualUrl });
@@ -201,12 +181,7 @@ export default function Browser() {
                 setActiveTab(tab.id);
               }
             }}
-            className={classNames(
-              tabButtonClass,
-              tab.active
-                ? "bg-background-secondary text-text shadow-sm"
-                : "bg-background text-text-secondary hover:bg-interactive"
-            )}
+            className={classNames(tabButtonClass, tab.active ? "bg-background-secondary text-text shadow-sm" : "bg-background text-text-secondary hover:bg-interactive")}
           >
             <div className="flex min-w-0 flex-1 items-center gap-2">
               <div className="h-4 w-4 shrink-0 rounded bg-accent/30" />
