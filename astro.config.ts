@@ -1,6 +1,7 @@
 import { execSync } from "node:child_process";
 import path from "node:path";
 import node from "@astrojs/node";
+import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
 // @ts-expect-error shut
@@ -13,7 +14,7 @@ import { defineConfig } from "astro/config";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import INConfig from "./config";
 
-const integrations = [tailwind({ applyBaseStyles: false })];
+const integrations = [react(), tailwind({ applyBaseStyles: false })];
 
 if (INConfig.server?.compress !== false) {
   integrations.push(
