@@ -6,14 +6,25 @@ export interface Tab {
   reloadKey: number;
 }
 
+export interface UVConfig {
+  prefix: string;
+  encodeUrl: (url: string) => string;
+  decodeUrl: (url: string) => string;
+}
+
+declare global {
+  interface Window {
+    __uv$config: UVConfig;
+  }
+}
+
 export const baseTabs: Tab[] = [
   { id: 1, title: "New Tab", url: "about:blank", active: true, reloadKey: 0 },
 ];
 
 export const formatUrl = (value: string) => {
   if (!value.trim()) return "about:blank";
-  const hasProtocol = /^https?:\/\//i.test(value);
-  return hasProtocol ? value : `https://${value}`;
+  return /^https?:\/\//i.test(value) ? value : `https://${value}`;
 };
 
 export const classNames = (...classes: Array<string | false | undefined>) =>
@@ -25,34 +36,74 @@ export const closeButtonClass = "inline-flex h-5 w-5 items-center justify-center
 export const addressInputClass = "h-auto flex-1 border-0 bg-transparent p-0 text-sm text-text focus:outline-none";
 export const actionBarClass = "flex items-center gap-2 rounded-lg border border-border bg-background-secondary/50 px-3 py-1.5 transition-all focus-within:bg-background focus-within:ring-2 focus-within:ring-accent/20";
 
-export const goBack = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
-  const iframe = iframeRefs[tabId];
-  if (iframe?.contentWindow) {
-    iframe.contentWindow.history.back();
+export const getDefaultUrl = () => {
+  if (typeof window === "undefined") {
+    return "https://duckduckgo.com";
   }
+  
+  try {
+    return sessionStorage.getItem("goUrl") || 
+           localStorage.getItem("engine") || 
+           "https://duckduckgo.com";
+  } catch (error) {
+    console.warn("Storage access failed:", error);
+    return "https://duckduckgo.com";
+  }
+};
+
+export const encodeProxyUrl = (url: string): string => {
+  if (!url || url === "about:blank") return "about:blank";
+  if (typeof window === "undefined") return url;
+  
+  const config = window.__uv$config;
+  return config ? config.prefix + config.encodeUrl(url) : url;
+};
+
+export const decodeProxyUrl = (proxyUrl: string): string => {
+  if (!proxyUrl || proxyUrl === "about:blank") return proxyUrl;
+  if (typeof window === "undefined") return proxyUrl;
+  
+  const config = window.__uv$config;
+  
+  if (config) {
+    try {
+      const path = proxyUrl.split("/").pop() || "";
+      return config.decodeUrl(path);
+    } catch {
+      return proxyUrl;
+    }
+  }
+  
+  return proxyUrl;
+};
+
+export const getActualUrl = (iframe: HTMLIFrameElement | null): string => {
+  if (!iframe?.contentWindow) return "";
+  
+  try {
+    return (iframe.contentWindow as any).__uv$location?.href || 
+           iframe.contentWindow.location.href;
+  } catch {
+    return "";
+  }
+};
+
+export const goBack = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
+  iframeRefs[tabId]?.contentWindow?.history.back();
 };
 
 export const goForward = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
-  const iframe = iframeRefs[tabId];
-  if (iframe?.contentWindow) {
-    iframe.contentWindow.history.forward();
-  }
+  iframeRefs[tabId]?.contentWindow?.history.forward();
 };
 
 export const reloadTab = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
-  const iframe = iframeRefs[tabId];
-  if (iframe?.contentWindow) {
-    iframe.contentWindow.location.reload();
-  }
+  iframeRefs[tabId]?.contentWindow?.location.reload();
 };
 
 export const toggleFullscreen = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
-  const iframe = iframeRefs[tabId];
-  if (iframe) {
-    iframe.requestFullscreen().catch((err) => {
-      console.error("Failed to enter fullscreen mode:", err);
-    });
-  }
+  iframeRefs[tabId]?.requestFullscreen().catch(err => 
+    console.error("Fullscreen failed:", err)
+  );
 };
 
 export const addBookmark = (
@@ -61,15 +112,20 @@ export const addBookmark = (
   tabTitle: string,
   tabUrl: string
 ) => {
-  const iframe = iframeRefs[tabId];
-  const currentUrl = iframe?.contentWindow?.location.href || tabUrl;
+  if (typeof window === "undefined") return;
   
+  const actualUrl = getActualUrl(iframeRefs[tabId]) || tabUrl;
   const title = prompt("Enter a Title for this bookmark:", tabTitle || "New Bookmark");
   
-  if (title) {
+  if (!title) return;
+  
+  try {
     const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
-    bookmarks.push({ Title: title, url: currentUrl });
+    bookmarks.push({ Title: title, url: actualUrl });
     localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-    console.log("Bookmark added:", { Title: title, url: currentUrl });
+    alert("Bookmark added successfully!");
+  } catch (err) {
+    console.error("Failed to add bookmark:", err);
+    alert("Failed to add bookmark. Storage may be blocked.");
   }
 };

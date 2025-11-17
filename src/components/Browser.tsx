@@ -2,7 +2,6 @@ import { ChevronLeft, ChevronRight, Home, Lock, Menu, MoreVertical, Plus, Rotate
 import { useMemo, useState, useRef, useEffect } from "react";
 import {
   type Tab,
-  baseTabs,
   formatUrl,
   classNames,
   iconButtonClass,
@@ -10,24 +9,66 @@ import {
   closeButtonClass,
   addressInputClass,
   actionBarClass,
-  goBack,
-  goForward,
-  reloadTab,
-  toggleFullscreen,
-  addBookmark,
+  getDefaultUrl,
+  encodeProxyUrl,
+  getActualUrl,
 } from "@/lib/browser";
 
 export default function Browser() {
-  const [tabs, setTabs] = useState<Tab[]>(baseTabs);
-  const [url, setUrl] = useState(baseTabs[0].url);
+  const [tabs, setTabs] = useState<Tab[]>([
+    { id: 1, title: "New Tab", url: "about:blank", active: true, reloadKey: 0 },
+  ]);
+  const [url, setUrl] = useState("about:blank");
   const activeTab = useMemo(() => tabs.find((tab) => tab.active), [tabs]);
   const iframeRefs = useRef<{ [key: number]: HTMLIFrameElement | null }>({});
+
+  useEffect(() => {
+    const defaultUrl = getDefaultUrl();
+    setTabs(prev => prev.map(tab => ({ ...tab, url: defaultUrl })));
+    setUrl(defaultUrl);
+  }, []);
 
   useEffect(() => {
     if (activeTab) {
       setUrl(activeTab.url);
     }
   }, [activeTab]);
+
+  useEffect(() => {
+    if (!activeTab) return;
+
+    const iframe = iframeRefs.current[activeTab.id];
+    if (!iframe) return;
+
+    const updateUrlBar = () => {
+      const actualUrl = getActualUrl(iframe);
+      if (actualUrl && actualUrl !== url) {
+        setUrl(actualUrl);
+        
+        try {
+          const hostname = new URL(actualUrl).hostname;
+          setTabs((prev) =>
+            prev.map((tab) =>
+              tab.id === activeTab.id
+                ? { ...tab, title: hostname || "New Tab" }
+                : tab
+            )
+          );
+        } catch (e) {
+          // Invalid URL
+        }
+      }
+    };
+
+    iframe.addEventListener("load", updateUrlBar);
+    
+    const interval = setInterval(updateUrlBar, 1000);
+
+    return () => {
+      iframe.removeEventListener("load", updateUrlBar);
+      clearInterval(interval);
+    };
+  }, [activeTab, url]);
 
   const setActiveTab = (id: number) => {
     const target = tabs.find((tab) => tab.id === id);
@@ -45,9 +86,9 @@ export default function Browser() {
     setTabs((prev) => {
       const nextId = prev.length ? Math.max(...prev.map((tab) => tab.id)) + 1 : 1;
       const newTabs = prev.map((tab) => ({ ...tab, active: false }));
-      return [...newTabs, { id: nextId, title: "New Tab", url: "about:blank", active: true, reloadKey: 0 }];
+      return [...newTabs, { id: nextId, title: "New Tab", url: getDefaultUrl(), active: true, reloadKey: 0 }];
     });
-    setUrl("about:blank");
+    setUrl(getDefaultUrl());
   };
 
   const closeTab = (id: number) => {
@@ -56,7 +97,8 @@ export default function Browser() {
       const filtered = prev.filter((tab) => tab.id !== id);
 
       if (filtered.length === 0) {
-        return [{ id: Date.now(), title: "New Tab", url: "about:blank", active: true, reloadKey: 0 }];
+        const defaultUrl = getDefaultUrl();
+        return [{ id: Date.now(), title: "New Tab", url: defaultUrl, active: true, reloadKey: 0 }];
       } else if (!filtered.some((tab) => tab.active)) {
         filtered[0] = { ...filtered[0], active: true };
         nextUrl = filtered[0].url;
@@ -74,23 +116,74 @@ export default function Browser() {
 
   const handleNavigate = (value: string) => {
     if (!activeTab) return;
-    const nextUrl = formatUrl(value);
+    const formattedUrl = formatUrl(value);
+    
     setTabs((prev) =>
       prev.map((tab) =>
         tab.id === activeTab.id
           ? {
               ...tab,
-              url: nextUrl,
-              title: new URL(nextUrl).hostname || "New Tab",
+              url: formattedUrl,
+              title: new URL(formattedUrl).hostname || "New Tab",
+              reloadKey: tab.reloadKey + 1,
             }
           : tab,
       ),
     );
-    setUrl(nextUrl);
+    setUrl(formattedUrl);
   };
 
   const goHome = () => {
     handleNavigate("https://duckduckgo.com");
+  };
+
+  const goBack = () => {
+    if (!activeTab) return;
+    const iframe = iframeRefs.current[activeTab.id];
+    iframe?.contentWindow?.history.back();
+  };
+
+  const goForward = () => {
+    if (!activeTab) return;
+    const iframe = iframeRefs.current[activeTab.id];
+    iframe?.contentWindow?.history.forward();
+  };
+
+  const reloadTab = () => {
+    if (!activeTab) return;
+    const iframe = iframeRefs.current[activeTab.id];
+    iframe?.contentWindow?.location.reload();
+  };
+
+  const toggleFullscreen = () => {
+    if (!activeTab) return;
+    const iframe = iframeRefs.current[activeTab.id];
+    if (iframe) {
+      iframe.requestFullscreen().catch((err) => {
+        console.error("Failed to enter fullscreen mode:", err);
+      });
+    }
+  };
+
+  const addBookmark = () => {
+    if (!activeTab) return;
+    const iframe = iframeRefs.current[activeTab.id];
+    const actualUrl = getActualUrl(iframe) || activeTab.url;
+    
+    const title = prompt("Enter a Title for this bookmark:", activeTab.title || "New Bookmark");
+    
+    if (title && typeof localStorage !== 'undefined') {
+      try {
+        const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+        bookmarks.push({ Title: title, url: actualUrl });
+        localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+        console.log("Bookmark added:", { Title: title, url: actualUrl });
+        alert("Bookmark added successfully!");
+      } catch (e) {
+        console.error("Failed to add bookmark:", e);
+        alert("Failed to add bookmark. Storage may be blocked.");
+      }
+    }
   };
 
   return (
@@ -139,13 +232,13 @@ export default function Browser() {
 
       <div className="flex items-center justify-between gap-3 border-b border-border/50 bg-background-secondary px-3 py-2 backdrop-blur-xl">
         <div className="flex items-center gap-1">
-          <button type="button" className={iconButtonClass} onClick={() => activeTab && goBack(iframeRefs.current, activeTab.id)} aria-label="Back">
+          <button type="button" className={iconButtonClass} onClick={goBack} aria-label="Back">
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <button type="button" className={iconButtonClass} onClick={() => activeTab && goForward(iframeRefs.current, activeTab.id)} aria-label="Forward">
+          <button type="button" className={iconButtonClass} onClick={goForward} aria-label="Forward">
             <ChevronRight className="h-4 w-4" />
           </button>
-          <button type="button" className={iconButtonClass} onClick={() => activeTab && reloadTab(iframeRefs.current, activeTab.id)} aria-label="Reload">
+          <button type="button" className={iconButtonClass} onClick={reloadTab} aria-label="Reload">
             <RotateCw className="h-4 w-4" />
           </button>
           <button type="button" className={iconButtonClass} onClick={goHome} aria-label="Home">
@@ -171,10 +264,10 @@ export default function Browser() {
         </div>
 
         <div className="flex items-center gap-1">
-          <button type="button" className={iconButtonClass} onClick={() => activeTab && toggleFullscreen(iframeRefs.current, activeTab.id)} aria-label="Fullscreen">
+          <button type="button" className={iconButtonClass} onClick={toggleFullscreen} aria-label="Fullscreen">
             <Maximize2 className="h-4 w-4" />
           </button>
-          <button type="button" className={iconButtonClass} onClick={() => activeTab && addBookmark(iframeRefs.current, activeTab.id, activeTab.title, activeTab.url)} aria-label="Bookmark">
+          <button type="button" className={iconButtonClass} onClick={addBookmark} aria-label="Bookmark">
             <Star className="h-4 w-4" />
           </button>
           <button type="button" className={iconButtonClass} aria-label="Menu">
@@ -194,7 +287,7 @@ export default function Browser() {
               iframeRefs.current[tab.id] = el;
             }}
             title={tab.title}
-            src={tab.url}
+            src={encodeProxyUrl(tab.url)}
             className={classNames("absolute inset-0 h-full w-full border-0", tab.active ? "block" : "hidden")}
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
           />

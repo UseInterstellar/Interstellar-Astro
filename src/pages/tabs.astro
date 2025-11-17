@@ -1,59 +1,9 @@
 ---
-import ArrowLeft from "lucide-astro/ArrowLeft";
-import ArrowRight from "lucide-astro/ArrowRight";
-import Home from "lucide-astro/Home";
-import Loader2 from "lucide-astro/Loader2";
-import Maximize2 from "lucide-astro/Maximize2";
-import Plus from "lucide-astro/Plus";
-import RotateCw from "lucide-astro/RotateCw";
-import Star from "lucide-astro/Star";
-
 import Layout from "@/layouts/Layout.astro";
+import Browser from "../components/Browser";
+
 ---
 
-<script src="@/lib/tabs.ts"></script>
 <Layout>
-  <div class="bg-background-secondary h-10 flex items-center border-b border-border px-2">
-    <div class="flex space-x-1">
-      <button class="flex items-center px-3 py-1 rounded-md bg-accent text-text shadow-sm">Tab 1</button>
-      <button class="flex items-center px-3 py-1 rounded-md bg-interactive text-interactive-secondary hover:bg-accent-secondary">Tab 2</button>
-      <button class="flex items-center px-3 py-1 rounded-md bg-interactive text-interactive-secondary hover:bg-accent-secondary">Tab 3</button>
-    </div>
-    <div class="flex-grow"></div>
-    <button class="p-2 rounded-full bg-interactive hover:bg-accent-secondary">
-      <Plus class="w-5 h-5 text-text" />
-    </button>
-  </div>
-  <div class="bg-background-secondary h-12 flex items-center justify-between px-4">
-    <div class="flex items-center space-x-2">
-      <a href="/" id="home" title="Home Page" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <Home class="w-5 h-5 text-text-secondary" />
-      </a>
-      <button title="Go back" id="back" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <ArrowLeft class="w-5 h-5 text-text-secondary" />
-      </button>
-      <button title="Go forward" id="forward" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <ArrowRight class="w-5 h-5 text-text-secondary" />
-      </button>
-      <button title="Reload page" id="reload" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <RotateCw class="w-5 h-5 text-text-secondary" />
-      </button>
-    </div>
-    <div class="flex-grow flex items-center justify-center mx-4">
-      <input type="text" placeholder="Search or enter a new URL" id="inp" class="w-full h-9 px-4 rounded-md text-text border border-border bg-background-secondary shadow-sm outline-none focus:ring-1 focus:ring-accent placeholder:text-placeholder" />
-    </div>
-    <div class="flex items-center space-x-2">
-      <button title="Fullscreen" id="fullscreen" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <Maximize2 class="w-5 h-5 text-text-secondary" />
-      </button>
-      <button title="Bookmark this page" id="bookmark" class="flex items-center justify-center p-2 rounded-full hover:bg-interactive">
-        <Star class="w-5 h-5 text-text-secondary" />
-      </button>
-    </div>
-  </div>
-  <div class="absolute top-0 left-0 flex flex-col w-full h-screen justify-center items-center z-[-99]">
-    <Loader2 class="w-24 h-24 animate-spin text-text" />
-    <h2 class="mt-2 text-text-secondary">Interstellar is loading your content!</h2>
-  </div>
-  <iframe id="frame__1" class="w-full h-[calc(100vh_-_5rem)] z-9" title=""></iframe>
+  <Browser client:load />
 </Layout>
