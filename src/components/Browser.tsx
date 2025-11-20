@@ -156,7 +156,7 @@ export default function Browser() {
   };
 
   const goHome = () => {
-    handleNavigate("https://duckduckgo.com");
+    window.location.href = '/';
   };
 
   const goBack = () => {
@@ -255,6 +255,9 @@ export default function Browser() {
 
       <div className="flex items-center justify-between gap-3 border-b border-border/50 bg-background-secondary px-3 py-2 backdrop-blur-xl">
         <div className="flex items-center gap-1">
+          <button type="button" className={iconButtonClass} onClick={goHome} aria-label="Home">
+            <Home className="h-4 w-4" />
+          </button>
           <button type="button" className={iconButtonClass} onClick={goBack} aria-label="Back">
             <ChevronLeft className="h-4 w-4" />
           </button>
@@ -263,9 +266,6 @@ export default function Browser() {
           </button>
           <button type="button" className={iconButtonClass} onClick={reloadTab} aria-label="Reload">
             <RotateCw className="h-4 w-4" />
-          </button>
-          <button type="button" className={iconButtonClass} onClick={goHome} aria-label="Home">
-            <Home className="h-4 w-4" />
           </button>
         </div>
 
