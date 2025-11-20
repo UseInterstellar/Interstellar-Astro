@@ -3,20 +3,32 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, iconButtonClass, type Tab, tabButtonClass } from "@/lib/tabs";
 
 export default function Browser() {
-  const [tabs, setTabs] = useState<Tab[]>([{ id: 1, title: "New Tab", url: "about:blank", active: true, reloadKey: 0 }]);
+  const [tabs, setTabs] = useState<Tab[]>([{ id: 1, title: "Tab 1", url: "about:blank", active: true, reloadKey: 0 }]);
   const [url, setUrl] = useState("about:blank");
+  const [favicons, setFavicons] = useState<{ [key: number]: string }>({});
   const activeTab = useMemo(() => tabs.find((tab) => tab.active), [tabs]);
   const iframeRefs = useRef<{ [key: number]: HTMLIFrameElement | null }>({});
 
   useEffect(() => {
-    const defaultUrl = getDefaultUrl();
-    setTabs((prev) => prev.map((tab) => ({ ...tab, url: defaultUrl })));
-    setUrl(defaultUrl);
+    let firstTabUrl = getDefaultUrl();
+    try {
+      const goUrl = sessionStorage.getItem("goUrl");
+      if (goUrl && goUrl.trim()) {
+        firstTabUrl = goUrl;
+      }
+    } catch (error) {
+      console.warn("Session storage access failed:", error);
+    }
+
+    setTabs((prev) => prev.map((tab) => ({ ...tab, url: firstTabUrl })));
+    setUrl(firstTabUrl);
   }, []);
 
   useEffect(() => {
     if (activeTab) {
-      setUrl(activeTab.url);
+      const iframe = iframeRefs.current[activeTab.id];
+      const actualUrl = getActualUrl(iframe);
+      setUrl(actualUrl || activeTab.url);
     }
   }, [activeTab]);
 
@@ -30,13 +42,33 @@ export default function Browser() {
       const actualUrl = getActualUrl(iframe);
       if (actualUrl && actualUrl !== url) {
         setUrl(actualUrl);
+      }
 
-        try {
-          const hostname = new URL(actualUrl).hostname;
-          setTabs((prev) => prev.map((tab) => (tab.id === activeTab.id ? { ...tab, title: hostname || "New Tab" } : tab)));
-        } catch (e) {
-          // Invalid URL
+      try {
+        const iframeTitle = iframe.contentWindow?.document?.title;
+        if (iframeTitle && iframeTitle !== activeTab.title) {
+          setTabs((prev) => prev.map((tab) => (tab.id === activeTab.id ? { ...tab, title: iframeTitle } : tab)));
         }
+
+        const iframeDoc = iframe.contentWindow?.document;
+        if (iframeDoc) {
+          const faviconLink = 
+            iframeDoc.querySelector<HTMLLinkElement>('link[rel="icon"]') ||
+            iframeDoc.querySelector<HTMLLinkElement>('link[rel="shortcut icon"]') ||
+            iframeDoc.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
+          
+          if (faviconLink?.href) {
+            setFavicons((prev) => ({ ...prev, [activeTab.id]: faviconLink.href }));
+          } else if (actualUrl) {
+            try {
+              const urlObj = new URL(actualUrl);
+              const defaultFavicon = `${urlObj.origin}/favicon.ico`;
+              setFavicons((prev) => ({ ...prev, [activeTab.id]: defaultFavicon }));
+            } catch (e) {
+            }
+          }
+        }
+      } catch (e) {
       }
     };
 
@@ -59,14 +91,17 @@ export default function Browser() {
         active: tab.id === id,
       })),
     );
-    setUrl(target.url);
+    
+    const iframe = iframeRefs.current[id];
+    const actualUrl = getActualUrl(iframe);
+    setUrl(actualUrl || target.url);
   };
 
   const addNewTab = () => {
     setTabs((prev) => {
       const nextId = prev.length ? Math.max(...prev.map((tab) => tab.id)) + 1 : 1;
       const newTabs = prev.map((tab) => ({ ...tab, active: false }));
-      return [...newTabs, { id: nextId, title: "New Tab", url: getDefaultUrl(), active: true, reloadKey: 0 }];
+      return [...newTabs, { id: nextId, title: `Tab ${nextId}`, url: getDefaultUrl(), active: true, reloadKey: 0 }];
     });
     setUrl(getDefaultUrl());
   };
@@ -77,8 +112,16 @@ export default function Browser() {
       const filtered = prev.filter((tab) => tab.id !== id);
 
       if (filtered.length === 0) {
-        const defaultUrl = getDefaultUrl();
-        return [{ id: Date.now(), title: "New Tab", url: defaultUrl, active: true, reloadKey: 0 }];
+        let firstTabUrl = getDefaultUrl();
+        try {
+          const goUrl = sessionStorage.getItem("goUrl");
+          if (goUrl && goUrl.trim()) {
+            firstTabUrl = goUrl;
+          }
+        } catch (error) {
+          console.warn("Session storage access failed:", error);
+        }
+        return [{ id: Date.now(), title: "Tab 1", url: firstTabUrl, active: true, reloadKey: 0 }];
       } else if (!filtered.some((tab) => tab.active)) {
         filtered[0] = { ...filtered[0], active: true };
         nextUrl = filtered[0].url;
@@ -104,7 +147,6 @@ export default function Browser() {
           ? {
               ...tab,
               url: formattedUrl,
-              title: new URL(formattedUrl).hostname || "New Tab",
               reloadKey: tab.reloadKey + 1,
             }
           : tab,
@@ -184,7 +226,13 @@ export default function Browser() {
             className={classNames(tabButtonClass, tab.active ? "bg-background-secondary text-text shadow-sm" : "bg-background text-text-secondary hover:bg-interactive")}
           >
             <div className="flex min-w-0 flex-1 items-center gap-2">
-              <div className="h-4 w-4 shrink-0 rounded bg-accent/30" />
+              {favicons[tab.id] ? (
+                <img src={favicons[tab.id]} alt="" className="h-4 w-4 shrink-0 rounded" onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
+                }} />
+              ) : null}
+              <div className={classNames("h-4 w-4 shrink-0 rounded bg-accent/30", favicons[tab.id] ? "hidden" : "")} />
               <span className="truncate text-sm">{tab.title}</span>
             </div>
             <button

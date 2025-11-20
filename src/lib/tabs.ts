@@ -18,7 +18,7 @@ declare global {
   }
 }
 
-export const baseTabs: Tab[] = [{ id: 1, title: "New Tab", url: "about:blank", active: true, reloadKey: 0 }];
+export const baseTabs: Tab[] = [{ id: 1, title: "Tab 1", url: "about:blank", active: true, reloadKey: 0 }];
 
 export const formatUrl = (value: string) => {
   if (!value.trim()) return "about:blank";
@@ -39,7 +39,7 @@ export const getDefaultUrl = () => {
   }
 
   try {
-    return sessionStorage.getItem("goUrl") || localStorage.getItem("engine") || "https://duckduckgo.com";
+    return localStorage.getItem("engine") || "https://duckduckgo.com";
   } catch (error) {
     console.warn("Storage access failed:", error);
     return "https://duckduckgo.com";
@@ -76,7 +76,13 @@ export const getActualUrl = (iframe: HTMLIFrameElement | null): string => {
   if (!iframe?.contentWindow) return "";
 
   try {
-    return (iframe.contentWindow as any).__uv$location?.href || iframe.contentWindow.location.href;
+    const proxyUrl = iframe.contentWindow.location.href;
+    const config = window.__uv$config;
+    if (config && proxyUrl.includes(config.prefix)) {
+      const encoded = proxyUrl.substring(proxyUrl.indexOf(config.prefix) + config.prefix.length);
+      return config.decodeUrl(encoded);
+    }
+    return proxyUrl;
   } catch {
     return "";
   }
