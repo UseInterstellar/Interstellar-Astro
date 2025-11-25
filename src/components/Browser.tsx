@@ -6,6 +6,7 @@ export default function Browser() {
   const [tabs, setTabs] = useState<Tab[]>([{ id: 1, title: "Tab 1", url: "about:blank", active: true, reloadKey: 0 }]);
   const [url, setUrl] = useState("about:blank");
   const [favicons, setFavicons] = useState<{ [key: number]: string }>({});
+  const [bookmarks, setBookmarks] = useState<Array<{ Title: string; url: string; favicon?: string }>>([]);
   const activeTab = useMemo(() => tabs.find((tab) => tab.active), [tabs]);
   const iframeRefs = useRef<{ [key: number]: HTMLIFrameElement | null }>({});
 
@@ -22,6 +23,13 @@ export default function Browser() {
 
     setTabs((prev) => prev.map((tab) => ({ ...tab, url: firstTabUrl })));
     setUrl(firstTabUrl);
+
+    try {
+      const savedBookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
+      setBookmarks(savedBookmarks);
+    } catch (error) {
+      console.warn("Failed to load bookmarks:", error);
+    }
   }, []);
 
   useEffect(() => {
@@ -52,11 +60,8 @@ export default function Browser() {
 
         const iframeDoc = iframe.contentWindow?.document;
         if (iframeDoc) {
-          const faviconLink = 
-            iframeDoc.querySelector<HTMLLinkElement>('link[rel="icon"]') ||
-            iframeDoc.querySelector<HTMLLinkElement>('link[rel="shortcut icon"]') ||
-            iframeDoc.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
-          
+          const faviconLink = iframeDoc.querySelector<HTMLLinkElement>('link[rel="icon"]') || iframeDoc.querySelector<HTMLLinkElement>('link[rel="shortcut icon"]') || iframeDoc.querySelector<HTMLLinkElement>('link[rel="apple-touch-icon"]');
+
           if (faviconLink?.href) {
             setFavicons((prev) => ({ ...prev, [activeTab.id]: faviconLink.href }));
           } else if (actualUrl) {
@@ -64,12 +69,10 @@ export default function Browser() {
               const urlObj = new URL(actualUrl);
               const defaultFavicon = `${urlObj.origin}/favicon.ico`;
               setFavicons((prev) => ({ ...prev, [activeTab.id]: defaultFavicon }));
-            } catch (e) {
-            }
+            } catch (e) {}
           }
         }
-      } catch (e) {
-      }
+      } catch (e) {}
     };
 
     iframe.addEventListener("load", updateUrlBar);
@@ -91,7 +94,7 @@ export default function Browser() {
         active: tab.id === id,
       })),
     );
-    
+
     const iframe = iframeRefs.current[id];
     const actualUrl = getActualUrl(iframe);
     setUrl(actualUrl || target.url);
@@ -156,7 +159,17 @@ export default function Browser() {
   };
 
   const goHome = () => {
-    window.location.href = '/';
+    window.location.href = "/";
+  };
+
+  const removeBookmark = (index: number) => {
+    try {
+      const updatedBookmarks = bookmarks.filter((_, i) => i !== index);
+      setBookmarks(updatedBookmarks);
+      localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
+    } catch (e) {
+      console.error("Failed to remove bookmark:", e);
+    }
   };
 
   const goBack = () => {
@@ -196,10 +209,22 @@ export default function Browser() {
 
     if (title && typeof localStorage !== "undefined") {
       try {
-        const bookmarks = JSON.parse(localStorage.getItem("bookmarks") || "[]");
-        bookmarks.push({ Title: title, url: actualUrl });
-        localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
-        console.log("Bookmark added:", { Title: title, url: actualUrl });
+        let faviconUrl = favicons[activeTab.id] || "";
+
+        if (!faviconUrl) {
+          try {
+            const urlObj = new URL(actualUrl);
+            faviconUrl = `${urlObj.origin}/favicon.ico`;
+          } catch (e) {
+            faviconUrl = "";
+          }
+        }
+
+        const newBookmark = { Title: title, url: actualUrl, favicon: faviconUrl };
+        const updatedBookmarks = [...bookmarks, newBookmark];
+        setBookmarks(updatedBookmarks);
+        localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
+        console.log("Bookmark added:", newBookmark);
         alert("Bookmark added successfully!");
       } catch (e) {
         console.error("Failed to add bookmark:", e);
@@ -227,10 +252,15 @@ export default function Browser() {
           >
             <div className="flex min-w-0 flex-1 items-center gap-2">
               {favicons[tab.id] ? (
-                <img src={favicons[tab.id]} alt="" className="h-4 w-4 shrink-0 rounded" onError={(e) => {
-                  e.currentTarget.style.display = 'none';
-                  e.currentTarget.nextElementSibling?.classList.remove('hidden');
-                }} />
+                <img
+                  src={favicons[tab.id]}
+                  alt=""
+                  className="h-4 w-4 shrink-0 rounded"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    e.currentTarget.nextElementSibling?.classList.remove("hidden");
+                  }}
+                />
               ) : null}
               <div className={classNames("h-4 w-4 shrink-0 rounded bg-accent/30", favicons[tab.id] ? "hidden" : "")} />
               <span className="truncate text-sm">{tab.title}</span>
@@ -253,7 +283,7 @@ export default function Browser() {
         </button>
       </div>
 
-      <div className="flex items-center justify-between gap-3 border-b border-border/50 bg-background-secondary px-3 py-2 backdrop-blur-xl">
+      <div className="flex items-center justify-between gap-3 bg-background-secondary px-3 py-2 backdrop-blur-xl">
         <div className="flex items-center gap-1">
           <button type="button" className={iconButtonClass} onClick={goHome} aria-label="Home">
             <Home className="h-4 w-4" />
@@ -301,6 +331,42 @@ export default function Browser() {
           </button>
         </div>
       </div>
+
+      {bookmarks.length > 0 && (
+        <div className="flex items-center gap-0.5 bg-background-secondary px-3 py-1.5 overflow-x-auto border-b border-border/50">
+          {bookmarks.map((bookmark, index) => (
+            <button
+              key={index}
+              type="button"
+              className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-text-secondary hover:bg-interactive hover:scale-105 transition-all shrink-0"
+              style={{ maxWidth: "195px" }}
+              onClick={() => handleNavigate(bookmark.url)}
+              onContextMenu={(e) => {
+                e.preventDefault();
+                if (confirm(`Remove bookmark "${bookmark.Title}"?`)) {
+                  removeBookmark(index);
+                }
+              }}
+            >
+              {bookmark.favicon ? (
+                <img
+                  src={bookmark.favicon}
+                  alt=""
+                  className="h-[18px] w-[18px] shrink-0"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    e.currentTarget.nextElementSibling?.classList.remove("hidden");
+                  }}
+                />
+              ) : null}
+              <Star className={`h-[18px] w-[18px] fill-current shrink-0 ${bookmark.favicon ? "hidden" : ""}`} />
+              <span className="overflow-hidden whitespace-nowrap block min-w-0" style={{ textOverflow: "ellipsis" }}>
+                {bookmark.Title}
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="relative flex-1 bg-background">
         {tabs.map((tab) => (
