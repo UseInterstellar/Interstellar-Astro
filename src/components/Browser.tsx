@@ -18,18 +18,16 @@ const IconButton = ({ onClick, icon: Icon, className = "", disabled = false, tit
 export default function Browser() {
   const [tabs, setTabs] = useState<Tab[]>([{ id: 1, title: "Tab 1", url: "about:blank", active: true, reloadKey: 0 }]);
   const [url, setUrl] = useState("about:blank");
-  const [favicons, setFavicons] = useState<{ [key: number]: string }>({});
+  const [favicons, setFavicons] = useState<Record<number, string>>({});
   const [bookmarks, setBookmarks] = useState<Array<{ Title: string; url: string; favicon?: string }>>([]);
   const activeTab = useMemo(() => tabs.find((tab) => tab.active), [tabs]);
-  const iframeRefs = useRef<{ [key: number]: HTMLIFrameElement | null }>({});
+  const iframeRefs = useRef<Record<number, HTMLIFrameElement | null>>({});
 
   useEffect(() => {
     let firstTabUrl = getDefaultUrl();
     try {
       const goUrl = sessionStorage.getItem("goUrl");
-      if (goUrl?.trim()) {
-        firstTabUrl = goUrl;
-      }
+      if (goUrl?.trim()) firstTabUrl = goUrl;
     } catch (error) {
       console.warn("Session storage access failed:", error);
     }
@@ -46,24 +44,20 @@ export default function Browser() {
   }, []);
 
   useEffect(() => {
-    if (activeTab) {
-      const iframe = iframeRefs.current[activeTab.id];
-      const actualUrl = getActualUrl(iframe);
-      setUrl(actualUrl || activeTab.url);
-    }
+    if (!activeTab) return;
+    const iframe = iframeRefs.current[activeTab.id];
+    const actualUrl = getActualUrl(iframe);
+    setUrl(actualUrl || activeTab.url);
   }, [activeTab]);
 
   useEffect(() => {
     if (!activeTab) return;
-
     const iframe = iframeRefs.current[activeTab.id];
     if (!iframe) return;
 
     const updateState = () => {
       const actualUrl = getActualUrl(iframe);
-      if (actualUrl && actualUrl !== url) {
-        setUrl(actualUrl);
-      }
+      if (actualUrl && actualUrl !== url) setUrl(actualUrl);
 
       try {
         const iframeTitle = iframe.contentWindow?.document?.title;
@@ -80,8 +74,7 @@ export default function Browser() {
           } else if (actualUrl) {
             try {
               const urlObj = new URL(actualUrl);
-              const defaultFavicon = `${urlObj.origin}/favicon.ico`;
-              setFavicons((prev) => ({ ...prev, [activeTab.id]: defaultFavicon }));
+              setFavicons((prev) => ({ ...prev, [activeTab.id]: `${urlObj.origin}/favicon.ico` }));
             } catch (_e) {}
           }
         }
@@ -104,7 +97,6 @@ export default function Browser() {
   const addNewTab = () => {
     const newId = tabs.length ? Math.max(...tabs.map((tab) => tab.id)) + 1 : 1;
     const defaultUrl = getDefaultUrl();
-
     setTabs((prev) => [...prev.map((tab) => ({ ...tab, active: false })), { id: newId, title: `Tab ${newId}`, url: defaultUrl, active: true, reloadKey: 0 }]);
     setUrl(defaultUrl);
   };
@@ -112,14 +104,11 @@ export default function Browser() {
   const closeTab = (id: number) => {
     setTabs((prev) => {
       const remaining = prev.filter((tab) => tab.id !== id);
-
       if (remaining.length === 0) {
         let firstTabUrl = getDefaultUrl();
         try {
           const goUrl = sessionStorage.getItem("goUrl");
-          if (goUrl?.trim()) {
-            firstTabUrl = goUrl;
-          }
+          if (goUrl?.trim()) firstTabUrl = goUrl;
         } catch (error) {
           console.warn("Session storage access failed:", error);
         }
@@ -138,18 +127,7 @@ export default function Browser() {
   const handleNavigate = (value: string) => {
     if (!activeTab) return;
     const formattedUrl = formatUrl(value);
-
-    setTabs((prev) =>
-      prev.map((tab) =>
-        tab.id === activeTab.id
-          ? {
-              ...tab,
-              url: formattedUrl,
-              reloadKey: tab.reloadKey + 1,
-            }
-          : tab,
-      ),
-    );
+    setTabs((prev) => prev.map((tab) => (tab.id === activeTab.id ? { ...tab, url: formattedUrl, reloadKey: tab.reloadKey + 1 } : tab)));
     setUrl(formattedUrl);
   };
 
@@ -163,7 +141,7 @@ export default function Browser() {
     }
   };
 
-  const Action = (action: "back" | "forward" | "reload" | "home") => {
+  const handleAction = (action: "back" | "forward" | "reload" | "home") => {
     if (!activeTab) return;
     const iframe = iframeRefs.current[activeTab.id];
 
@@ -174,40 +152,26 @@ export default function Browser() {
 
     if (!iframe?.contentWindow) return;
 
-    switch (action) {
-      case "back":
-        iframe.contentWindow.history.back();
-        break;
-      case "forward":
-        iframe.contentWindow.history.forward();
-        break;
-      case "reload":
-        iframe.contentWindow.location.reload();
-        break;
-    }
+    if (action === "back") iframe.contentWindow.history.back();
+    else if (action === "forward") iframe.contentWindow.history.forward();
+    else if (action === "reload") iframe.contentWindow.location.reload();
   };
 
   const toggleFullscreen = () => {
     if (!activeTab) return;
     const iframe = iframeRefs.current[activeTab.id];
-    if (iframe) {
-      iframe.requestFullscreen().catch((err) => {
-        console.error("Failed to enter fullscreen mode:", err);
-      });
-    }
+    iframe?.requestFullscreen().catch((err) => console.error("Failed to enter fullscreen mode:", err));
   };
 
   const addBookmark = () => {
     if (!activeTab) return;
     const iframe = iframeRefs.current[activeTab.id];
     const actualUrl = getActualUrl(iframe) || activeTab.url;
-
     const title = prompt("Enter a Title for this bookmark:", activeTab.title || "New Bookmark");
 
     if (title && typeof localStorage !== "undefined") {
       try {
         let faviconUrl = favicons[activeTab.id] || "";
-
         if (!faviconUrl) {
           try {
             const urlObj = new URL(actualUrl);
@@ -221,7 +185,6 @@ export default function Browser() {
         const updatedBookmarks = [...bookmarks, newBookmark];
         setBookmarks(updatedBookmarks);
         localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
-        console.log("Bookmark added:", newBookmark);
         alert("Bookmark added successfully!");
       } catch (e) {
         console.error("Failed to add bookmark:", e);
@@ -253,8 +216,8 @@ export default function Browser() {
             <button
               type="button"
               className={closeButtonClass}
-              onClick={(event) => {
-                event.stopPropagation();
+              onClick={(e) => {
+                e.stopPropagation();
                 closeTab(tab.id);
               }}
               aria-label={`Close ${tab.title}`}
@@ -270,26 +233,16 @@ export default function Browser() {
 
       <div className="flex items-center justify-between gap-3 bg-background-secondary px-3 py-2 backdrop-blur-xl">
         <div className="flex items-center gap-1">
-          <IconButton icon={Home} onClick={() => Action("home")} title="Home" />
-          <IconButton icon={ChevronLeft} onClick={() => Action("back")} title="Back" />
-          <IconButton icon={ChevronRight} onClick={() => Action("forward")} title="Forward" />
-          <IconButton icon={RotateCw} onClick={() => Action("reload")} title="Reload" />
+          <IconButton icon={Home} onClick={() => handleAction("home")} title="Home" />
+          <IconButton icon={ChevronLeft} onClick={() => handleAction("back")} title="Back" />
+          <IconButton icon={ChevronRight} onClick={() => handleAction("forward")} title="Forward" />
+          <IconButton icon={RotateCw} onClick={() => handleAction("reload")} title="Reload" />
         </div>
 
         <div className="flex-1">
           <div className={actionBarClass}>
             <Lock className="h-4 w-4 text-muted-foreground" />
-            <input
-              className={addressInputClass}
-              value={url}
-              placeholder="Search or enter address"
-              onChange={(event) => setUrl(event.target.value)}
-              onKeyDown={(event) => {
-                if (event.key === "Enter") {
-                  handleNavigate(event.currentTarget.value);
-                }
-              }}
-            />
+            <input className={addressInputClass} value={url} placeholder="Search or enter address" onChange={(e) => setUrl(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleNavigate(e.currentTarget.value)} />
           </div>
         </div>
 
@@ -312,9 +265,7 @@ export default function Browser() {
               onClick={() => handleNavigate(bookmark.url)}
               onContextMenu={(e) => {
                 e.preventDefault();
-                if (confirm(`Remove bookmark "${bookmark.Title}"?`)) {
-                  removeBookmark(bookmark.url, bookmark.Title);
-                }
+                if (confirm(`Remove bookmark "${bookmark.Title}"?`)) removeBookmark(bookmark.url, bookmark.Title);
               }}
             >
               {bookmark.favicon ? (
