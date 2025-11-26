@@ -1,6 +1,19 @@
 import { ChevronLeft, ChevronRight, Home, Lock, Maximize2, Menu, MoreVertical, Plus, RotateCw, Star, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, iconButtonClass, type Tab, tabButtonClass } from "@/lib/tabs";
+import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, type Tab, tabButtonClass } from "@/lib/tabs";
+
+const IconButton = ({ onClick, icon: Icon, className = "", disabled = false, title = "" }: { onClick?: () => void; icon: React.ComponentType<{ className?: string }>; className?: string; disabled?: boolean; title?: string }) => (
+  <button
+    type="button"
+    onClick={onClick}
+    disabled={disabled}
+    title={title}
+    className={`group p-2 rounded-full text-text-secondary transition-all duration-200 
+      hover:bg-interactive hover:text-text disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 ${className}`}
+  >
+    <Icon className="h-4 w-4 stroke-[2.5px] group-hover:stroke-text" />
+  </button>
+);
 
 export default function Browser() {
   const [tabs, setTabs] = useState<Tab[]>([{ id: 1, title: "Tab 1", url: "about:blank", active: true, reloadKey: 0 }]);
@@ -14,7 +27,7 @@ export default function Browser() {
     let firstTabUrl = getDefaultUrl();
     try {
       const goUrl = sessionStorage.getItem("goUrl");
-      if (goUrl && goUrl.trim()) {
+      if (goUrl?.trim()) {
         firstTabUrl = goUrl;
       }
     } catch (error) {
@@ -46,7 +59,7 @@ export default function Browser() {
     const iframe = iframeRefs.current[activeTab.id];
     if (!iframe) return;
 
-    const updateUrlBar = () => {
+    const updateState = () => {
       const actualUrl = getActualUrl(iframe);
       if (actualUrl && actualUrl !== url) {
         setUrl(actualUrl);
@@ -69,74 +82,56 @@ export default function Browser() {
               const urlObj = new URL(actualUrl);
               const defaultFavicon = `${urlObj.origin}/favicon.ico`;
               setFavicons((prev) => ({ ...prev, [activeTab.id]: defaultFavicon }));
-            } catch (e) {}
+            } catch (_e) {}
           }
         }
-      } catch (e) {}
+      } catch (_e) {}
     };
 
-    iframe.addEventListener("load", updateUrlBar);
-
-    const interval = setInterval(updateUrlBar, 1000);
+    iframe.addEventListener("load", updateState);
+    const interval = setInterval(updateState, 1000);
 
     return () => {
-      iframe.removeEventListener("load", updateUrlBar);
+      iframe.removeEventListener("load", updateState);
       clearInterval(interval);
     };
   }, [activeTab, url]);
 
   const setActiveTab = (id: number) => {
-    const target = tabs.find((tab) => tab.id === id);
-    if (!target) return;
-    setTabs((prev) =>
-      prev.map((tab) => ({
-        ...tab,
-        active: tab.id === id,
-      })),
-    );
-
-    const iframe = iframeRefs.current[id];
-    const actualUrl = getActualUrl(iframe);
-    setUrl(actualUrl || target.url);
+    setTabs((prev) => prev.map((tab) => ({ ...tab, active: tab.id === id })));
   };
 
   const addNewTab = () => {
-    setTabs((prev) => {
-      const nextId = prev.length ? Math.max(...prev.map((tab) => tab.id)) + 1 : 1;
-      const newTabs = prev.map((tab) => ({ ...tab, active: false }));
-      return [...newTabs, { id: nextId, title: `Tab ${nextId}`, url: getDefaultUrl(), active: true, reloadKey: 0 }];
-    });
-    setUrl(getDefaultUrl());
+    const newId = tabs.length ? Math.max(...tabs.map((tab) => tab.id)) + 1 : 1;
+    const defaultUrl = getDefaultUrl();
+
+    setTabs((prev) => [...prev.map((tab) => ({ ...tab, active: false })), { id: newId, title: `Tab ${newId}`, url: defaultUrl, active: true, reloadKey: 0 }]);
+    setUrl(defaultUrl);
   };
 
   const closeTab = (id: number) => {
     setTabs((prev) => {
-      let nextUrl = url;
-      const filtered = prev.filter((tab) => tab.id !== id);
+      const remaining = prev.filter((tab) => tab.id !== id);
 
-      if (filtered.length === 0) {
+      if (remaining.length === 0) {
         let firstTabUrl = getDefaultUrl();
         try {
           const goUrl = sessionStorage.getItem("goUrl");
-          if (goUrl && goUrl.trim()) {
+          if (goUrl?.trim()) {
             firstTabUrl = goUrl;
           }
         } catch (error) {
           console.warn("Session storage access failed:", error);
         }
         return [{ id: Date.now(), title: "Tab 1", url: firstTabUrl, active: true, reloadKey: 0 }];
-      } else if (!filtered.some((tab) => tab.active)) {
-        filtered[0] = { ...filtered[0], active: true };
-        nextUrl = filtered[0].url;
-      } else {
-        const currentActive = filtered.find((tab) => tab.active);
-        if (currentActive) {
-          nextUrl = currentActive.url;
-        }
       }
 
-      setUrl(nextUrl);
-      return filtered;
+      if (prev.find((tab) => tab.id === id)?.active) {
+        remaining[remaining.length - 1].active = true;
+        setUrl(remaining[remaining.length - 1].url);
+      }
+
+      return remaining;
     });
   };
 
@@ -158,13 +153,9 @@ export default function Browser() {
     setUrl(formattedUrl);
   };
 
-  const goHome = () => {
-    window.location.href = "/";
-  };
-
-  const removeBookmark = (index: number) => {
+  const removeBookmark = (bookmarkUrl: string, bookmarkTitle: string) => {
     try {
-      const updatedBookmarks = bookmarks.filter((_, i) => i !== index);
+      const updatedBookmarks = bookmarks.filter((b) => !(b.url === bookmarkUrl && b.Title === bookmarkTitle));
       setBookmarks(updatedBookmarks);
       localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
     } catch (e) {
@@ -172,22 +163,28 @@ export default function Browser() {
     }
   };
 
-  const goBack = () => {
+  const Action = (action: "back" | "forward" | "reload" | "home") => {
     if (!activeTab) return;
     const iframe = iframeRefs.current[activeTab.id];
-    iframe?.contentWindow?.history.back();
-  };
 
-  const goForward = () => {
-    if (!activeTab) return;
-    const iframe = iframeRefs.current[activeTab.id];
-    iframe?.contentWindow?.history.forward();
-  };
+    if (action === "home") {
+      window.location.href = "/";
+      return;
+    }
 
-  const reloadTab = () => {
-    if (!activeTab) return;
-    const iframe = iframeRefs.current[activeTab.id];
-    iframe?.contentWindow?.location.reload();
+    if (!iframe?.contentWindow) return;
+
+    switch (action) {
+      case "back":
+        iframe.contentWindow.history.back();
+        break;
+      case "forward":
+        iframe.contentWindow.history.forward();
+        break;
+      case "reload":
+        iframe.contentWindow.location.reload();
+        break;
+    }
   };
 
   const toggleFullscreen = () => {
@@ -215,7 +212,7 @@ export default function Browser() {
           try {
             const urlObj = new URL(actualUrl);
             faviconUrl = `${urlObj.origin}/favicon.ico`;
-          } catch (e) {
+          } catch (_e) {
             faviconUrl = "";
           }
         }
@@ -237,19 +234,7 @@ export default function Browser() {
     <div className="flex h-screen flex-col bg-background">
       <div className="flex items-center gap-1 bg-background px-3 pt-1.5 pb-0">
         {tabs.map((tab) => (
-          <div
-            key={tab.id}
-            role="button"
-            tabIndex={0}
-            onClick={() => setActiveTab(tab.id)}
-            onKeyDown={(event) => {
-              if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                setActiveTab(tab.id);
-              }
-            }}
-            className={classNames(tabButtonClass, tab.active ? "bg-background-secondary text-text shadow-sm" : "bg-background text-text-secondary hover:bg-interactive")}
-          >
+          <button key={tab.id} type="button" onClick={() => setActiveTab(tab.id)} className={classNames(tabButtonClass, tab.active ? "bg-background-secondary text-text shadow-sm" : "bg-background text-text-secondary hover:bg-interactive")}>
             <div className="flex min-w-0 flex-1 items-center gap-2">
               {favicons[tab.id] ? (
                 <img
@@ -276,7 +261,7 @@ export default function Browser() {
             >
               <X className="h-3 w-3" />
             </button>
-          </div>
+          </button>
         ))}
         <button type="button" className="inline-flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium text-text-secondary transition-colors hover:bg-background-secondary/50 hover:text-text" onClick={addNewTab} aria-label="Add tab">
           <Plus className="h-4 w-4" />
@@ -285,18 +270,10 @@ export default function Browser() {
 
       <div className="flex items-center justify-between gap-3 bg-background-secondary px-3 py-2 backdrop-blur-xl">
         <div className="flex items-center gap-1">
-          <button type="button" className={iconButtonClass} onClick={goHome} aria-label="Home">
-            <Home className="h-4 w-4" />
-          </button>
-          <button type="button" className={iconButtonClass} onClick={goBack} aria-label="Back">
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <button type="button" className={iconButtonClass} onClick={goForward} aria-label="Forward">
-            <ChevronRight className="h-4 w-4" />
-          </button>
-          <button type="button" className={iconButtonClass} onClick={reloadTab} aria-label="Reload">
-            <RotateCw className="h-4 w-4" />
-          </button>
+          <IconButton icon={Home} onClick={() => Action("home")} title="Home" />
+          <IconButton icon={ChevronLeft} onClick={() => Action("back")} title="Back" />
+          <IconButton icon={ChevronRight} onClick={() => Action("forward")} title="Forward" />
+          <IconButton icon={RotateCw} onClick={() => Action("reload")} title="Reload" />
         </div>
 
         <div className="flex-1">
@@ -317,26 +294,18 @@ export default function Browser() {
         </div>
 
         <div className="flex items-center gap-1">
-          <button type="button" className={iconButtonClass} onClick={toggleFullscreen} aria-label="Fullscreen">
-            <Maximize2 className="h-4 w-4" />
-          </button>
-          <button type="button" className={iconButtonClass} onClick={addBookmark} aria-label="Bookmark">
-            <Star className="h-4 w-4" />
-          </button>
-          <button type="button" className={iconButtonClass} aria-label="Menu">
-            <Menu className="h-4 w-4" />
-          </button>
-          <button type="button" className={iconButtonClass} aria-label="More">
-            <MoreVertical className="h-4 w-4" />
-          </button>
+          <IconButton icon={Maximize2} onClick={toggleFullscreen} title="Fullscreen" />
+          <IconButton icon={Star} onClick={addBookmark} title="Bookmark" />
+          <IconButton icon={Menu} title="Menu" />
+          <IconButton icon={MoreVertical} title="More" />
         </div>
       </div>
 
       {bookmarks.length > 0 && (
         <div className="flex items-center gap-0.5 bg-background-secondary px-3 py-1.5 overflow-x-auto border-b border-border/50">
-          {bookmarks.map((bookmark, index) => (
+          {bookmarks.map((bookmark) => (
             <button
-              key={index}
+              key={`${bookmark.url}-${bookmark.Title}`}
               type="button"
               className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-text-secondary hover:bg-interactive hover:scale-105 transition-all shrink-0"
               style={{ maxWidth: "195px" }}
@@ -344,7 +313,7 @@ export default function Browser() {
               onContextMenu={(e) => {
                 e.preventDefault();
                 if (confirm(`Remove bookmark "${bookmark.Title}"?`)) {
-                  removeBookmark(index);
+                  removeBookmark(bookmark.url, bookmark.Title);
                 }
               }}
             >
