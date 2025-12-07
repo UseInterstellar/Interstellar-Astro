@@ -11,6 +11,8 @@ interface FileMapping {
 
 interface ObfuscatorConfig {
   enabled: boolean;
+  preserveExtensions?: string[];
+  directories?: string[];
 }
 
 class BuildObfuscator {
@@ -21,7 +23,11 @@ class BuildObfuscator {
 
   constructor(config: ObfuscatorConfig = { enabled: true }) {
     this.root = process.cwd();
-    this.config = config;
+    this.config = {
+      preserveExtensions: [".json", ".css", ".scss"],
+      directories: ["src/components", "src/layouts", "src/lib", "src/pages"],
+      ...config,
+    };
   }
 
   private generateName(extension: string, isRoute: boolean = false): string {
@@ -50,7 +56,7 @@ class BuildObfuscator {
     } while (this.usedNames.has(name));
 
     this.usedNames.add(name);
-
+    
     return `${name}${extension}`;
   }
 
@@ -187,16 +193,18 @@ class BuildObfuscator {
   }
 
   private processSourceFiles(): void {
-    const directories = ["src/components", "src/layouts", "src/lib", "src/pages"];
+    const directories = this.config.directories || ["src/components", "src/layouts", "src/lib", "src/pages"];
 
     for (const dir of directories) {
       const dirPath = path.join(this.root, dir);
       if (!fs.existsSync(dirPath)) continue;
 
-      const files = this.findFiles(dirPath, [".astro", ".ts"]);
+      const files = this.findFiles(dirPath, [".astro", ".ts", ".tsx", ".js", ".jsx"]);
 
       for (const file of files) {
-        if (path.basename(file) === "index.astro") continue;
+        if (path.basename(file) === "index.astro" || this.config.preserveExtensions?.includes(path.extname(file))) {
+          continue;
+        }
 
         const isRoute = file.includes("/pages/");
         const randomizedName = this.generateName(path.extname(file), isRoute);
@@ -214,7 +222,7 @@ class BuildObfuscator {
   }
 
   private updateFileContents(): void {
-    const filesToUpdate = this.findFiles(path.join(this.root, "src"), [".astro", ".ts"]);
+    const filesToUpdate = this.findFiles(path.join(this.root, "src"), [".astro", ".ts", ".tsx", ".js", ".jsx"]);
 
     for (const file of filesToUpdate) {
       let content = fs.readFileSync(file, "utf-8");
@@ -223,6 +231,8 @@ class BuildObfuscator {
       for (const [originalPath, mapping] of this.mappings) {
         const originalName = path.basename(mapping.original);
         const newName = path.basename(mapping.randomized);
+        const originalNameNoExt = path.basename(mapping.original, path.extname(mapping.original));
+        const newNameNoExt = path.basename(mapping.randomized, path.extname(mapping.randomized));
 
         if (mapping.type === "favicon") {
           const faviconName = path.basename(originalPath);
@@ -235,31 +245,123 @@ class BuildObfuscator {
 
           for (const { from, to } of patterns) {
             if (content.includes(from)) {
-              content = content.replace(new RegExp(this.escapeRegex(from), "g"), to);
+              content = content.replaceAll(from, to);
               modified = true;
             }
           }
         } else {
           const relDir = path.dirname(mapping.original).replace(path.join(this.root, "src"), "");
-          const componentType = relDir.includes("/components") ? "components" : relDir.includes("/layouts") ? "layouts" : relDir.includes("/lib") ? "lib" : null;
+          const componentType = relDir.includes("/components") ? "components" : relDir.includes("/layouts") ? "layouts" : relDir.includes("/lib") ? "lib" : relDir.includes("/pages") ? "pages" : null;
 
           if (componentType) {
-            const aliasPattern = `@/${componentType}/${this.escapeRegex(originalName)}`;
-            const regex = new RegExp(`(['"\`])${aliasPattern}(['"\`])`, "g");
-            const newContent = content.replace(regex, `$1@/${componentType}/${newName}$2`);
+            const patterns = `@/${componentType}/${this.escapeRegex(originalName)}`;
+            const regex = new RegExp(`(['"\`])${patterns}(['"\`])`, "g");
+            const replacement = `$1@/${componentType}/${newName}$2`;
+            let newContent = content.replace(regex, replacement);
+            if (newContent !== content) {
+              content = newContent;
+              modified = true;
+            }
+
+            const noExtPattern = `@/${componentType}/${this.escapeRegex(originalNameNoExt)}`;
+            const noExtRegex = new RegExp(`(['"\`])${noExtPattern}(['"\`])`, "g");
+            const noExtReplacement = `$1@/${componentType}/${newName}$2`;
+            newContent = content.replace(noExtRegex, noExtReplacement);
+            if (newContent !== content) {
+              content = newContent;
+              modified = true;
+            }
+
+            const scriptSrcPattern = `src\\s*=\\s*(['"\`])@/${componentType}/${this.escapeRegex(originalName)}\\1`;
+            const scriptSrcRegex = new RegExp(scriptSrcPattern, "g");
+            const scriptSrcReplacement = `src=$1@/${componentType}/${newName}$1`;
+            newContent = content.replace(scriptSrcRegex, scriptSrcReplacement);
+            if (newContent !== content) {
+              content = newContent;
+              modified = true;
+            }
+
+            const scriptSrcNoExtPattern = `src\\s*=\\s*(['"\`])@/${componentType}/${this.escapeRegex(originalNameNoExt)}\\1`;
+            const scriptSrcNoExtRegex = new RegExp(scriptSrcNoExtPattern, "g");
+            const scriptSrcNoExtReplacement = `src=$1@/${componentType}/${newName}$1`;
+            newContent = content.replace(scriptSrcNoExtRegex, scriptSrcNoExtReplacement);
+            if (newContent !== content) {
+              content = newContent;
+              modified = true;
+            }
+
+            const absoluteSrcPattern = `(src\\s*=\\s*['"\`])/src/${componentType}/${this.escapeRegex(originalName)}(['"\`])`;
+            const absoluteSrcRegex = new RegExp(absoluteSrcPattern, "g");
+            const absoluteSrcReplacement = `$1/src/${componentType}/${newName}$2`;
+            newContent = content.replace(absoluteSrcRegex, absoluteSrcReplacement);
+            if (newContent !== content) {
+              content = newContent;
+              modified = true;
+            }
+
+            const absoluteSrcNoExtPattern = `(src\\s*=\\s*['"\`])/src/${componentType}/${this.escapeRegex(originalNameNoExt)}(['"\`])`;
+            const absoluteSrcNoExtRegex = new RegExp(absoluteSrcNoExtPattern, "g");
+            const absoluteSrcNoExtReplacement = `$1/src/${componentType}/${newName}$2`;
+            newContent = content.replace(absoluteSrcNoExtRegex, absoluteSrcNoExtReplacement);
             if (newContent !== content) {
               content = newContent;
               modified = true;
             }
           }
 
-          if (mapping.type === "route") {
-            const originalFileName = path.basename(mapping.original, path.extname(mapping.original));
-            const newFileName = path.basename(mapping.randomized, path.extname(mapping.randomized));
+          const currentFileDir = path.dirname(file);
+          let relativePath = path.relative(currentFileDir, mapping.original);
+          relativePath = relativePath.replace(/\\/g, "/");
 
+          if (!relativePath.startsWith(".")) {
+            relativePath = `./${relativePath}`;
+          }
+
+          const regex = new RegExp(`(['"\`])${this.escapeRegex(relativePath)}(['"\`])`, "g");
+          let newRelativePath = path.relative(currentFileDir, mapping.randomized);
+          newRelativePath = newRelativePath.replace(/\\/g, "/");
+          if (!newRelativePath.startsWith(".")) {
+            newRelativePath = `./${newRelativePath}`;
+          }
+          
+          let newContent = content.replace(regex, `$1${newRelativePath}$2`);
+          if (newContent !== content) {
+            content = newContent;
+            modified = true;
+          }
+
+          const relativePathNoExt = relativePath.replace(path.extname(relativePath), "");
+          const noExtRegex = new RegExp(`(['"\`])${this.escapeRegex(relativePathNoExt)}(['"\`])`, "g");
+          const newRelativePathWithExt = newRelativePath; 
+          
+          newContent = content.replace(noExtRegex, `$1${newRelativePathWithExt}$2`);
+          if (newContent !== content) {
+            content = newContent;
+            modified = true;
+          }
+
+          const scriptRelativePattern = `src\\s*=\\s*(['"\`])${this.escapeRegex(relativePath)}\\1`;
+          const scriptRelativeRegex = new RegExp(scriptRelativePattern, "g");
+          newContent = content.replace(scriptRelativeRegex, `src=$1${newRelativePath}$1`);
+          if (newContent !== content) {
+            content = newContent;
+            modified = true;
+          }
+
+          const scriptRelativeNoExtPattern = `src\\s*=\\s*(['"\`])${this.escapeRegex(relativePathNoExt)}\\1`;
+          const scriptRelativeNoExtRegex = new RegExp(scriptRelativeNoExtPattern, "g");
+          newContent = content.replace(scriptRelativeNoExtRegex, `src=$1${newRelativePath}$1`);
+          if (newContent !== content) {
+            content = newContent;
+            modified = true;
+          }
+
+          if (mapping.type === "route") {
             const routeReplacements = [
-              { pattern: new RegExp(`(['"\`])/${this.escapeRegex(originalFileName)}(['"\`])`, "g"), replacement: `$1/${newFileName}$2` },
-              { pattern: new RegExp(`(href\\s*=\\s*['"\`])/${this.escapeRegex(originalFileName)}(['"\`])`, "g"), replacement: `$1/${newFileName}$2` },
+              { pattern: new RegExp(`(['"\`])/${this.escapeRegex(originalNameNoExt)}(['"\`])`, "g"), replacement: `$1/${newNameNoExt}$2` },
+              { pattern: new RegExp(`(href\\s*=\\s*['"\`])/${this.escapeRegex(originalNameNoExt)}(['"\`])`, "g"), replacement: `$1/${newNameNoExt}$2` },
+              { pattern: new RegExp(`===\\s*['"\`]/${this.escapeRegex(originalNameNoExt)}['"\`]`, "g"), replacement: `=== '/${newNameNoExt}'` },
+              { pattern: new RegExp(`['"\`]/${this.escapeRegex(originalNameNoExt)}['"\`]\\s*===`, "g"), replacement: `'/${newNameNoExt}' ===` },
             ];
 
             for (const { pattern, replacement } of routeReplacements) {
@@ -285,6 +387,7 @@ class BuildObfuscator {
     for (const mapping of sortedMappings) {
       if (fs.existsSync(mapping.original)) {
         fs.renameSync(mapping.original, mapping.randomized);
+        console.log(`Renamed: ${path.relative(this.root, mapping.original)} → ${path.basename(mapping.randomized)}`);
       }
     }
   }
@@ -303,19 +406,29 @@ class BuildObfuscator {
 
     this.processFavicons();
     this.processSourceFiles();
+
+    console.log(`Found ${this.mappings.size} files to obfuscate`);
+
     this.updateFileContents();
     this.renameFiles();
 
     const routeMappings: Record<string, string> = {};
     for (const [, mapping] of this.mappings) {
       if (mapping.type === "route") {
-        const originalRoute = "/" + path.basename(mapping.original, path.extname(mapping.original));
-        const newRoute = "/" + path.basename(mapping.randomized, path.extname(mapping.randomized));
+        const originalRoute = `/${path.basename(mapping.original, path.extname(mapping.original))}`;
+        const newRoute = `/${path.basename(mapping.randomized, path.extname(mapping.randomized))}`;
         routeMappings[originalRoute] = newRoute;
       }
     }
 
-    console.log("Routes updated:", routeMappings);
+    if (Object.keys(routeMappings).length > 0) {
+      console.log("Routes updated:");
+      for (const [old, newRoute] of Object.entries(routeMappings)) {
+        console.log(`   ${old} → ${newRoute}`);
+      }
+    }
+
+    console.log("Obfuscation completed!");
   }
 
   public async revert(): Promise<void> {
