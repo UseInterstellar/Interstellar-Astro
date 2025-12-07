@@ -4,8 +4,8 @@ const config: Config = {
   // Server Configuration
   server: {
     port: 8080, // The port on which Interstellar runs (Default: 8080)
-    obfuscate: false, // Set to false to disable obfuscation
-    compress: false, // Set to false to disable compression
+    obfuscate: true, // Set to false to disable obfuscation
+    compress: true, // Set to false to disable compression
   },
 
   // Password Protection (Optional)
