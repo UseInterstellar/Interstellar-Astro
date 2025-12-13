@@ -90,6 +90,160 @@ export default function Browser() {
     };
   }, [activeTab, url]);
 
+  useEffect(() => {
+    if (!activeTab) return;
+    const iframe = iframeRefs.current[activeTab.id];
+    if (!iframe) return;
+
+    const setupIntercept = () => {
+      try {
+        const iframeWindow = iframe.contentWindow as any;
+        if (!iframeWindow || iframeWindow.__tabInterceptSetup) return;
+        
+        iframeWindow.__tabInterceptSetup = true;
+
+        const config = (window as any).__uv$config;
+
+        const originalOpen = iframeWindow.open;
+        iframeWindow.open = function(url?: string, target?: string, features?: string) {
+          if (!target || target === "_blank" || target === "_new") {
+            try {
+              const fullUrl = url ? new URL(url, iframeWindow.location.href).href : "about:blank";
+              
+              let actualUrl = fullUrl;
+              if (config && fullUrl.includes(config.prefix)) {
+                const encoded = fullUrl.substring(fullUrl.indexOf(config.prefix) + config.prefix.length);
+                actualUrl = config.decodeUrl(encoded);
+              }
+              
+              const newId = Date.now();
+              setTabs((prev) => [
+                ...prev.map((t) => ({ ...t, active: false })),
+                { id: newId, title: "New Tab", url: actualUrl, active: true, reloadKey: 0 }
+              ]);
+              
+              return null;
+            } catch (err) {
+              console.warn("Failed to intercept window.open:", err);
+            }
+          }
+          return originalOpen.call(iframeWindow, url, target, features);
+        };
+
+        iframeWindow.addEventListener("click", (e: MouseEvent) => {
+          const target = e.target as HTMLElement;
+          const anchor = target.closest("a");
+          
+          if (anchor) {
+            const linkTarget = anchor.getAttribute("target");
+            const hasModifier = e.ctrlKey || e.metaKey;
+            
+            if (linkTarget === "_blank" || linkTarget === "_new" || hasModifier) {
+              e.preventDefault();
+              e.stopPropagation();
+              
+              const href = anchor.getAttribute("href");
+              if (href) {
+                try {
+                  const fullUrl = new URL(href, iframeWindow.location.href).href;
+                  
+                  let actualUrl = fullUrl;
+                  if (config && fullUrl.includes(config.prefix)) {
+                    const encoded = fullUrl.substring(fullUrl.indexOf(config.prefix) + config.prefix.length);
+                    actualUrl = config.decodeUrl(encoded);
+                  }
+                  
+                  const newId = Date.now();
+                  setTabs((prev) => [
+                    ...prev.map((t) => ({ ...t, active: false })),
+                    { id: newId, title: "New Tab", url: actualUrl, active: true, reloadKey: 0 }
+                  ]);
+                } catch (err) {
+                  console.warn("Failed to intercept link click:", err);
+                }
+              }
+            }
+          }
+        }, true);
+
+        iframeWindow.addEventListener("auxclick", (e: MouseEvent) => {
+          if (e.button !== 1) return; 
+          
+          const target = e.target as HTMLElement;
+          const anchor = target.closest("a");
+          
+          if (anchor) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const href = anchor.getAttribute("href");
+            if (href) {
+              try {
+                const fullUrl = new URL(href, iframeWindow.location.href).href;
+                
+                let actualUrl = fullUrl;
+                if (config && fullUrl.includes(config.prefix)) {
+                  const encoded = fullUrl.substring(fullUrl.indexOf(config.prefix) + config.prefix.length);
+                  actualUrl = config.decodeUrl(encoded);
+                }
+                
+                const newId = Date.now();
+                setTabs((prev) => [
+                  ...prev.map((t) => ({ ...t, active: false })),
+                  { id: newId, title: "New Tab", url: actualUrl, active: true, reloadKey: 0 }
+                ]);
+              } catch (err) {
+                console.warn("Failed to intercept middle-click:", err);
+              }
+            }
+          }
+        }, true);
+
+      } catch (err) {
+      }
+    };
+
+    const handleLoad = () => {
+      setupIntercept();
+    };
+
+    iframe.addEventListener("load", handleLoad);
+    setupIntercept();
+
+    return () => {
+      iframe.removeEventListener("load", handleLoad);
+    };
+  }, [activeTab]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === "t" || e.key === "n")) {
+        e.preventDefault();
+      }
+    };
+
+    const handleAuxClick = (e: MouseEvent) => {
+      if (e.button === 1) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("auxclick", handleAuxClick);
+
+    const originalWindowOpen = window.open;
+    window.open = function() {
+      console.warn("Blocked external window.open call");
+      return null;
+    };
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("auxclick", handleAuxClick);
+      window.open = originalWindowOpen;
+    };
+  }, []);
+
   const setActiveTab = (id: number) => {
     setTabs((prev) => prev.map((tab) => ({ ...tab, active: tab.id === id })));
   };
