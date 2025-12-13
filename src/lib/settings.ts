@@ -232,6 +232,16 @@ document.addEventListener("astro:page-load", () => {
     BIM: { name: "Big Ideas Math", icon: "/assets/media/favicons/bim.ico" },
   };
 
+  const maskPresetIcon = (iconUrl: string): string => {
+    const isPreset = Object.values(cloaker).some(preset => preset.icon === iconUrl);
+    if (!isPreset) return iconUrl;
+    
+    const match = iconUrl.match(/\.([^.]+)$/);
+    const extension = match ? match[1] : "";
+    
+    return extension ? `***.${extension}` : "***";
+  };
+
   if (cloakerDropdown) {
     const links = cloakerDropdown.querySelectorAll<HTMLAnchorElement>("a");
     links.forEach((link) => {
@@ -319,12 +329,14 @@ document.addEventListener("astro:page-load", () => {
   }
 
   if (customIcon) {
-    customIcon.value = localStorage.getItem("icon") || "";
+    const storedIcon = localStorage.getItem("icon") || "";
+    customIcon.value = maskPresetIcon(storedIcon);
+    
     customIcon.addEventListener("keydown", (event) => {
       if (event.key !== "Enter") return;
       event.preventDefault();
       const icon = customIcon.value.trim();
-      if (!icon) return;
+      if (!icon || icon.startsWith("***")) return;
       localStorage.setItem("icon", icon);
       window.location.reload();
     });
@@ -339,8 +351,13 @@ if (panicKey) {
   panicKey.addEventListener("keydown", (event) => {
     if (event.key !== "Enter") return;
     event.preventDefault();
-    const key = panicKey.value.trim();
+    let key = panicKey.value.trim();
     if (!key) return;
+    
+    if (key.length >= 2 && !key.includes(",")) {
+      key = key.split("").join(",");
+    }
+    
     localStorage.setItem("key", key);
     window.location.reload();
   });
