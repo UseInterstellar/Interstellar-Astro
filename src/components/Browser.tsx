@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, Home, Lock, Maximize2, Menu, MoreVertical, Plus, RotateCw, Star, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, type Tab, tabButtonClass } from "@/lib/tabs";
+import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, type Tab, tabButtonClass, sanitizeUrl } from "@/lib/tabs";
 
 const IconButton = ({ onClick, icon: Icon, className = "", disabled = false, title = "" }: { onClick?: () => void; icon: React.ComponentType<{ className?: string }>; className?: string; disabled?: boolean; title?: string }) => (
   <button
@@ -450,7 +450,7 @@ export default function Browser() {
               iframeRefs.current[tab.id] = el;
             }}
             title={tab.title}
-            src={encodeProxyUrl(tab.url)}
+            src={encodeProxyUrl(sanitizeUrl(tab.url))}
             className={classNames("absolute inset-0 h-full w-full border-0", tab.active ? "block" : "hidden")}
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
           />
