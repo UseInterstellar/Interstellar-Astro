@@ -87,7 +87,7 @@ importers:
         specifier: ^4.20.5
         version: 4.20.6
       typescript:
-        specifier: ^5.7.3
+        specifier: ^5.9.3
         version: 5.9.3
       vite-plugin-static-copy:
         specifier: ^3.1.4
