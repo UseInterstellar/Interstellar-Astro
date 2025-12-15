@@ -20,7 +20,7 @@ cd Interstellar
 Once you've cloned the repository, install the required dependencies and start the application:
 
 ```bash
-pnpm install && pnpm start
+bun install && bun start
 ```
 
 This will install all the necessary dependencies and start the application in production mode.
@@ -30,7 +30,7 @@ This will install all the necessary dependencies and start the application in pr
 If you are developing for Interstellar , use the following commands:
 
 ```bash
-pnpm install && pnpm dev
+bun install && bun dev
 ```
 
 This will install dependencies and start the development server, which will automatically reload when you make changes to the code.
