@@ -14,7 +14,7 @@
     "check": "prettier --write . && biome check --write ."
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
+    "@astrojs/check": "^0.9.6",
     "@astrojs/node": "^9.4.3",
     "@astrojs/react": "latest",
     "@astrojs/tailwind": "^6.0.2",
