@@ -22,7 +22,7 @@ importers:
         version: 9.5.0(astro@5.16.5(@types/node@22.19.1)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.53.3)(terser@5.42.0)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2))
       '@astrojs/react':
         specifier: latest
-        version: 4.4.2(@types/node@22.19.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@1.21.7)(lightningcss@1.30.1)(react-dom@19.2.0(react@19.2.3))(react@19.2.3)(terser@5.42.0)(tsx@4.21.0)(yaml@2.8.2)
+        version: 4.4.2(@types/node@22.19.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@1.21.7)(lightningcss@1.30.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(terser@5.42.0)(tsx@4.21.0)(yaml@2.8.2)
       '@astrojs/tailwind':
         specifier: ^6.0.2
         version: 6.0.2(astro@5.16.5(@types/node@22.19.1)(jiti@1.21.7)(lightningcss@1.30.1)(rollup@4.53.3)(terser@5.42.0)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.2))(tailwindcss@3.4.18(tsx@4.21.0)(yaml@2.8.2))
@@ -78,8 +78,8 @@ importers:
         specifier: 19.2.3
         version: 19.2.3
       react-dom:
-        specifier: 19.2.0
-        version: 19.2.0(react@19.2.3)
+        specifier: 19.2.3
+        version: 19.2.3(react@19.2.3)
       sharp:
         specifier: ^0.34.5
         version: 0.34.5
@@ -2627,10 +2627,10 @@ packages:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
 
-  react-dom@19.2.0:
-    resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
+  react-dom@19.2.3:
+    resolution: {integrity: sha512-yELu4WmLPw5Mr/lmeEpox5rw3RETacE++JgHqQzd2dg+YbJuat3jH4ingc+WPZhxaoFzdv9y33G+F7Nl5O0GBg==}
     peerDependencies:
-      react: ^19.2.0
+      react: ^19.2.3
 
   react-refresh@0.17.0:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
@@ -3496,13 +3496,13 @@ snapshots:
     dependencies:
       prismjs: 1.30.0
 
-  '@astrojs/react@4.4.2(@types/node@22.19.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@1.21.7)(lightningcss@1.30.1)(react-dom@19.2.0(react@19.2.3))(react@19.2.3)(terser@5.42.0)(tsx@4.21.0)(yaml@2.8.2)':
+  '@astrojs/react@4.4.2(@types/node@22.19.1)(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(jiti@1.21.7)(lightningcss@1.30.1)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)(terser@5.42.0)(tsx@4.21.0)(yaml@2.8.2)':
     dependencies:
       '@types/react': 19.2.7
       '@types/react-dom': 19.2.3(@types/react@19.2.7)
       '@vitejs/plugin-react': 4.7.0(vite@6.4.1(@types/node@22.19.1)(jiti@1.21.7)(lightningcss@1.30.1)(terser@5.42.0)(tsx@4.21.0)(yaml@2.8.2))
       react: 19.2.3
-      react-dom: 19.2.0(react@19.2.3)
+      react-dom: 19.2.3(react@19.2.3)
       ultrahtml: 1.6.0
       vite: 6.4.1(@types/node@22.19.1)(jiti@1.21.7)(lightningcss@1.30.1)(terser@5.42.0)(tsx@4.21.0)(yaml@2.8.2)
     transitivePeerDependencies:
@@ -6129,7 +6129,7 @@ snapshots:
 
   range-parser@1.2.1: {}
 
-  react-dom@19.2.0(react@19.2.3):
+  react-dom@19.2.3(react@19.2.3):
     dependencies:
       react: 19.2.3
       scheduler: 0.27.0

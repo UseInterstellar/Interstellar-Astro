@@ -35,7 +35,7 @@
     "lucide-react": "^0.561.0",
     "mime": "^4.0.7",
     "react": "19.2.3",
-    "react-dom": "19.2.0",
+    "react-dom": "19.2.3",
     "sharp": "^0.34.5",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
