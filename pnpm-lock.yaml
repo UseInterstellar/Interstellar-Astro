@@ -81,7 +81,7 @@ importers:
         specifier: 19.2.0
         version: 19.2.0(react@19.2.3)
       sharp:
-        specifier: ^0.34.4
+        specifier: ^0.34.5
         version: 0.34.5
       tsx:
         specifier: ^4.21.0
