@@ -46,6 +46,21 @@ export const getDefaultUrl = () => {
   }
 };
 
+// Only allow 'about:blank' and HTTP(S) URLs. All others are replaced with 'about:blank'.
+export function sanitizeUrl(url: string): string {
+  if (!url || url === "about:blank") return "about:blank";
+  try {
+    // This throws for invalid URLs, so fallback to 'about:blank'
+    const parsed = new URL(url, "https://example.com");
+    if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+      return parsed.href;
+    }
+  } catch {
+    // Malformed URL, fallback
+  }
+  return "about:blank";
+}
+
 export const encodeProxyUrl = (url: string): string => {
   if (!url || url === "about:blank") return "about:blank";
   if (typeof window === "undefined") return url;
