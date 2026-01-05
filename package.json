@@ -33,7 +33,7 @@
     "js-cookie": "^3.0.5",
     "lucide-astro": "^0.556.0",
     "lucide-react": "^0.561.0",
-    "mime": "^4.0.7",
+    "mime": "^4.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "sharp": "^0.34.5",
