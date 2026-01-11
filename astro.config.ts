@@ -24,6 +24,7 @@ if (INConfig.server?.compress !== false) {
       Image: false,
       JavaScript: true,
       SVG: true,
+      Logger: 0,
     }),
   );
 }
@@ -49,6 +50,7 @@ export default defineConfig({
     ],
   },
   vite: {
+    logLevel: "warn", 
     define: {
       __COMMIT_DATE__: JSON.stringify(execSync("git show --no-patch --format=%ci").toString().trim()),
     },
