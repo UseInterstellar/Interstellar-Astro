@@ -1,6 +1,8 @@
-import { ChevronLeft, ChevronRight, Home, Lock, Maximize2, Menu, MoreVertical, Plus, RotateCw, Star, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Home, Lock, Maximize2, Plus, RotateCw, Star, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, type Tab, tabButtonClass } from "@/lib/tabs";
+import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, iconButtonClass, type Tab, tabButtonClass } from "@/lib/tabs";
+
+type ScramjetWindow = Window & { __scramjet$config?: unknown };
 
 const IconButton = ({ onClick, icon: Icon, className = "", disabled = false, title = "" }: { onClick?: () => void; icon: React.ComponentType<{ className?: string }>; className?: string; disabled?: boolean; title?: string }) => (
   <button
@@ -8,10 +10,9 @@ const IconButton = ({ onClick, icon: Icon, className = "", disabled = false, tit
     onClick={onClick}
     disabled={disabled}
     title={title}
-    className={`group p-2 rounded-full text-text-secondary transition-all duration-200 
-      hover:bg-interactive hover:text-text disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 ${className}`}
+    className={classNames(iconButtonClass, "disabled:opacity-30 disabled:cursor-not-allowed", className)}
   >
-    <Icon className="h-4 w-4 stroke-[2.5px] group-hover:stroke-text" />
+    <Icon className="h-4 w-4" />
   </button>
 );
 
@@ -20,8 +21,15 @@ export default function Browser() {
   const [url, setUrl] = useState("about:blank");
   const [favicons, setFavicons] = useState<Record<number, string>>({});
   const [bookmarks, setBookmarks] = useState<Array<{ Title: string; url: string; favicon?: string }>>([]);
+  const [proxyReadyTick, setProxyReadyTick] = useState(0);
+  const [proxyReady, setProxyReady] = useState(false);
   const activeTab = useMemo(() => tabs.find((tab) => tab.active), [tabs]);
   const iframeRefs = useRef<Record<number, HTMLIFrameElement | null>>({});
+
+  const openInNewTab = (url: string) => {
+    const newId = Date.now();
+    setTabs((prev) => [...prev.map((t) => ({ ...t, active: false })), { id: newId, title: "New Tab", url, active: true, reloadKey: 0 }]);
+  };
 
   useEffect(() => {
     let firstTabUrl = getDefaultUrl();
@@ -44,20 +52,63 @@ export default function Browser() {
   }, []);
 
   useEffect(() => {
+    const onReady = () => setProxyReadyTick((prev) => prev + 1);
+    window.addEventListener("scramjet-ready", onReady);
+    if ((window as ScramjetWindow).__scramjet$config) {
+      onReady();
+    }
+    return () => window.removeEventListener("scramjet-ready", onReady);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const checkReady = () => {
+      const sjReady = Boolean((window as ScramjetWindow).__scramjet$config);
+      const swReady = Boolean(navigator.serviceWorker?.controller);
+      if (sjReady && swReady) setProxyReady(true);
+      return sjReady && swReady;
+    };
+
+    if (checkReady()) return;
+
+    const timer = window.setInterval(() => {
+      if (cancelled) return;
+      if (checkReady()) {
+        window.clearInterval(timer);
+      }
+    }, 100);
+
+    return () => {
+      cancelled = true;
+      window.clearInterval(timer);
+    };
+  }, [proxyReadyTick]);
+
+  useEffect(() => {
     if (!activeTab) return;
     const iframe = iframeRefs.current[activeTab.id];
     const actualUrl = getActualUrl(iframe);
-    setUrl(actualUrl || activeTab.url);
+    const nextUrl = actualUrl && actualUrl !== "about:blank" ? actualUrl : activeTab.url;
+    setUrl(nextUrl);
   }, [activeTab]);
+
+  useEffect(() => {
+    if (!activeTab) return;
+    if (url === "about:blank" && activeTab.url !== "about:blank") {
+      setUrl(activeTab.url);
+    }
+  }, [activeTab, url, proxyReadyTick]);
 
   useEffect(() => {
     if (!activeTab) return;
     const iframe = iframeRefs.current[activeTab.id];
     if (!iframe) return;
 
+    let observer: MutationObserver | null = null;
+
     const updateState = () => {
       const actualUrl = getActualUrl(iframe);
-      if (actualUrl && actualUrl !== url) setUrl(actualUrl);
+      if (actualUrl && actualUrl !== "about:blank" && actualUrl !== url) setUrl(actualUrl);
 
       try {
         const iframeTitle = iframe.contentWindow?.document?.title;
@@ -81,12 +132,45 @@ export default function Browser() {
       } catch (_e) {}
     };
 
-    iframe.addEventListener("load", updateState);
-    const interval = setInterval(updateState, 1000);
+    const setupObserver = () => {
+      try {
+        const iframeDoc = iframe.contentWindow?.document;
+        if (!iframeDoc) return;
+
+        observer?.disconnect();
+
+        observer = new MutationObserver(() => {
+          updateState();
+        });
+
+        if (iframeDoc.head) {
+          observer.observe(iframeDoc.head, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ["href"],
+          });
+        }
+
+        const titleEl = iframeDoc.querySelector("title");
+        if (titleEl) {
+          observer.observe(titleEl, { childList: true, characterData: true, subtree: true });
+        }
+      } catch (_e) {}
+    };
+
+    const handleLoad = () => {
+      updateState();
+      setupObserver();
+    };
+
+    iframe.addEventListener("load", handleLoad);
+    updateState();
+    setupObserver();
 
     return () => {
-      iframe.removeEventListener("load", updateState);
-      clearInterval(interval);
+      iframe.removeEventListener("load", handleLoad);
+      observer?.disconnect();
     };
   }, [activeTab, url]);
 
@@ -95,33 +179,28 @@ export default function Browser() {
     const iframe = iframeRefs.current[activeTab.id];
     if (!iframe) return;
 
+    const abortController = new AbortController();
+    const { signal } = abortController;
+
     const setupIntercept = () => {
       try {
-        const iframeWindow = iframe.contentWindow as any;
+        const iframeWindow = iframe.contentWindow as Window & {
+          __tabInterceptSetup?: boolean;
+          __originalOpen?: typeof window.open;
+        };
         if (!iframeWindow || iframeWindow.__tabInterceptSetup) return;
-        
+
         iframeWindow.__tabInterceptSetup = true;
 
-        const config = (window as any).__uv$config;
-
         const originalOpen = iframeWindow.open;
-        iframeWindow.open = function(url?: string, target?: string, features?: string) {
+        iframeWindow.__originalOpen = originalOpen;
+
+        iframeWindow.open = (url?: string | URL, target?: string, features?: string) => {
           if (!target || target === "_blank" || target === "_new") {
             try {
-              const fullUrl = url ? new URL(url, iframeWindow.location.href).href : "about:blank";
-              
-              let actualUrl = fullUrl;
-              if (config && fullUrl.includes(config.prefix)) {
-                const encoded = fullUrl.substring(fullUrl.indexOf(config.prefix) + config.prefix.length);
-                actualUrl = config.decodeUrl(encoded);
-              }
-              
-              const newId = Date.now();
-              setTabs((prev) => [
-                ...prev.map((t) => ({ ...t, active: false })),
-                { id: newId, title: "New Tab", url: actualUrl, active: true, reloadKey: 0 }
-              ]);
-              
+              const urlStr = url?.toString() || "";
+              const fullUrl = urlStr ? new URL(urlStr, iframeWindow.location.href).href : "about:blank";
+              openInNewTab(fullUrl);
               return null;
             } catch (err) {
               console.warn("Failed to intercept window.open:", err);
@@ -130,88 +209,77 @@ export default function Browser() {
           return originalOpen.call(iframeWindow, url, target, features);
         };
 
-        iframeWindow.addEventListener("click", (e: MouseEvent) => {
+        const handleClick = (e: MouseEvent) => {
           const target = e.target as HTMLElement;
           const anchor = target.closest("a");
-          
+
           if (anchor) {
             const linkTarget = anchor.getAttribute("target");
             const hasModifier = e.ctrlKey || e.metaKey;
-            
+
             if (linkTarget === "_blank" || linkTarget === "_new" || hasModifier) {
               e.preventDefault();
               e.stopPropagation();
-              
+
               const href = anchor.getAttribute("href");
               if (href) {
                 try {
                   const fullUrl = new URL(href, iframeWindow.location.href).href;
-                  
-                  let actualUrl = fullUrl;
-                  if (config && fullUrl.includes(config.prefix)) {
-                    const encoded = fullUrl.substring(fullUrl.indexOf(config.prefix) + config.prefix.length);
-                    actualUrl = config.decodeUrl(encoded);
-                  }
-                  
-                  const newId = Date.now();
-                  setTabs((prev) => [
-                    ...prev.map((t) => ({ ...t, active: false })),
-                    { id: newId, title: "New Tab", url: actualUrl, active: true, reloadKey: 0 }
-                  ]);
+                  openInNewTab(fullUrl);
                 } catch (err) {
                   console.warn("Failed to intercept link click:", err);
                 }
               }
             }
           }
-        }, true);
+        };
 
-        iframeWindow.addEventListener("auxclick", (e: MouseEvent) => {
-          if (e.button !== 1) return; 
-          
+        const handleAuxClick = (e: MouseEvent) => {
+          if (e.button !== 1) return;
+
           const target = e.target as HTMLElement;
           const anchor = target.closest("a");
-          
+
           if (anchor) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const href = anchor.getAttribute("href");
             if (href) {
               try {
                 const fullUrl = new URL(href, iframeWindow.location.href).href;
-                
-                let actualUrl = fullUrl;
-                if (config && fullUrl.includes(config.prefix)) {
-                  const encoded = fullUrl.substring(fullUrl.indexOf(config.prefix) + config.prefix.length);
-                  actualUrl = config.decodeUrl(encoded);
-                }
-                
-                const newId = Date.now();
-                setTabs((prev) => [
-                  ...prev.map((t) => ({ ...t, active: false })),
-                  { id: newId, title: "New Tab", url: actualUrl, active: true, reloadKey: 0 }
-                ]);
+                openInNewTab(fullUrl);
               } catch (err) {
                 console.warn("Failed to intercept middle-click:", err);
               }
             }
           }
-        }, true);
+        };
 
-      } catch (err) {
-      }
+        iframeWindow.addEventListener("click", handleClick, { capture: true, signal });
+        iframeWindow.addEventListener("auxclick", handleAuxClick, { capture: true, signal });
+      } catch (_err) {}
     };
 
     const handleLoad = () => {
       setupIntercept();
     };
 
-    iframe.addEventListener("load", handleLoad);
+    iframe.addEventListener("load", handleLoad, { signal });
     setupIntercept();
 
     return () => {
-      iframe.removeEventListener("load", handleLoad);
+      abortController.abort();
+      try {
+        const iframeWindow = iframe.contentWindow as Window & {
+          __tabInterceptSetup?: boolean;
+          __originalOpen?: typeof window.open;
+        };
+        if (iframeWindow?.__originalOpen) {
+          iframeWindow.open = iframeWindow.__originalOpen;
+          iframeWindow.__tabInterceptSetup = false;
+        }
+      } catch (_e) {}
     };
   }, [activeTab]);
 
@@ -232,8 +300,7 @@ export default function Browser() {
     window.addEventListener("auxclick", handleAuxClick);
 
     const originalWindowOpen = window.open;
-    window.open = function() {
-      console.warn("Blocked external window.open call");
+    window.open = () => {
       return null;
     };
 
@@ -339,33 +406,41 @@ export default function Browser() {
         const updatedBookmarks = [...bookmarks, newBookmark];
         setBookmarks(updatedBookmarks);
         localStorage.setItem("bookmarks", JSON.stringify(updatedBookmarks));
-        alert("Bookmark added successfully!");
       } catch (e) {
         console.error("Failed to add bookmark:", e);
-        alert("Failed to add bookmark. Storage may be blocked.");
       }
     }
   };
 
   return (
     <div className="flex h-screen flex-col bg-background">
-      <div className="flex items-center gap-1 bg-background px-3 pt-1.5 pb-0">
+      <div className="flex items-center gap-1 bg-background-secondary/50 px-2 py-1.5 border-b border-border/50">
         {tabs.map((tab) => (
-          <button key={tab.id} type="button" onClick={() => setActiveTab(tab.id)} className={classNames(tabButtonClass, tab.active ? "bg-background-secondary text-text shadow-sm" : "bg-background text-text-secondary hover:bg-interactive")}>
+          <button
+            key={tab.id}
+            type="button"
+            onClick={() => setActiveTab(tab.id)}
+            className={classNames(
+              tabButtonClass,
+              tab.active
+                ? "bg-background text-text border border-border/50"
+                : "text-text-secondary hover:text-text hover:bg-white/5"
+            )}
+          >
             <div className="flex min-w-0 flex-1 items-center gap-2">
               {favicons[tab.id] ? (
                 <img
                   src={favicons[tab.id]}
                   alt=""
-                  className="h-4 w-4 shrink-0 rounded"
+                  className="h-3.5 w-3.5 shrink-0 rounded-sm"
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                     e.currentTarget.nextElementSibling?.classList.remove("hidden");
                   }}
                 />
               ) : null}
-              <div className={classNames("h-4 w-4 shrink-0 rounded bg-accent/30", favicons[tab.id] ? "hidden" : "")} />
-              <span className="truncate text-sm">{tab.title}</span>
+              <div className={classNames("h-3.5 w-3.5 shrink-0 rounded-sm bg-accent/20", favicons[tab.id] ? "hidden" : "")} />
+              <span className="truncate text-xs">{tab.title}</span>
             </div>
             <button
               type="button"
@@ -380,13 +455,18 @@ export default function Browser() {
             </button>
           </button>
         ))}
-        <button type="button" className="inline-flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium text-text-secondary transition-colors hover:bg-background-secondary/50 hover:text-text" onClick={addNewTab} aria-label="Add tab">
-          <Plus className="h-4 w-4" />
+        <button
+          type="button"
+          className="inline-flex h-6 w-6 items-center justify-center rounded text-text-secondary hover:text-accent hover:bg-white/5 transition-all"
+          onClick={addNewTab}
+          aria-label="Add tab"
+        >
+          <Plus className="h-3.5 w-3.5" />
         </button>
       </div>
 
-      <div className="flex items-center justify-between gap-3 bg-background-secondary px-3 py-2 backdrop-blur-xl">
-        <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2 bg-background px-2 py-1.5 border-b border-border/30">
+        <div className="flex items-center gap-0.5">
           <IconButton icon={Home} onClick={() => handleAction("home")} title="Home" />
           <IconButton icon={ChevronLeft} onClick={() => handleAction("back")} title="Back" />
           <IconButton icon={ChevronRight} onClick={() => handleAction("forward")} title="Forward" />
@@ -395,27 +475,31 @@ export default function Browser() {
 
         <div className="flex-1">
           <div className={actionBarClass}>
-            <Lock className="h-4 w-4 text-muted-foreground" />
-            <input className={addressInputClass} value={url} placeholder="Search or enter address" onChange={(e) => setUrl(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleNavigate(e.currentTarget.value)} />
+            <Lock className="h-3.5 w-3.5 text-text-placeholder" />
+            <input
+              className={addressInputClass}
+              value={url}
+              placeholder="Search or enter address"
+              onChange={(e) => setUrl(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleNavigate(e.currentTarget.value)}
+            />
           </div>
         </div>
 
-        <div className="flex items-center gap-1">
-          <IconButton icon={Maximize2} onClick={toggleFullscreen} title="Fullscreen" />
+        <div className="flex items-center gap-0.5">
           <IconButton icon={Star} onClick={addBookmark} title="Bookmark" />
-          <IconButton icon={Menu} title="Menu" />
-          <IconButton icon={MoreVertical} title="More" />
+          <IconButton icon={Maximize2} onClick={toggleFullscreen} title="Fullscreen" />
         </div>
       </div>
 
       {bookmarks.length > 0 && (
-        <div className="flex items-center gap-0.5 bg-background-secondary px-3 py-1.5 overflow-x-auto border-b border-border/50">
+        <div className="flex items-center gap-1 bg-background px-2 py-1 overflow-x-auto border-b border-border/30">
           {bookmarks.map((bookmark) => (
             <button
               key={`${bookmark.url}-${bookmark.Title}`}
               type="button"
-              className="inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-sm text-text-secondary hover:bg-interactive hover:scale-105 transition-all shrink-0"
-              style={{ maxWidth: "195px" }}
+              className="inline-flex items-center gap-1.5 rounded px-2 py-1 text-xs text-text-secondary hover:text-text hover:bg-white/5 transition-all shrink-0"
+              style={{ maxWidth: "160px" }}
               onClick={() => handleNavigate(bookmark.url)}
               onContextMenu={(e) => {
                 e.preventDefault();
@@ -426,23 +510,29 @@ export default function Browser() {
                 <img
                   src={bookmark.favicon}
                   alt=""
-                  className="h-[18px] w-[18px] shrink-0"
+                  className="h-3.5 w-3.5 shrink-0"
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                     e.currentTarget.nextElementSibling?.classList.remove("hidden");
                   }}
                 />
               ) : null}
-              <Star className={`h-[18px] w-[18px] fill-current shrink-0 ${bookmark.favicon ? "hidden" : ""}`} />
-              <span className="overflow-hidden whitespace-nowrap block min-w-0" style={{ textOverflow: "ellipsis" }}>
-                {bookmark.Title}
-              </span>
+              <Star className={classNames("h-3.5 w-3.5 shrink-0", bookmark.favicon ? "hidden" : "")} />
+              <span className="truncate">{bookmark.Title}</span>
             </button>
           ))}
         </div>
       )}
 
       <div className="relative flex-1 bg-background">
+        {!proxyReady && activeTab?.url !== "about:blank" && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-background">
+            <div className="flex items-center gap-3 text-text-secondary">
+              <span className="h-6 w-6 animate-spin rounded-full border-2 border-white/10 border-t-accent" style={{ animationTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)" }} />
+              <span className="text-sm">Loading proxy…</span>
+            </div>
+          </div>
+        )}
         {tabs.map((tab) => (
           <iframe
             key={`${tab.id}-${tab.reloadKey}`}
@@ -450,9 +540,9 @@ export default function Browser() {
               iframeRefs.current[tab.id] = el;
             }}
             title={tab.title}
-            src={encodeProxyUrl(tab.url)}
+            src={proxyReady ? encodeProxyUrl(tab.url) : "about:blank"}
             className={classNames("absolute inset-0 h-full w-full border-0", tab.active ? "block" : "hidden")}
-            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-modals allow-downloads"
           />
         ))}
       </div>

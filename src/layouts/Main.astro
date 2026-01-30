@@ -4,8 +4,8 @@ import Gamepad2 from "lucide-astro/Gamepad2";
 import LayoutGrid from "lucide-astro/LayoutGrid";
 import Menu from "lucide-astro/Menu";
 import Settings2 from "lucide-astro/Settings2";
+import X from "lucide-astro/X";
 
-import Obfuscated from "@/components/Obfuscated.astro";
 import Layout from "@/layouts/Layout.astro";
 
 const navLinks = [
@@ -17,25 +17,129 @@ const navLinks = [
 ---
 
 <Layout>
-  <nav id="default-nav" class="flex flex-row justify-between bg-background-secondary border border-accent/20 w-[98vw] h-20 px-6 rounded-2xl mx-4 mt-4 fixed top-0 z-[99999] shadow-2xl drop-shadow-xl" style="box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.05);">
-    <a href="/" class="uppercase flex items-center text-text hover:scale-105 duration-200 text-6xl font-black transition-all hover:text-accent">in</a>
-    <button id="hamburger" class="text-3xl text-text focus:outline-none hover:text-accent rounded-lg p-2 hover:bg-accent/10">
-      <Menu class="size-8" />
-    </button>
-    <ul id="nav" class="mt-2 w-52 flex flex-col absolute top-20 right-0 bg-background-secondary border border-accent/30 rounded-2xl p-2 transition-all duration-300 shadow-2xl" style="box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.1);">
+  <nav
+    id="default-nav"
+    class="fixed top-0 left-0 right-0 z-[99999] flex items-center justify-between px-5 py-3 bg-background/90 backdrop-blur-md border-b border-white/10"
+  >
+    <a
+      href="/"
+      class="text-3xl font-bold text-text hover:text-accent transition-colors tracking-tighter"
+    >
+      IN
+    </a>
+
+    <div id="nav-links" class="hidden items-center gap-2">
       {
         navLinks.map((link) => (
-          <li>
-            <a href={link.href} class="font-medium flex-row inline-flex gap-3 items-center hover:scale-[1.02] hover:bg-accent/20 hover:text-accent rounded-xl p-4 w-full transition-all duration-200 group">
-              <link.Icon class="size-5 group-hover:scale-110 transition-transform duration-200" />
-              <Obfuscated text={link.text} />
-            </a>
-          </li>
+          <a
+            href={link.href}
+            class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm text-text-secondary hover:text-text hover:bg-white/10 transition-all"
+          >
+            <link.Icon class="w-4 h-4" strokeWidth={1.5} />
+            <span>{link.text}</span>
+          </a>
         ))
       }
-    </ul>
+    </div>
+
+    <button
+      id="menu-toggle"
+      class="p-2 text-text-secondary hover:text-text transition-colors"
+      aria-label="Toggle menu"
+    >
+      <Menu id="menu-icon" class="w-6 h-6 transition-transform duration-200" strokeWidth={1.5} />
+      <X id="close-icon" class="w-6 h-6 hidden transition-transform duration-200" strokeWidth={1.5} />
+    </button>
   </nav>
-  <main class="flex flex-col min-h-screen min-w-full">
+
+  <div
+    id="nav-menu"
+    class="fixed top-14 right-4 z-[99998] min-w-[180px] bg-background/95 backdrop-blur-sm border border-white/10 p-2 shadow-2xl origin-top-right transition-all duration-200 ease-out opacity-0 scale-95 pointer-events-none"
+  >
+    {
+      navLinks.map((link, i) => (
+        <a
+          href={link.href}
+          class="menu-item flex items-center gap-3 px-3 py-2.5 text-text-secondary hover:text-text hover:bg-white/10 transition-all duration-150"
+          style={`transition-delay: ${i * 30}ms;`}
+        >
+          <link.Icon class="w-4 h-4" strokeWidth={1.5} />
+          <span class="text-sm">{link.text}</span>
+        </a>
+      ))
+    }
+  </div>
+
+  <main class="flex flex-col min-h-screen pt-14">
     <slot />
   </main>
 </Layout>
+
+<style>
+  #nav-menu.open {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+  }
+
+  #nav-menu .menu-item {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+
+  #nav-menu.open .menu-item {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
+
+<script>
+  function getId(name: string): string {
+    const codeMap = (window as Window & { _2?: Record<string, string> })._2;
+    return codeMap?.[name] ?? name;
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    const navStyle = localStorage.getItem("nav-style") || "inline";
+    const toggle = document.getElementById(getId("menu-toggle"));
+    const menu = document.getElementById(getId("nav-menu"));
+    const links = document.getElementById(getId("nav-links"));
+    const openIcon = document.getElementById(getId("menu-icon"));
+    const closeIcon = document.getElementById(getId("close-icon"));
+
+    if (!toggle || !menu || !openIcon || !closeIcon) return;
+
+    if (navStyle === "inline") {
+      links?.classList.remove("hidden");
+      toggle.classList.add("hidden");
+      menu.classList.remove("open");
+      menu.classList.add("hidden");
+      return;
+    }
+
+    links?.classList.add("hidden");
+    menu.classList.remove("hidden");
+
+    const open = () => {
+      menu.classList.add("open");
+      openIcon.classList.add("hidden");
+      closeIcon.classList.remove("hidden");
+    };
+
+    const close = () => {
+      menu.classList.remove("open");
+      openIcon.classList.remove("hidden");
+      closeIcon.classList.add("hidden");
+    };
+
+    toggle.addEventListener("click", () => {
+      menu.classList.contains("open") ? close() : open();
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!toggle.contains(e.target as Node) && !menu.contains(e.target as Node)) {
+        close();
+      }
+    });
+  });
+</script>

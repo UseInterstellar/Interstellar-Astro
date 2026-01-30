@@ -5,31 +5,139 @@ import { ClientRouter } from "astro:transitions";
 ---
 
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#000000" />
     <link id="icon" rel="shortcut icon" href="/assets/media/favicons/default.png" />
-    <title>Home</title>
+    <title>Interstellar</title>
     <ClientRouter />
     <script src="@/lib/global.ts"></script>
-    <script is:inline src="/assets/bundled/v.bndl.js" defer></script>
-    <script is:inline src="/assets/bundled/v.cnfg.js" defer></script>
     <script is:inline src="/assets/js/analytics.js" defer></script>
 
     <script>
       import { BareMuxConnection } from "@mercuryworkshop/bare-mux";
-      window.connection = new BareMuxConnection("/assets/bundled/bm-worker.js");
-      await window.connection.setTransport("/assets/bundled/ex-index.mjs", [
+
+      const r = window._0 || {};
+      const a = window._1 || {};
+
+      const scramjetRoute = r.scramjet || "scramjet";
+      const scramjetFolder = a.scramjet || "scramjet";
+      const sjAll = a["scramjet.all"] || "scramjet.all";
+      const sjSync = a["scramjet.sync"] || "scramjet.sync";
+      const sjWasm = a["scramjet.wasm"] || "scramjet.wasm";
+
+      const scramjetPrefix = `/${scramjetRoute}/`;
+
+      const loadScript = (src: string) =>
+        new Promise<void>((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = src;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error(`Failed to load ${src}`));
+          document.head.appendChild(script);
+        });
+
+      const connection = new BareMuxConnection("/assets/bundled/bm-worker.js");
+      window.connection = connection;
+      await connection.setTransport("/assets/bundled/ex-index.mjs", [
         {
           wisp: `${location.protocol === "http:" ? "ws:" : "wss:"}//${location.host}/f/`,
         },
       ]);
-      await navigator.serviceWorker.register("/sw.js").then(() => console.log("uv registered"));
+
+      await loadScript(`/assets/${scramjetFolder}/${sjAll}.js`);
+
+      const { ScramjetController } = $scramjetLoadController();
+      const scramjet = new ScramjetController({
+        prefix: scramjetPrefix,
+        files: {
+          wasm: `/assets/${scramjetFolder}/${sjWasm}.wasm`,
+          all: `/assets/${scramjetFolder}/${sjAll}.js`,
+          sync: `/assets/${scramjetFolder}/${sjSync}.js`,
+        },
+      });
+
+      window.__scramjet$config = {
+        prefix: scramjetPrefix,
+        codec: {
+          encode: (url: string) => encodeURIComponent(url),
+          decode: (url: string) => decodeURIComponent(url),
+        },
+      };
+      window.dispatchEvent(new Event("scramjet-ready"));
+
+      scramjet.init();
+      const swVersion = (window as Window & { _3?: string })._3 || "0";
+      const desiredSwUrl = new URL(`/sw.js?v=${swVersion}`, location.origin).href;
+
+      try {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        for (const reg of regs) {
+          const urls = [reg.active?.scriptURL, reg.waiting?.scriptURL, reg.installing?.scriptURL].filter(Boolean);
+          if (reg.active?.scriptURL && reg.active.scriptURL !== desiredSwUrl) {
+            await reg.unregister();
+            continue;
+          }
+          if (!urls.includes(desiredSwUrl)) {
+            await reg.unregister();
+          }
+        }
+      } catch (_e) {}
+
+      const reg = await navigator.serviceWorker.register(`/sw.js?v=${swVersion}`, { updateViaCache: "none" });
+
+      try {
+        if (reg) {
+          const promoteIfReady = (sw?: ServiceWorker | null) => {
+            if (!sw) return;
+            if (sw.scriptURL === desiredSwUrl) {
+              sw.postMessage({ type: "skipWaiting" });
+            }
+          };
+
+          await reg.update();
+          promoteIfReady(reg.waiting);
+
+          reg.addEventListener("updatefound", () => {
+            const installing = reg.installing;
+            if (!installing) return;
+            installing.addEventListener("statechange", () => {
+              if (installing.state === "installed") {
+                promoteIfReady(reg.waiting || installing);
+              }
+            });
+          });
+        }
+
+        const ctrl = navigator.serviceWorker.controller?.scriptURL;
+        if (ctrl !== desiredSwUrl) {
+          const key = `sw-reload:${swVersion}`;
+          if (!sessionStorage.getItem(key)) {
+            sessionStorage.setItem(key, "1");
+            try {
+              const regs = await navigator.serviceWorker.getRegistrations();
+              for (const r of regs) {
+                await r.unregister();
+              }
+            } catch (_e) {}
+            navigator.serviceWorker.addEventListener(
+              "controllerchange",
+              () => {
+                location.reload();
+              },
+              { once: true },
+            );
+            location.reload();
+          }
+        }
+      } catch (_e) {}
+
     </script>
   </head>
-  <body>
+  <body class="noise">
     <slot />
   </body>
 </html>

@@ -1,9 +1,10 @@
 ---
 import ExternalLink from "lucide-astro/ExternalLink";
 import EyeOff from "lucide-astro/EyeOff";
+import Globe from "lucide-astro/Globe";
 import Info from "lucide-astro/Info";
+import LayoutGrid from "lucide-astro/LayoutGrid";
 import Search from "lucide-astro/Search";
-import Settings2 from "lucide-astro/Settings2";
 import Siren from "lucide-astro/Siren";
 import SwatchBook from "lucide-astro/SwatchBook";
 
@@ -14,150 +15,190 @@ import Layout from "@/layouts/Main.astro";
 ---
 
 <Layout>
-  <div class="flex justify-center py-8 flex-col items-center gap-4 mt-24">
-    <div class="text-4xl font-bold text-text inline-flex">
-      <Settings2 class="transform -translate-y-1 size-12 mr-2" />
-      Settings
+  <div class="flex flex-col items-center pt-24 pb-12 px-4">
+    <div class="text-center mb-10 animate-fade-in">
+      <h1 class="text-3xl font-light tracking-tight text-text uppercase">Settings</h1>
+      <p class="mt-1 text-text-secondary text-sm">Configure your experience</p>
     </div>
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-4 justify-center w-full">
-      <SettingsCard description="Access our site through an about:blank tab." title="About:Blank" Icon={ExternalLink}>
-        <ArrowButton id="AB" title="Open Popup" />
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-5xl stagger overflow-visible relative z-[1000]">
+      <SettingsCard
+        description="Open in an about:blank tab"
+        title="About:Blank"
+        Icon={ExternalLink}
+      >
+        <div class="flex items-center justify-between gap-3">
+          <label class="flex items-center gap-3 text-sm text-text-secondary">
+            <input id="ab-toggle" type="checkbox" class="sr-only" />
+            <span id="ab-switch" class="relative inline-flex h-6 w-11 items-center rounded-full border shadow-inner transition-colors">
+              <span id="ab-knob" class="inline-block h-5 w-5 rounded-full shadow-sm transition-transform"></span>
+            </span>
+            <span id="ab-status" class="text-text-secondary">Disabled</span>
+          </label>
+        </div>
+        <div class="mt-3">
+          <ArrowButton id="AB" title="Open Popup" />
+        </div>
       </SettingsCard>
-      <SettingsCard description="Change the name and title of every single page on our site." title="Tab Cloaker" Icon={EyeOff}>
+
+      <SettingsCard
+        description="Disguise browser tab appearance"
+        title="Tab Cloaker"
+        Icon={EyeOff}
+      >
         <Dropdown
           id="cloaker"
-          text="Tab Cloaker"
+          text="Select Preset"
           menu={[
             { value: "Britannica", text: "Britannica" },
-            { value: "Big_Ideas_Math", text: "Big Ideas Math" },
-            { value: "Big_Ideas_Math_Assignment_Player", text: "Big Ideas Math Assignment Player" },
             { value: "Canvas", text: "Canvas" },
-            { value: "ClassLink_Login", text: "ClassLink Login" },
             { value: "Classroom", text: "Classroom" },
             { value: "Clever", text: "Clever" },
             { value: "DeltaMath", text: "DeltaMath" },
             { value: "Desmos", text: "Desmos" },
-            { value: "Dictionary", text: "Dictionary" },
-            { value: "Ducksters", text: "Ducksters" },
             { value: "Drive", text: "Drive" },
             { value: "Edpuzzle", text: "Edpuzzle" },
             { value: "Gmail", text: "Gmail" },
             { value: "Google", text: "Google" },
             { value: "Google_Docs", text: "Google Docs" },
-            { value: "Google_Forms_Locked_Mode", text: "Google Forms Locked Mode" },
             { value: "Google_Meet", text: "Google Meet" },
             { value: "Google_Slides", text: "Google Slides" },
             { value: "IF_Campus", text: "Infinite Campus" },
-            { value: "i-Ready_Math", text: "i-Ready Math" },
-            { value: "i-Ready_Reading", text: "i-Ready Reading" },
-            { value: "i-Ready_Learning_Games", text: "i-Ready Learning Games" },
             { value: "IXL", text: "IXL" },
-            { value: "Kami", text: "Kami" },
-            { value: "Khan", text: "Khan" },
-            { value: "LinkIt", text: "LinkIt" },
-            { value: "Minga", text: "Minga" },
-            { value: "Naviance_Student", text: "Naviance" },
-            { value: "Nearpod", text: "Nearpod" },
-            { value: "NoRedInk_Home", text: "NoRedInk Home" },
-            { value: "Newsela_Assignments", text: "Newsela Assignments" },
-            { value: "Newsela_Binder", text: "Newsela Binder" },
-            { value: "Newsela_Home", text: "Newsela Home" },
-            { value: "PBS_LearningMedia", text: "PBS Learning Media" },
-            { value: "PBS_LearningMedia_Student_Home", text: "PBS Learning Media Student Home" },
-            { value: "PowerSchool_Attendance", text: "PowerSchool Attendance" },
-            { value: "PowerSchool_Grades_and_Attendance", text: "PowerSchool Grades and Attendance" },
-            { value: "PowerSchool_Sign_In", text: "PowerSchool Sign In" },
-            { value: "PowerSchool_Standards_Grades", text: "PowerSchool Standards Grades" },
-            { value: "PowerSchool_Teacher_Comments", text: "PowerSchool Teacher Comments" },
-            { value: "Quizlet_Home", text: "Quizlet Home" },
-            { value: "Savvas", text: "Savvas Realize" },
+            { value: "Khan", text: "Khan Academy" },
             { value: "Schoology", text: "Schoology" },
-            { value: "SmartPass", text: "SmartPass" },
-            { value: "StudentVUE", text: "StudentVUE" },
-            { value: "Thesaurus", text: "Thesaurus" },
             { value: "Wikipedia", text: "Wikipedia" },
-            { value: "World_History_Encyclopedia", text: "World History Encyclopedia" },
-            { value: "WBO_SuperHome", text: "World Book Online - Super Home" },
-            { value: "WBO_Student", text: "World Book Online - Student" },
-            { value: "WBO_Timelines", text: "World Book Online - Timelines" },
           ]}
         />
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full mt-2 mb-2">
-          <input id="custom-title" placeholder="Custom Tab Title" class="w-full outline-none bg-transparent text-text text-sm" />
-        </div>
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full mt-2 mb-2">
-          <input id="custom-icon" placeholder="Custom Tab Icon" class="w-full outline-none bg-transparent text-text text-sm" />
-        </div>
+        <input
+          id="custom-title"
+          placeholder="Custom title"
+          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+        <input
+          id="custom-icon"
+          placeholder="Custom icon URL"
+          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
       </SettingsCard>
-      <SettingsCard description="Quickly open another website that will replace the current website by pressing a button. (This is also the site that is opened when you cloak the site.)" title="Panic Key" Icon={Siren}>
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full mt-2 mb-2">
-          <input id="key" placeholder="Panic Key" class="w-full outline-none bg-transparent text-text text-sm" />
-        </div>
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full">
-          <input id="link" placeholder="Panic Link" class="w-full outline-none bg-transparent text-text text-sm" />
-        </div>
+
+      <SettingsCard
+        description="Quick escape to another site"
+        title="Panic Key"
+        Icon={Siren}
+      >
+        <input
+          id="key"
+          placeholder="Key sequence (e.g. ``)"
+          class="w-full h-9 px-3 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+        <input
+          id="link"
+          placeholder="Redirect URL"
+          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
       </SettingsCard>
-      <SettingsCard description="Choose your own search engine. (Default: Google)" title="Search Engine" Icon={Search}>
+
+      <SettingsCard
+        description="Default search provider"
+        title="Search Engine"
+        Icon={Search}
+      >
         <Dropdown
           id="engine"
-          text="Select Search Engine"
+          text="Select Engine"
           menu={[
-            { value: "Bing", text: "Bing" },
-            { value: "DuckDuckGo", text: "DuckDuckGo" },
-            { value: "Ecosia", text: "Ecosia" },
             { value: "Google", text: "Google" },
-            { value: "Qwant", text: "Qwant" },
-            { value: "SearchEncrypt", text: "SearchEncrypt" },
+            { value: "DuckDuckGo", text: "DuckDuckGo" },
+            { value: "Bing", text: "Bing" },
+            { value: "Ecosia", text: "Ecosia" },
             { value: "Startpage", text: "Startpage" },
           ]}
         />
-        <div class="flex px-4 py-3 rounded-md border-2 border-border overflow-hidden w-full mt-2 mb-2">
-          <input id="custom-engine" placeholder="Custom Search Engine" class="w-full outline-none bg-transparent text-text text-sm" />
+        <input
+          id="custom-engine"
+          placeholder="Custom search URL"
+          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+      </SettingsCard>
+
+      <SettingsCard
+        description="Proxy backend engine"
+        title="Proxy Engine"
+        Icon={Globe}
+      >
+        <div class="flex flex-col gap-2 text-sm text-text-secondary">
+          <div class="flex items-center justify-between">
+            <span>Engine</span>
+            <span id="proxy-engine-status" class="text-text">Scramjet</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Service Worker</span>
+            <span id="proxy-sw-status" class="text-text-secondary">Checking...</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Transport</span>
+            <span id="proxy-transport-status" class="text-text-secondary">Checking...</span>
+          </div>
         </div>
       </SettingsCard>
-      <SettingsCard description="Customize the theme of the site." title="Themes" Icon={SwatchBook}>
+
+      <SettingsCard
+        description="Top navigation layout"
+        title="Navigation"
+        Icon={LayoutGrid}
+      >
+        <Dropdown
+          id="nav-style"
+          text="Select Layout"
+          menu={[
+            { value: "menu", text: "Menu" },
+            { value: "inline", text: "Inline" },
+          ]}
+        />
+      </SettingsCard>
+
+      <SettingsCard
+        description="Visual appearance"
+        title="Theme"
+        Icon={SwatchBook}
+      >
         <Dropdown
           id="theme"
           text="Select Theme"
           menu={[
-            { value: "Default", text: "Default" },
-            { value: "Ocean", text: "Ocean" },
-            { value: "Forest", text: "Forest" },
-            { value: "Sunset", text: "Sunset" },
-            { value: "Purple", text: "Purple" },
+            { value: "Default", text: "Dark (Default)" },
+            { value: "Black", text: "Void" },
             { value: "Midnight", text: "Midnight" },
+            { value: "Ocean", text: "Ocean" },
             { value: "White", text: "Light" },
-            { value: "Black", text: "Black" },
-            { value: "Dusk", text: "Dusk" },
-            { value: "Rosewood", text: "Rosewood" },
-            { value: "Citrine", text: "Citrine" },
-            { value: "Slate", text: "Slate" },
           ]}
         />
       </SettingsCard>
-      <div class="w-full bg-background-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
-        <div class="flex items-center gap-2">
-          <Info class="size-6" />
-          <h3 class="font-extrabold text-2xl mt-0">Information</h3>
+
+      <div class="md:col-span-2 lg:col-span-3 p-5 bg-white/[0.03] border border-white/10 rounded">
+        <div class="flex items-center gap-2 mb-3">
+          <Info class="w-4 h-4 text-accent" strokeWidth={1.5} />
+          <h3 class="text-sm font-medium text-text uppercase tracking-wide">Information</h3>
         </div>
-        <p class="font-light">
-          Version: <span class="font-bold">6.0.1</span><br />
-          Last Updated: <span class="font-bold">{new Date(__COMMIT_DATE__).toLocaleString()}</span><br />
-          If you have any questions or concerns, please contact us at
-          <a class="font-medium" href="mailto:hello@gointerstellar.app">hello@gointerstellar.app</a>
-          or visit our
-          <a class="font-medium" href="https://discord.gg/interstellar">Discord</a>
-          or read our
-          <a class="font-medium" href="https://docs.gointerstellar.app/">Documentation</a>.
-        </p>
+        <div class="text-sm text-text-secondary space-y-1">
+          <p>
+            Version: <span class="text-text">6.0.1</span>
+          </p>
+          <p>
+            Updated: <span class="text-text">{new Date(__COMMIT_DATE__).toLocaleDateString()}</span>
+          </p>
+          <p class="pt-2">
+            <a href="mailto:hello@gointerstellar.app" class="text-accent hover:underline">Contact</a>
+            <span class="mx-2 text-border">|</span>
+            <a href="https://discord.gg/interstellar" class="text-accent hover:underline">Discord</a>
+            <span class="mx-2 text-border">|</span>
+            <a href="https://docs.gointerstellar.app/" class="text-accent hover:underline">Docs</a>
+          </p>
+        </div>
       </div>
-    </section>
-    <div>
-      <h1 class="mt-2 font-extrabold text-5xl">Customization</h1>
     </div>
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 p-4 justify-center">
-      <SettingsCard description="Customize the theme of the site." title="UI" Icon={SwatchBook} />
-    </section>
   </div>
-  <script src="/src/lib/settings.ts"></script>
+  <script src="@/lib/settings.ts"></script>
 </Layout>

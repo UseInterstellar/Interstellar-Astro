@@ -1,33 +1,61 @@
 ---
 interface Props {
   asset: Asset;
+  assetType: "games" | "app";
 }
 
 import { Image } from "astro:assets";
 
 import Ban from "lucide-astro/Ban";
 import CircleAlert from "lucide-astro/CircleAlert";
-import UserRoundPlus from "lucide-astro/UserRoundPlus";
+import User from "lucide-astro/User";
 
 import type { Asset } from "@/lib/assets.ts";
 
-const { asset } = Astro.props;
+const { asset, assetType } = Astro.props;
 export const prerender = false;
 ---
 
-<button data-asset={JSON.stringify(asset)}>
-  <div class="relative group cursor-pointer transition-all duration-150 hover:scale-105">
-    <Image loading="lazy" src={asset.image} alt={asset.name} height={145} width={145} class="h-36 aspect-square object-cover rounded-md transition-all duration-150" />
-    <div class="absolute bottom-0 left-0 w-full h-full bg-black/20 opacity-0 group-hover:opacity-100 rounded-b-md duration-150 flex items-end p-2 px-4 font-semibold transition-all z-10">
-      <section class="inline-flex items-center gap-2 text-white" class:list={{ "text-red-600": asset.error, "text-yellow-400": asset.partial }}>
-        {asset.custom && <UserRoundPlus class="size-5" />}
-        {asset.partial && <CircleAlert class="size-5" />}
-        {asset.error && <Ban class="size-5" />}
-        <span class="text-center font-semibold text-base line-clamp-4">
-          {asset.name}
-        </span>
-      </section>
+<div data-asset={JSON.stringify(asset)} data-asset-card class="group relative cursor-pointer" role="button" tabindex="0">
+  <div class="relative overflow-hidden rounded bg-white/[0.03] border border-white/10 hover:border-white/25 hover:bg-white/[0.06] transition-all">
+    {asset.custom && (
+      <button
+        type="button"
+        data-asset-remove={JSON.stringify({ type: assetType, id: asset.id, name: asset.name, link: asset.link, image: asset.image })}
+        class="absolute right-1.5 top-1.5 z-10 flex h-5 w-5 items-center justify-center rounded-full bg-black/70 text-white/80 hover:text-white hover:bg-black/90 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-auto"
+        aria-label="Remove"
+      >
+        ✕
+      </button>
+    )}
+    {asset.image?.startsWith("/") ? (
+      <Image
+        loading="lazy"
+        src={asset.image}
+        alt={asset.name}
+        height={128}
+        width={128}
+        class="w-full aspect-square object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+      />
+    ) : (
+      <img
+        loading="lazy"
+        src={asset.image}
+        alt={asset.name}
+        class="w-full aspect-square object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
+      />
+    )}
+
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+      <div class="absolute bottom-0 left-0 right-0 p-3">
+        <div class="flex items-center gap-1.5">
+          {asset.custom && <User class="w-3 h-3 text-accent" strokeWidth={1.5} />}
+          {asset.partial && <CircleAlert class="w-3 h-3 text-yellow-500" strokeWidth={1.5} />}
+          {asset.error && <Ban class="w-3 h-3 text-red-500" strokeWidth={1.5} />}
+          <span class="text-xs text-white font-medium truncate">{asset.name}</span>
+        </div>
+      </div>
     </div>
   </div>
-</button>
+</div>
 <script src="@/lib/assets.ts"></script>

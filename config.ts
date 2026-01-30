@@ -1,23 +1,46 @@
 import type { Config } from "@/types/config";
 
+function buildAuthUsers(): Record<string, string> {
+  const users: Record<string, string> = {};
+
+  const authUser = process.env.AUTH_USER;
+  const authPass = process.env.AUTH_PASS;
+  if (authUser && authPass) {
+    users[authUser] = authPass;
+  }
+
+  const authUsersJson = process.env.AUTH_USERS;
+  if (authUsersJson) {
+    try {
+      const parsed = JSON.parse(authUsersJson);
+      Object.assign(users, parsed);
+    } catch {
+      console.error("Failed to parse AUTH_USERS environment variable as JSON");
+    }
+  }
+
+  return users;
+}
+
 const config: Config = {
-  // Server Configuration
   server: {
-    port: 8080, // The port on which Interstellar runs (Default: 8080)
-    obfuscate: true, // Set to false to disable obfuscation
-    compress: true, // Set to false to disable compression
+    port: Number(process.env.PORT) || 8080,
+    obfuscate: process.env.OBFUSCATE !== "false",
+    compress: process.env.COMPRESS !== "false",
   },
 
-  // Password Protection (Optional)
   auth: {
-    // Enable password protection for your instance.
-    challenge: false, // Set to true to require users to log in.
-    // Add your users here: username: "password"
-    // WARNING: Change default credentials before using
-    users: {
-      interstellar: "password",
-    },
+    challenge: process.env.AUTH_CHALLENGE === "true",
+    users: buildAuthUsers(),
   },
 };
+
+if (config.auth?.challenge && Object.keys(config.auth.users || {}).length === 0) {
+  console.error("\x1b[31mError: AUTH_CHALLENGE is enabled but no users configured.\x1b[0m");
+  console.error("Set AUTH_USER and AUTH_PASS environment variables, or AUTH_USERS as JSON.");
+  console.error("Example: AUTH_USER=admin AUTH_PASS=secretpassword");
+  console.error('Example: AUTH_USERS=\'{"admin":"password123"}\'');
+  process.exit(1);
+}
 
 export default config;

@@ -1,3 +1,5 @@
+import { isValidHttpUrl } from "./url-utils";
+
 export interface Tab {
   id: number;
   title: string;
@@ -6,34 +8,32 @@ export interface Tab {
   reloadKey: number;
 }
 
-export interface UVConfig {
-  prefix: string;
-  encodeUrl: (url: string) => string;
-  decodeUrl: (url: string) => string;
-}
 
-declare global {
-  interface Window {
-    __uv$config: UVConfig;
-  }
-}
+export const getProxyEngine = (): "scramjet" => "scramjet";
 
 export const baseTabs: Tab[] = [{ id: 1, title: "Tab 1", url: "about:blank", active: true, reloadKey: 0 }];
 
-export const formatUrl = (value: string) => {
+export const formatUrl = (value: string): string => {
   if (!value.trim()) return "about:blank";
-  return /^https?:\/\//i.test(value) ? value : `https://${value}`;
+
+  const withProtocol = /^https?:\/\//i.test(value) ? value : `https://${value}`;
+
+  if (!isValidHttpUrl(withProtocol)) {
+    return "about:blank";
+  }
+
+  return withProtocol;
 };
 
-export const classNames = (...classes: Array<string | false | undefined>) => classes.filter(Boolean).join(" ");
+export const classNames = (...classes: Array<string | false | undefined>): string => classes.filter(Boolean).join(" ");
 
-export const iconButtonClass = "inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors hover:bg-accent hover:text-text";
-export const tabButtonClass = "group relative flex h-8 w-[180px] cursor-pointer items-center gap-2 rounded-t-lg px-3 transition-all";
-export const closeButtonClass = "inline-flex h-5 w-5 items-center justify-center rounded-sm opacity-0 transition-opacity group-hover:opacity-100 hover:bg-accent";
-export const addressInputClass = "h-auto flex-1 border-0 bg-transparent p-0 text-sm text-text focus:outline-none";
-export const actionBarClass = "flex items-center gap-2 rounded-lg border border-border bg-background-secondary/50 px-3 py-1.5 transition-all focus-within:bg-background focus-within:ring-2 focus-within:ring-accent/20";
+export const iconButtonClass = "inline-flex h-8 w-8 items-center justify-center rounded text-text-secondary transition-all hover:text-accent hover:bg-white/5";
+export const tabButtonClass = "group relative flex h-8 max-w-[180px] cursor-pointer items-center gap-2 rounded px-3 transition-all";
+export const closeButtonClass = "inline-flex h-4 w-4 items-center justify-center rounded opacity-0 transition-all group-hover:opacity-100 hover:text-accent";
+export const addressInputClass = "h-auto flex-1 border-0 bg-transparent p-0 text-sm text-text placeholder:text-text-placeholder focus:outline-none";
+export const actionBarClass = "flex items-center gap-2 rounded border border-border bg-background px-3 py-1.5 transition-all focus-within:border-accent/30";
 
-export const getDefaultUrl = () => {
+export const getDefaultUrl = (): string => {
   if (typeof window === "undefined") {
     return "https://duckduckgo.com";
   }
@@ -50,20 +50,23 @@ export const encodeProxyUrl = (url: string): string => {
   if (!url || url === "about:blank") return "about:blank";
   if (typeof window === "undefined") return url;
 
-  const config = window.__uv$config;
-  return config ? config.prefix + config.encodeUrl(url) : url;
+  const config = window.__scramjet$config;
+  if (config?.codec) {
+    return config.prefix + config.codec.encode(url);
+  }
+
+  return "about:blank";
 };
 
 export const decodeProxyUrl = (proxyUrl: string): string => {
   if (!proxyUrl || proxyUrl === "about:blank") return proxyUrl;
   if (typeof window === "undefined") return proxyUrl;
 
-  const config = window.__uv$config;
-
-  if (config) {
+  const sjConfig = window.__scramjet$config;
+  if (sjConfig && proxyUrl.includes(sjConfig.prefix)) {
     try {
-      const path = proxyUrl.split("/").pop() || "";
-      return config.decodeUrl(path);
+      const encoded = proxyUrl.substring(proxyUrl.indexOf(sjConfig.prefix) + sjConfig.prefix.length);
+      return sjConfig.codec.decode(encoded);
     } catch {
       return proxyUrl;
     }
@@ -77,27 +80,17 @@ export const getActualUrl = (iframe: HTMLIFrameElement | null): string => {
 
   try {
     const proxyUrl = iframe.contentWindow.location.href;
-    const config = window.__uv$config;
-    if (config && proxyUrl.includes(config.prefix)) {
-      const encoded = proxyUrl.substring(proxyUrl.indexOf(config.prefix) + config.prefix.length);
-      return config.decodeUrl(encoded);
+
+    const sjConfig = window.__scramjet$config;
+    if (sjConfig && proxyUrl.includes(sjConfig.prefix)) {
+      const encoded = proxyUrl.substring(proxyUrl.indexOf(sjConfig.prefix) + sjConfig.prefix.length);
+      return sjConfig.codec.decode(encoded);
     }
+
     return proxyUrl;
   } catch {
     return "";
   }
-};
-
-export const goBack = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
-  iframeRefs[tabId]?.contentWindow?.history.back();
-};
-
-export const goForward = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
-  iframeRefs[tabId]?.contentWindow?.history.forward();
-};
-
-export const reloadTab = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
-  iframeRefs[tabId]?.contentWindow?.location.reload();
 };
 
 export const toggleFullscreen = (iframeRefs: { [key: number]: HTMLIFrameElement | null }, tabId: number) => {
