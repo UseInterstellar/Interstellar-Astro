@@ -21,13 +21,8 @@ import Layout from "@/layouts/Main.astro";
       <p class="mt-1 text-text-secondary text-sm">Configure your experience</p>
     </div>
 
-
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-5xl stagger overflow-visible relative z-[1000]">
-      <SettingsCard
-        description="Open in an about:blank tab"
-        title="About:Blank"
-        Icon={ExternalLink}
-      >
+      <SettingsCard description="Open in an about:blank tab" title="About:Blank" Icon={ExternalLink}>
         <div class="flex items-center justify-between gap-3">
           <label class="flex items-center gap-3 text-sm text-text-secondary">
             <input id="ab-toggle" type="checkbox" class="sr-only" />
@@ -42,11 +37,7 @@ import Layout from "@/layouts/Main.astro";
         </div>
       </SettingsCard>
 
-      <SettingsCard
-        description="Disguise browser tab appearance"
-        title="Tab Cloaker"
-        Icon={EyeOff}
-      >
+      <SettingsCard description="Disguise browser tab appearance" title="Tab Cloaker" Icon={EyeOff}>
         <Dropdown
           id="cloaker"
           text="Select Preset"
@@ -71,40 +62,16 @@ import Layout from "@/layouts/Main.astro";
             { value: "Wikipedia", text: "Wikipedia" },
           ]}
         />
-        <input
-          id="custom-title"
-          placeholder="Custom title"
-          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
-        />
-        <input
-          id="custom-icon"
-          placeholder="Custom icon URL"
-          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
-        />
+        <input id="custom-title" placeholder="Custom title" class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all" />
+        <input id="custom-icon" placeholder="Custom icon URL" class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all" />
       </SettingsCard>
 
-      <SettingsCard
-        description="Quick escape to another site"
-        title="Panic Key"
-        Icon={Siren}
-      >
-        <input
-          id="key"
-          placeholder="Key sequence (e.g. ``)"
-          class="w-full h-9 px-3 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
-        />
-        <input
-          id="link"
-          placeholder="Redirect URL"
-          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
-        />
+      <SettingsCard description="Quick escape to another site" title="Panic Key" Icon={Siren}>
+        <input id="key" placeholder="Key sequence (e.g. ``)" class="w-full h-9 px-3 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all" />
+        <input id="link" placeholder="Redirect URL" class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all" />
       </SettingsCard>
 
-      <SettingsCard
-        description="Default search provider"
-        title="Search Engine"
-        Icon={Search}
-      >
+      <SettingsCard description="Default search provider" title="Search Engine" Icon={Search}>
         <Dropdown
           id="engine"
           text="Select Engine"
@@ -116,18 +83,10 @@ import Layout from "@/layouts/Main.astro";
             { value: "Startpage", text: "Startpage" },
           ]}
         />
-        <input
-          id="custom-engine"
-          placeholder="Custom search URL"
-          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
-        />
+        <input id="custom-engine" placeholder="Custom search URL" class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all" />
       </SettingsCard>
 
-      <SettingsCard
-        description="Proxy backend engine"
-        title="Proxy Engine"
-        Icon={Globe}
-      >
+      <SettingsCard description="Proxy backend engine" title="Proxy Engine" Icon={Globe}>
         <div class="flex flex-col gap-2 text-sm text-text-secondary">
           <div class="flex items-center justify-between">
             <span>Engine</span>
@@ -144,11 +103,7 @@ import Layout from "@/layouts/Main.astro";
         </div>
       </SettingsCard>
 
-      <SettingsCard
-        description="Top navigation layout"
-        title="Navigation"
-        Icon={LayoutGrid}
-      >
+      <SettingsCard description="Top navigation layout" title="Navigation" Icon={LayoutGrid}>
         <Dropdown
           id="nav-style"
           text="Select Layout"
@@ -159,11 +114,7 @@ import Layout from "@/layouts/Main.astro";
         />
       </SettingsCard>
 
-      <SettingsCard
-        description="Visual appearance"
-        title="Theme"
-        Icon={SwatchBook}
-      >
+      <SettingsCard description="Visual appearance" title="Theme" Icon={SwatchBook}>
         <Dropdown
           id="theme"
           text="Select Theme"

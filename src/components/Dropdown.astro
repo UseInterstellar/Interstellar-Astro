@@ -19,29 +19,17 @@ const { id, text, menu } = Astro.props;
     aria-expanded="false"
   >
     <span>{text}</span>
-    <svg
-      class="w-3 h-3 ml-2 opacity-50"
-      fill="none"
-      viewBox="0 0 10 6"
-      stroke="currentColor"
-      stroke-width="1.5"
-    >
+    <svg class="w-3 h-3 ml-2 opacity-50" fill="none" viewBox="0 0 10 6" stroke="currentColor" stroke-width="1.5">
       <path d="m1 1 4 4 4-4" stroke-linecap="round" stroke-linejoin="round"></path>
     </svg>
   </button>
 
-  <div
-    id={id}
-    class="hidden absolute z-[9999] w-full min-w-[160px] max-h-48 overflow-auto bg-dropdown backdrop-blur-sm border border-white/10 rounded shadow-lg pointer-events-auto"
-  >
+  <div id={id} class="hidden absolute z-[9999] w-full min-w-[160px] max-h-48 overflow-auto bg-dropdown backdrop-blur-sm border border-white/10 rounded shadow-lg pointer-events-auto">
     <ul class="py-1">
       {
         menu.map((item) => (
           <li>
-            <a
-              data-value={item.value}
-              class="block px-3 py-2 text-sm text-text-secondary hover:text-text hover:bg-white/10 cursor-pointer transition-colors"
-            >
+            <a data-value={item.value} class="block px-3 py-2 text-sm text-text-secondary hover:text-text hover:bg-white/10 cursor-pointer transition-colors">
               {item.text}
             </a>
           </li>

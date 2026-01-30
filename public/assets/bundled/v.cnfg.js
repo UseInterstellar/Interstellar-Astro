@@ -1,9 +1,8 @@
-const filePrefix = "/assets/bundled/v."
+const filePrefix = "/assets/bundled/v.";
 // cursed encoding method
 const factory = (key) => {
   const getShuffledAlphabet = () => {
-    const alphabet =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
     return shuffle(alphabet, key);
   };
   const shuffle = (alphabet, key) => {
@@ -26,8 +25,7 @@ const factory = (key) => {
 
   const base64Encode = (text) => {
     const shuffledAlphabet = getShuffledAlphabet();
-    const alphabet =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     return [...btoa(text)]
       .map((char) => {
         const index = alphabet.indexOf(char);
@@ -38,8 +36,7 @@ const factory = (key) => {
 
   const base64Decode = (encodedText) => {
     const shuffledAlphabet = getShuffledAlphabet();
-    const alphabet =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
     return atob(
       [...encodedText]
         .map((char) => {
@@ -54,9 +51,7 @@ const factory = (key) => {
     enc: base64Encode,
     dec: (encodedText) => {
       if (encodedText.includes("?")) {
-        encodedText = base64Encode(
-          `${base64Decode(encodedText.split("?")[0])}?${encodedText.split("?")[1]}`,
-        );
+        encodedText = base64Encode(`${base64Decode(encodedText.split("?")[0])}?${encodedText.split("?")[1]}`);
       }
       return base64Decode(encodedText);
     },
@@ -66,7 +61,7 @@ const factory = (key) => {
 const cipher = factory((location.origin + navigator.userAgent).toUpperCase());
 /** @type {import("@titaniumnetwork-dev/ultraviolet").UVConfig}*/
 const config = {
-  prefix: '/jquery/', 
+  prefix: "/jquery/",
   encodeUrl: cipher.enc,
   decodeUrl: cipher.dec,
   handler: `${filePrefix}hndlr.js`,
@@ -81,18 +76,18 @@ const config = {
       html: `
       <script src="https://raw.githubusercontent.com/Vencord/builds/main/browser.js"></script>
       <link rel="stylesheet" href="https://raw.githubusercontent.com/Vencord/builds/main/browser.css">
-      `
+      `,
     },
     {
       host: /youtube.com*/,
       injectTo: "head",
-      html: `<script>console.log("hello world!")</script>` /* to-do: remove 4k option */
+      html: `<script>console.log("hello world!")</script>` /* to-do: remove 4k option */,
     },
     {
       host: /now.gg*/,
       injectTo: "head",
-      html: `<script>document.querySelectorAll("div.sc-19c21da7-0.dgAMyI").forEach(function(c){c.remove()});</script>`
-    }
-  ]
-}; 
+      html: `<script>document.querySelectorAll("div.sc-19c21da7-0.dgAMyI").forEach(function(c){c.remove()});</script>`,
+    },
+  ],
+};
 self.__uv$config = config;

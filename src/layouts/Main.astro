@@ -17,24 +17,13 @@ const navLinks = [
 ---
 
 <Layout>
-  <nav
-    id="default-nav"
-    class="fixed top-0 left-0 right-0 z-[99999] flex items-center justify-between px-5 py-3 bg-background/90 backdrop-blur-md border-b border-white/10"
-  >
-    <a
-      href="/"
-      class="text-3xl font-bold text-text hover:text-accent transition-colors tracking-tighter"
-    >
-      IN
-    </a>
+  <nav id="default-nav" class="fixed top-0 left-0 right-0 z-[99999] flex items-center justify-between px-5 py-3 bg-background/90 backdrop-blur-md border-b border-white/10">
+    <a href="/" class="text-3xl font-bold text-text hover:text-accent transition-colors tracking-tighter"> IN </a>
 
     <div id="nav-links" class="hidden items-center gap-2">
       {
         navLinks.map((link) => (
-          <a
-            href={link.href}
-            class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm text-text-secondary hover:text-text hover:bg-white/10 transition-all"
-          >
+          <a href={link.href} class="inline-flex items-center gap-2 rounded px-3 py-1.5 text-sm text-text-secondary hover:text-text hover:bg-white/10 transition-all">
             <link.Icon class="w-4 h-4" strokeWidth={1.5} />
             <span>{link.text}</span>
           </a>
@@ -42,27 +31,16 @@ const navLinks = [
       }
     </div>
 
-    <button
-      id="menu-toggle"
-      class="p-2 text-text-secondary hover:text-text transition-colors"
-      aria-label="Toggle menu"
-    >
+    <button id="menu-toggle" class="p-2 text-text-secondary hover:text-text transition-colors" aria-label="Toggle menu">
       <Menu id="menu-icon" class="w-6 h-6 transition-transform duration-200" strokeWidth={1.5} />
       <X id="close-icon" class="w-6 h-6 hidden transition-transform duration-200" strokeWidth={1.5} />
     </button>
   </nav>
 
-  <div
-    id="nav-menu"
-    class="fixed top-14 right-4 z-[99998] min-w-[180px] bg-background/95 backdrop-blur-sm border border-white/10 p-2 shadow-2xl origin-top-right transition-all duration-200 ease-out opacity-0 scale-95 pointer-events-none"
-  >
+  <div id="nav-menu" class="fixed top-14 right-4 z-[99998] min-w-[180px] bg-background/95 backdrop-blur-sm border border-white/10 p-2 shadow-2xl origin-top-right transition-all duration-200 ease-out opacity-0 scale-95 pointer-events-none">
     {
       navLinks.map((link, i) => (
-        <a
-          href={link.href}
-          class="menu-item flex items-center gap-3 px-3 py-2.5 text-text-secondary hover:text-text hover:bg-white/10 transition-all duration-150"
-          style={`transition-delay: ${i * 30}ms;`}
-        >
+        <a href={link.href} class="menu-item flex items-center gap-3 px-3 py-2.5 text-text-secondary hover:text-text hover:bg-white/10 transition-all duration-150" style={`transition-delay: ${i * 30}ms;`}>
           <link.Icon class="w-4 h-4" strokeWidth={1.5} />
           <span class="text-sm">{link.text}</span>
         </a>

@@ -6,16 +6,7 @@ export const ASSET_FOLDERS = ["scramjet"] as const;
 
 export const ASSET_FILES = ["scramjet.all", "scramjet.sync", "scramjet.wasm", "scramjet.bundle"] as const;
 
-export const CLASSES = [
-  "browser-container",
-  "tab-button",
-  "address-bar",
-  "iframe-container",
-  "settings-card",
-  "settings-grid",
-  "proxy-frame",
-  "search-box",
-] as const;
+export const CLASSES = ["browser-container", "tab-button", "address-bar", "iframe-container", "settings-card", "settings-grid", "proxy-frame", "search-box"] as const;
 
 export const IDS = ["search", "main-content", "proxy-iframe", "browser-frame", "nav-menu", "menu-toggle", "menu-icon", "close-icon", "nav-links", "nav-style", "ab-toggle", "AB", "ab-switch", "ab-knob"] as const;
 
@@ -175,9 +166,7 @@ export function transformJs(js: string, maps: ObfuscationMaps): string {
       result = result.replaceAll(`'#${original}'`, `'#${obfuscated}'`);
       result = result.replaceAll(`"#${original}"`, `"#${obfuscated}"`);
       const idRegex = new RegExp(`getElementById\\((['\`])${escapeRegex(original)}\\1\\)`, "g");
-      result = result.replace(idRegex, `getElementById("${
-        obfuscated
-      }")`);
+      result = result.replace(idRegex, `getElementById("${obfuscated}")`);
     }
   }
 

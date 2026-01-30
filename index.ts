@@ -8,13 +8,14 @@ import path from "node:path";
 import zlib from "node:zlib";
 
 EventEmitter.defaultMaxListeners = 50;
+
 import fastifyMiddie from "@fastify/middie";
 import fastifyStatic from "@fastify/static";
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import { build } from "astro";
 import Fastify from "fastify";
 import INConfig from "./config";
-import { generateMaps, getClientScript, type ObfuscationMaps, transformCss, transformHtml, transformJs, ROUTES, ASSET_FOLDERS } from "./src/lib/obfuscate";
+import { ASSET_FOLDERS, generateMaps, getClientScript, type ObfuscationMaps, ROUTES, transformCss, transformHtml, transformJs } from "./src/lib/obfuscate";
 
 let obfuscationMaps: ObfuscationMaps | null = null;
 
@@ -112,7 +113,7 @@ async function Start() {
       }
 
       const [urlPath, query] = req.url.split("?");
-      let pathParts = urlPath.split("/").filter(Boolean);
+      const pathParts = urlPath.split("/").filter(Boolean);
       let modified = false;
 
       if (pathParts.length > 0) {
@@ -213,10 +214,7 @@ self.addEventListener("fetch", (event) => {
   );
 });
 `;
-      reply
-        .header("Service-Worker-Allowed", "/")
-        .type("application/javascript")
-        .send(swCode);
+      reply.header("Service-Worker-Allowed", "/").type("application/javascript").send(swCode);
     });
 
     app.get(`/assets/${scramjetFolder}/*`, (req, reply) => {

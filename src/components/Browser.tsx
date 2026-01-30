@@ -5,13 +5,7 @@ import { actionBarClass, addressInputClass, classNames, closeButtonClass, encode
 type ScramjetWindow = Window & { __scramjet$config?: unknown };
 
 const IconButton = ({ onClick, icon: Icon, className = "", disabled = false, title = "" }: { onClick?: () => void; icon: React.ComponentType<{ className?: string }>; className?: string; disabled?: boolean; title?: string }) => (
-  <button
-    type="button"
-    onClick={onClick}
-    disabled={disabled}
-    title={title}
-    className={classNames(iconButtonClass, "disabled:opacity-30 disabled:cursor-not-allowed", className)}
-  >
+  <button type="button" onClick={onClick} disabled={disabled} title={title} className={classNames(iconButtonClass, "disabled:opacity-30 disabled:cursor-not-allowed", className)}>
     <Icon className="h-4 w-4" />
   </button>
 );
@@ -416,17 +410,7 @@ export default function Browser() {
     <div className="flex h-screen flex-col bg-background">
       <div className="flex items-center gap-1 bg-background-secondary/50 px-2 py-1.5 border-b border-border/50">
         {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            onClick={() => setActiveTab(tab.id)}
-            className={classNames(
-              tabButtonClass,
-              tab.active
-                ? "bg-background text-text border border-border/50"
-                : "text-text-secondary hover:text-text hover:bg-white/5"
-            )}
-          >
+          <button key={tab.id} type="button" onClick={() => setActiveTab(tab.id)} className={classNames(tabButtonClass, tab.active ? "bg-background text-text border border-border/50" : "text-text-secondary hover:text-text hover:bg-white/5")}>
             <div className="flex min-w-0 flex-1 items-center gap-2">
               {favicons[tab.id] ? (
                 <img
@@ -455,12 +439,7 @@ export default function Browser() {
             </button>
           </button>
         ))}
-        <button
-          type="button"
-          className="inline-flex h-6 w-6 items-center justify-center rounded text-text-secondary hover:text-accent hover:bg-white/5 transition-all"
-          onClick={addNewTab}
-          aria-label="Add tab"
-        >
+        <button type="button" className="inline-flex h-6 w-6 items-center justify-center rounded text-text-secondary hover:text-accent hover:bg-white/5 transition-all" onClick={addNewTab} aria-label="Add tab">
           <Plus className="h-3.5 w-3.5" />
         </button>
       </div>
@@ -476,13 +455,7 @@ export default function Browser() {
         <div className="flex-1">
           <div className={actionBarClass}>
             <Lock className="h-3.5 w-3.5 text-text-placeholder" />
-            <input
-              className={addressInputClass}
-              value={url}
-              placeholder="Search or enter address"
-              onChange={(e) => setUrl(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleNavigate(e.currentTarget.value)}
-            />
+            <input className={addressInputClass} value={url} placeholder="Search or enter address" onChange={(e) => setUrl(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleNavigate(e.currentTarget.value)} />
           </div>
         </div>
 
