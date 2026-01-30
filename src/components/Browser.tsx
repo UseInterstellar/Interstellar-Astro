@@ -1,17 +1,11 @@
 import { ChevronLeft, ChevronRight, Home, Lock, Maximize2, Plus, RotateCw, Star, X } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { actionBarClass, addressInputClass, classNames, closeButtonClass, encodeProxyUrl, formatUrl, getActualUrl, getDefaultUrl, iconButtonClass, type Tab, tabButtonClass } from "@/lib/tabs";
 
 type ScramjetWindow = Window & { __scramjet$config?: unknown };
 
 const IconButton = ({ onClick, icon: Icon, className = "", disabled = false, title = "" }: { onClick?: () => void; icon: React.ComponentType<{ className?: string }>; className?: string; disabled?: boolean; title?: string }) => (
-  <button
-    type="button"
-    onClick={onClick}
-    disabled={disabled}
-    title={title}
-    className={classNames(iconButtonClass, "disabled:opacity-30 disabled:cursor-not-allowed", className)}
-  >
+  <button type="button" onClick={onClick} disabled={disabled} title={title} className={classNames(iconButtonClass, "disabled:opacity-30 disabled:cursor-not-allowed", className)}>
     <Icon className="h-4 w-4" />
   </button>
 );
@@ -21,15 +15,15 @@ export default function Browser() {
   const [url, setUrl] = useState("about:blank");
   const [favicons, setFavicons] = useState<Record<number, string>>({});
   const [bookmarks, setBookmarks] = useState<Array<{ Title: string; url: string; favicon?: string }>>([]);
-  const [proxyReadyTick, setProxyReadyTick] = useState(0);
+  const [_proxyReadyTick, setProxyReadyTick] = useState(0);
   const [proxyReady, setProxyReady] = useState(false);
   const activeTab = useMemo(() => tabs.find((tab) => tab.active), [tabs]);
   const iframeRefs = useRef<Record<number, HTMLIFrameElement | null>>({});
 
-  const openInNewTab = (url: string) => {
+  const openInNewTab = useCallback((url: string) => {
     const newId = Date.now();
     setTabs((prev) => [...prev.map((t) => ({ ...t, active: false })), { id: newId, title: "New Tab", url, active: true, reloadKey: 0 }]);
-  };
+  }, []);
 
   useEffect(() => {
     let firstTabUrl = getDefaultUrl();
@@ -82,7 +76,7 @@ export default function Browser() {
       cancelled = true;
       window.clearInterval(timer);
     };
-  }, [proxyReadyTick]);
+  }, []);
 
   useEffect(() => {
     if (!activeTab) return;
@@ -97,7 +91,7 @@ export default function Browser() {
     if (url === "about:blank" && activeTab.url !== "about:blank") {
       setUrl(activeTab.url);
     }
-  }, [activeTab, url, proxyReadyTick]);
+  }, [activeTab, url]);
 
   useEffect(() => {
     if (!activeTab) return;
@@ -281,7 +275,7 @@ export default function Browser() {
         }
       } catch (_e) {}
     };
-  }, [activeTab]);
+  }, [activeTab, openInNewTab]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -416,17 +410,7 @@ export default function Browser() {
     <div className="flex h-screen flex-col bg-background">
       <div className="flex items-center gap-1 bg-background-secondary/50 px-2 py-1.5 border-b border-border/50">
         {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            onClick={() => setActiveTab(tab.id)}
-            className={classNames(
-              tabButtonClass,
-              tab.active
-                ? "bg-background text-text border border-border/50"
-                : "text-text-secondary hover:text-text hover:bg-white/5"
-            )}
-          >
+          <button key={tab.id} type="button" onClick={() => setActiveTab(tab.id)} className={classNames(tabButtonClass, tab.active ? "bg-background text-text border border-border/50" : "text-text-secondary hover:text-text hover:bg-white/5")}>
             <div className="flex min-w-0 flex-1 items-center gap-2">
               {favicons[tab.id] ? (
                 <img
@@ -455,12 +439,7 @@ export default function Browser() {
             </button>
           </button>
         ))}
-        <button
-          type="button"
-          className="inline-flex h-6 w-6 items-center justify-center rounded text-text-secondary hover:text-accent hover:bg-white/5 transition-all"
-          onClick={addNewTab}
-          aria-label="Add tab"
-        >
+        <button type="button" className="inline-flex h-6 w-6 items-center justify-center rounded text-text-secondary hover:text-accent hover:bg-white/5 transition-all" onClick={addNewTab} aria-label="Add tab">
           <Plus className="h-3.5 w-3.5" />
         </button>
       </div>
@@ -476,13 +455,7 @@ export default function Browser() {
         <div className="flex-1">
           <div className={actionBarClass}>
             <Lock className="h-3.5 w-3.5 text-text-placeholder" />
-            <input
-              className={addressInputClass}
-              value={url}
-              placeholder="Search or enter address"
-              onChange={(e) => setUrl(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleNavigate(e.currentTarget.value)}
-            />
+            <input className={addressInputClass} value={url} placeholder="Search or enter address" onChange={(e) => setUrl(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleNavigate(e.currentTarget.value)} />
           </div>
         </div>
 

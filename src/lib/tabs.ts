@@ -8,7 +8,6 @@ export interface Tab {
   reloadKey: number;
 }
 
-
 export const getProxyEngine = (): "scramjet" => "scramjet";
 
 export const baseTabs: Tab[] = [{ id: 1, title: "Tab 1", url: "about:blank", active: true, reloadKey: 0 }];

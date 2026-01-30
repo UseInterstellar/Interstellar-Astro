@@ -103,7 +103,7 @@ if (typeof window !== "undefined") {
       button.addEventListener("click", (event) => {
         if (event.defaultPrevented) return;
         const target = event.target as HTMLElement | null;
-        if (target && target.closest(`[${assetRemoveAttr}]`)) return;
+        if (target?.closest(`[${assetRemoveAttr}]`)) return;
         handleActivate();
       });
       button.addEventListener("keydown", (event) => {
