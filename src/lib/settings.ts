@@ -120,7 +120,9 @@ const initSettings = () => {
         const dropdown = document.getElementById(getObfId(dropdownId));
         if (!dropdown) return;
         const isOpen = !dropdown.classList.contains("hidden");
-        document.querySelectorAll(".settings-card.dropdown-open").forEach((card) => card.classList.remove("dropdown-open"));
+        document.querySelectorAll(".settings-card.dropdown-open").forEach((card) => {
+          card.classList.remove("dropdown-open");
+        });
         dropdown.classList.toggle("hidden");
         const card = toggleElement.closest(".settings-card");
         if (!isOpen) card?.classList.add("dropdown-open");
