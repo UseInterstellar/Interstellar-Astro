@@ -1,0 +1,204 @@
+---
+import ExternalLink from "lucide-astro/ExternalLink";
+import EyeOff from "lucide-astro/EyeOff";
+import Globe from "lucide-astro/Globe";
+import Info from "lucide-astro/Info";
+import LayoutGrid from "lucide-astro/LayoutGrid";
+import Search from "lucide-astro/Search";
+import Siren from "lucide-astro/Siren";
+import SwatchBook from "lucide-astro/SwatchBook";
+
+import ArrowButton from "@/components/ArrowButton.astro";
+import Dropdown from "@/components/Dropdown.astro";
+import SettingsCard from "@/components/SettingsCard.astro";
+import Layout from "@/layouts/Main.astro";
+---
+
+<Layout>
+  <div class="flex flex-col items-center pt-24 pb-12 px-4">
+    <div class="text-center mb-10 animate-fade-in">
+      <h1 class="text-3xl font-light tracking-tight text-text uppercase">Settings</h1>
+      <p class="mt-1 text-text-secondary text-sm">Configure your experience</p>
+    </div>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full max-w-5xl stagger overflow-visible relative z-[1000]">
+      <SettingsCard
+        description="Open in an about:blank tab"
+        title="About:Blank"
+        Icon={ExternalLink}
+      >
+        <div class="flex items-center justify-between gap-3">
+          <label class="flex items-center gap-3 text-sm text-text-secondary">
+            <input id="ab-toggle" type="checkbox" class="sr-only" />
+            <span id="ab-switch" class="relative inline-flex h-6 w-11 items-center rounded-full border shadow-inner transition-colors">
+              <span id="ab-knob" class="inline-block h-5 w-5 rounded-full shadow-sm transition-transform"></span>
+            </span>
+            <span id="ab-status" class="text-text-secondary">Disabled</span>
+          </label>
+        </div>
+        <div class="mt-3">
+          <ArrowButton id="AB" title="Open Popup" />
+        </div>
+      </SettingsCard>
+
+      <SettingsCard
+        description="Disguise browser tab appearance"
+        title="Tab Cloaker"
+        Icon={EyeOff}
+      >
+        <Dropdown
+          id="cloaker"
+          text="Select Preset"
+          menu={[
+            { value: "Britannica", text: "Britannica" },
+            { value: "Canvas", text: "Canvas" },
+            { value: "Classroom", text: "Classroom" },
+            { value: "Clever", text: "Clever" },
+            { value: "DeltaMath", text: "DeltaMath" },
+            { value: "Desmos", text: "Desmos" },
+            { value: "Drive", text: "Drive" },
+            { value: "Edpuzzle", text: "Edpuzzle" },
+            { value: "Gmail", text: "Gmail" },
+            { value: "Google", text: "Google" },
+            { value: "Google_Docs", text: "Google Docs" },
+            { value: "Google_Meet", text: "Google Meet" },
+            { value: "Google_Slides", text: "Google Slides" },
+            { value: "IF_Campus", text: "Infinite Campus" },
+            { value: "IXL", text: "IXL" },
+            { value: "Khan", text: "Khan Academy" },
+            { value: "Schoology", text: "Schoology" },
+            { value: "Wikipedia", text: "Wikipedia" },
+          ]}
+        />
+        <input
+          id="custom-title"
+          placeholder="Custom title"
+          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+        <input
+          id="custom-icon"
+          placeholder="Custom icon URL"
+          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+      </SettingsCard>
+
+      <SettingsCard
+        description="Quick escape to another site"
+        title="Panic Key"
+        Icon={Siren}
+      >
+        <input
+          id="key"
+          placeholder="Key sequence (e.g. ``)"
+          class="w-full h-9 px-3 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+        <input
+          id="link"
+          placeholder="Redirect URL"
+          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+      </SettingsCard>
+
+      <SettingsCard
+        description="Default search provider"
+        title="Search Engine"
+        Icon={Search}
+      >
+        <Dropdown
+          id="engine"
+          text="Select Engine"
+          menu={[
+            { value: "Google", text: "Google" },
+            { value: "DuckDuckGo", text: "DuckDuckGo" },
+            { value: "Bing", text: "Bing" },
+            { value: "Ecosia", text: "Ecosia" },
+            { value: "Startpage", text: "Startpage" },
+          ]}
+        />
+        <input
+          id="custom-engine"
+          placeholder="Custom search URL"
+          class="w-full h-9 px-3 mt-2 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+      </SettingsCard>
+
+      <SettingsCard
+        description="Proxy backend engine"
+        title="Proxy Engine"
+        Icon={Globe}
+      >
+        <div class="flex flex-col gap-2 text-sm text-text-secondary">
+          <div class="flex items-center justify-between">
+            <span>Engine</span>
+            <span id="proxy-engine-status" class="text-text">Scramjet</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Service Worker</span>
+            <span id="proxy-sw-status" class="text-text-secondary">Checking...</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span>Transport</span>
+            <span id="proxy-transport-status" class="text-text-secondary">Checking...</span>
+          </div>
+        </div>
+      </SettingsCard>
+
+      <SettingsCard
+        description="Top navigation layout"
+        title="Navigation"
+        Icon={LayoutGrid}
+      >
+        <Dropdown
+          id="nav-style"
+          text="Select Layout"
+          menu={[
+            { value: "menu", text: "Menu" },
+            { value: "inline", text: "Inline" },
+          ]}
+        />
+      </SettingsCard>
+
+      <SettingsCard
+        description="Visual appearance"
+        title="Theme"
+        Icon={SwatchBook}
+      >
+        <Dropdown
+          id="theme"
+          text="Select Theme"
+          menu={[
+            { value: "Default", text: "Dark (Default)" },
+            { value: "Black", text: "Void" },
+            { value: "Midnight", text: "Midnight" },
+            { value: "Ocean", text: "Ocean" },
+            { value: "White", text: "Light" },
+          ]}
+        />
+      </SettingsCard>
+
+      <div class="md:col-span-2 lg:col-span-3 p-5 bg-white/[0.03] border border-white/10 rounded">
+        <div class="flex items-center gap-2 mb-3">
+          <Info class="w-4 h-4 text-accent" strokeWidth={1.5} />
+          <h3 class="text-sm font-medium text-text uppercase tracking-wide">Information</h3>
+        </div>
+        <div class="text-sm text-text-secondary space-y-1">
+          <p>
+            Version: <span class="text-text">6.0.1</span>
+          </p>
+          <p>
+            Updated: <span class="text-text">{new Date(__COMMIT_DATE__).toLocaleDateString()}</span>
+          </p>
+          <p class="pt-2">
+            <a href="mailto:hello@gointerstellar.app" class="text-accent hover:underline">Contact</a>
+            <span class="mx-2 text-border">|</span>
+            <a href="https://discord.gg/interstellar" class="text-accent hover:underline">Discord</a>
+            <span class="mx-2 text-border">|</span>
+            <a href="https://docs.gointerstellar.app/" class="text-accent hover:underline">Docs</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="@/lib/settings.ts"></script>
+</Layout>

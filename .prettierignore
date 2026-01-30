@@ -1,0 +1,18 @@
+# Deep Directories
+**/dist
+**/node_modules
+**/.vercel
+**/.astro
+
+# Files
+pnpm-lock.yaml
+
+# Formatted by Biome
+**/*.json
+**/*.js
+**/*.ts
+**/*.tsx
+**/*.jsx
+**/*.mjs
+**/*.cjs
+**/*.css

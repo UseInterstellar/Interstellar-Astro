@@ -1,0 +1,71 @@
+---
+import fs from "node:fs";
+import path from "node:path";
+import PlusCircle from "lucide-astro/PlusCircle";
+import Search from "lucide-astro/Search";
+import AssetCard from "@/components/AssetCard.astro";
+import Layout from "@/layouts/Main.astro";
+import { parseAssetCookie, type Asset } from "@/lib/assets.ts";
+
+export const prerender = false;
+
+const local = path.resolve("./public/assets/json/Apps.json");
+
+let apps: Asset[];
+
+try {
+  const data = fs.readFileSync(local, "utf-8");
+  apps = JSON.parse(data);
+} catch (error) {
+  apps = [];
+}
+
+const customApps = parseAssetCookie(Astro.cookies, "app");
+
+const all = [...customApps, ...apps].sort((a, b) => {
+  if (a.custom && !b.custom) return -1;
+  if (!a.custom && b.custom) return 1;
+  return a.name.localeCompare(b.name);
+});
+---
+
+<Layout>
+  <div class="flex flex-col items-center pt-24 pb-12 px-4">
+    <div class="text-center mb-8 animate-fade-in">
+      <h1 class="text-3xl font-light tracking-tight text-text uppercase">Apps</h1>
+      <p class="mt-1 text-text-secondary text-sm">{all.length} available</p>
+    </div>
+
+    <div class="flex items-center gap-3 mb-8 animate-fade-in" style="animation-delay: 0.1s;">
+      <div class="relative group">
+        <Search
+          class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-placeholder group-focus-within:text-accent transition-colors"
+          strokeWidth={1.5}
+        />
+        <input
+          id="search"
+          placeholder="Search"
+          class="w-48 h-9 pl-9 pr-3 bg-white/5 border border-white/10 rounded text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 transition-all"
+        />
+      </div>
+
+      <button
+        class="flex items-center gap-2 h-9 px-4 bg-white/5 border border-white/10 rounded text-sm text-text-secondary hover:text-text hover:bg-white/10 hover:border-white/20 transition-all"
+        id="add-asset"
+        data-type="app"
+      >
+        <PlusCircle class="w-4 h-4" strokeWidth={1.5} />
+        <span>Add</span>
+      </button>
+    </div>
+
+    <div
+      id="container"
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 w-full max-w-6xl stagger"
+    >
+      {all.map((app) => <AssetCard asset={app} assetType="app" />)}
+    </div>
+  </div>
+</Layout>
+
+<script src="@/lib/assets.ts"></script>

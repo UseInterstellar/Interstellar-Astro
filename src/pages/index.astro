@@ -1,0 +1,31 @@
+---
+import Search from "lucide-astro/Search";
+import Layout from "@/layouts/Main.astro";
+---
+
+<Layout>
+  <div class="flex-1 flex flex-col items-center justify-center px-4">
+    <h1 class="text-4xl md:text-6xl font-bold text-text tracking-tighter mb-10 uppercase">
+      Interstellar
+    </h1>
+    <p id="tagline" class="min-h-[1.25rem] mb-5 -mt-8 text-sm md:text-base text-text-secondary/80 tracking-wide leading-5 opacity-0 transition-opacity duration-150"></p>
+
+    <div class="w-full max-w-xl">
+      <div class="relative">
+        <Search
+          class="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-secondary"
+          strokeWidth={2}
+        />
+        <input
+          id="search"
+          class="w-full h-12 pl-10 pr-4 rounded-[6px] bg-white/5 border border-white/10 text-sm text-text placeholder:text-text-placeholder focus:outline-none focus:border-white/25 focus:bg-white/[0.07]"
+          placeholder="Search or enter URL"
+          type="search"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+    </div>
+  </div>
+</Layout>
+<script src="@/lib/home.ts"></script>

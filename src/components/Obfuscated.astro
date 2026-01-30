@@ -1,0 +1,10 @@
+---
+interface Props {
+  text: string;
+  class?: string;
+}
+---
+
+<span>
+  {[...Astro.props.text].map((i) => <span class:list={Astro.props.class}>{i}</span>)}
+</span>
