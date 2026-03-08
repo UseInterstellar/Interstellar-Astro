@@ -7,8 +7,11 @@ interface Props {
 const { Icon, title, description } = Astro.props;
 ---
 
-<div class="bg-background-settings rounded-lg p-5 shadow-inner border-accent-secondary border-[2.5px]">
-  <span class="font-extrabold text-2xl mt-0 flex flex-row gap-2 items-center"><Icon class="size-6" />{title}</span>
-  <p class="font-light">{description}</p>
+<div class="settings-card relative z-0 p-5 bg-white/[0.03] border border-white/10 rounded group hover:border-white/20 hover:bg-white/[0.05] transition-all">
+  <div class="flex items-center gap-2 mb-2">
+    <Icon class="w-4 h-4 text-accent" stroke-width="1.5" />
+    <h3 class="text-sm font-medium text-text uppercase tracking-wide">{title}</h3>
+  </div>
+  <p class="text-xs text-text-secondary mb-4">{description}</p>
   <slot />
 </div>

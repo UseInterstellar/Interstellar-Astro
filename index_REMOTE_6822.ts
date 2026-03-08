@@ -48,42 +48,10 @@ async function Start() {
     obfuscationMaps = generateMaps();
   }
 
-  // determine host/port, with defaults
-  const requestedHost = INConfig.server?.host || "0.0.0.0";
-  const requestedPort = INConfig.server?.port || 8080;
-  // helper to check if a port is free, returns first available port (up to +10)
-  async function findFreePort(startPort: number, maxAttempts = 10): Promise<number> {
-    const { createServer } = await import("node:net");
-    for (let p = startPort; p < startPort + maxAttempts; p++) {
-      const free = await new Promise<boolean>((resolve) => {
-        const srv = createServer()
-          .once("error", (err: any) => {
-            if (err.code === "EADDRINUSE") resolve(false);
-            else resolve(false);
-          })
-          .once("listening", () => {
-            srv.close(() => resolve(true));
-          })
-          .listen(p, requestedHost);
-      });
-      if (free) return p;
-    }
-    return startPort;
-  }
-
-  const port = await findFreePort(requestedPort);
-  if (port !== requestedPort) {
-    console.warn(
-      `Port ${requestedPort} was unavailable, using ${port} instead. ` +
-        `You can set a different port in config or clear the conflicting service.`
-    );
-  }
+  const port = INConfig.server?.port || 8080;
 
   const app = Fastify({
-    serverFactory: (handler) =>
-      createServer(handler).on("upgrade", (req, socket: Socket, head) =>
-        req.url?.startsWith("/f") ? wisp.routeRequest(req, socket, head) : socket.destroy()
-      ),
+    serverFactory: (handler) => createServer(handler).on("upgrade", (req, socket: Socket, head) => (req.url?.startsWith("/f") ? wisp.routeRequest(req, socket, head) : socket.destroy())),
   });
 
   if (INConfig.server?.compress !== false) {
@@ -354,17 +322,161 @@ self.addEventListener("fetch", (event) => {
       root: path.join(import.meta.dirname, "dist", "client"),
     })
     .register(fastifyMiddie);
-  app.use(handler);
-  app.listen({ port, host: requestedHost }, (err, addr) => {
+
+  if (obfuscationMaps) {
+    const maps = obfuscationMaps;
+    const routeScript = getClientScript(maps);
+
+    const transformMiddleware = (_req: IncomingMessage, res: ServerResponse, next: () => void) => {
+      const originalWriteHead = res.writeHead.bind(res);
+      const originalWrite = res.write.bind(res);
+      const originalEnd = res.end.bind(res);
+      const originalSetHeader = res.setHeader.bind(res);
+      const originalRemoveHeader = res.removeHeader.bind(res);
+
+      let contentType: "html" | "js" | "css" | null = null;
+      let statusCode = 200;
+      let headers: Record<string, string | string[] | number | undefined> = {};
+      const chunks: Buffer[] = [];
+
+      const detectContentType = (ct: string): "html" | "js" | "css" | null => {
+        const lower = ct.toLowerCase();
+        if (lower.includes("text/html")) return "html";
+        if (lower.includes("text/css")) return "css";
+        if (lower.includes("application/javascript") || lower.includes("text/javascript") || lower.includes("application/x-javascript") || lower.includes("application/ecmascript")) {
+          return "js";
+        }
+        return null;
+      };
+
+      const pushChunk = (chunks: Buffer[], chunk: unknown, encoding?: BufferEncoding): void => {
+        if (Buffer.isBuffer(chunk)) {
+          chunks.push(chunk);
+        } else if (chunk instanceof Uint8Array) {
+          chunks.push(Buffer.from(chunk));
+        } else if (typeof chunk === "string") {
+          chunks.push(Buffer.from(chunk, encoding || "utf8"));
+        }
+      };
+
+      res.setHeader = (name: string, value: string | number | readonly string[]): ServerResponse => {
+        const nameLower = name.toLowerCase();
+        if (nameLower === "content-type") {
+          contentType = detectContentType(String(value));
+        }
+        if (contentType && (nameLower === "content-encoding" || nameLower === "transfer-encoding")) {
+          return res;
+        }
+        return originalSetHeader(name, value);
+      };
+
+      res.writeHead = (code: number, reasonOrHeaders?: any, headersArg?: any): ServerResponse => {
+        statusCode = code;
+        const h = typeof reasonOrHeaders === "object" ? reasonOrHeaders : headersArg || {};
+        headers = { ...headers, ...h };
+
+        const ct = (h["content-type"] || h["Content-Type"] || "").toString();
+        if (ct) {
+          contentType = contentType || detectContentType(ct);
+        }
+
+        if (!contentType) {
+          const existingCt = res.getHeader("content-type");
+          if (existingCt) {
+            contentType = detectContentType(String(existingCt));
+          }
+        }
+
+        if (contentType) {
+          delete headers["content-encoding"];
+          delete headers["Content-Encoding"];
+          delete headers["transfer-encoding"];
+          delete headers["Transfer-Encoding"];
+          originalRemoveHeader("content-encoding");
+          originalRemoveHeader("transfer-encoding");
+          return res;
+        }
+
+        return originalWriteHead(code, reasonOrHeaders, headersArg);
+      };
+
+      res.write = (chunk: any, encodingOrCb?: any, cb?: any): boolean => {
+        if (contentType && chunk) {
+          const enc = typeof encodingOrCb === "string" ? (encodingOrCb as BufferEncoding) : undefined;
+          pushChunk(chunks, chunk, enc);
+          const callback = typeof encodingOrCb === "function" ? encodingOrCb : cb;
+          if (typeof callback === "function") callback();
+          return true;
+        }
+        return originalWrite(chunk, encodingOrCb, cb);
+      };
+
+      res.end = (chunk?: any, encodingOrCb?: any, cb?: any): ServerResponse => {
+        if (contentType) {
+          if (chunk && typeof chunk !== "function") {
+            const enc = typeof encodingOrCb === "string" ? (encodingOrCb as BufferEncoding) : undefined;
+            pushChunk(chunks, chunk, enc);
+          }
+
+          let body = Buffer.concat(chunks);
+          const encodingHeader = (headers["content-encoding"] || headers["Content-Encoding"] || res.getHeader("content-encoding") || res.getHeader("Content-Encoding")) as string | string[] | undefined;
+          const encoding = Array.isArray(encodingHeader) ? encodingHeader[0] : encodingHeader;
+          if (encoding) {
+            try {
+              if (encoding.includes("br")) {
+                body = zlib.brotliDecompressSync(body);
+              } else if (encoding.includes("gzip")) {
+                body = zlib.gunzipSync(body);
+              } else if (encoding.includes("deflate")) {
+                body = zlib.inflateSync(body);
+              }
+            } catch (_e) {}
+          }
+
+          let content = body.toString("utf8");
+
+          if (contentType === "html") {
+            content = transformHtml(content, maps);
+            content = content.replace(/<\/head>/i, `${routeScript}</head>`);
+          } else if (contentType === "css") {
+            content = transformCss(content, maps);
+          } else if (contentType === "js") {
+            content = transformJs(content, maps);
+          }
+
+          const transformedBody = Buffer.from(content, "utf8");
+
+          headers["cache-control"] = "no-store, no-cache, must-revalidate";
+          headers.pragma = "no-cache";
+
+          headers["content-length"] = transformedBody.length;
+          delete headers["transfer-encoding"];
+          delete headers["content-encoding"];
+          delete headers["Content-Encoding"];
+
+          originalWriteHead(statusCode, headers);
+          originalEnd(transformedBody);
+
+          const callback = typeof chunk === "function" ? chunk : typeof encodingOrCb === "function" ? encodingOrCb : cb;
+          if (typeof callback === "function") callback();
+
+          return res;
+        }
+
+        return originalEnd(chunk, encodingOrCb, cb);
+      };
+
+      next();
+    };
+
+    app.use(transformMiddleware);
+    app.use(handler);
+  } else {
+    app.use(handler);
+  }
+  app.listen({ port }, (err, addr) => {
     if (err) {
-      if ((err as any).code === "EADDRINUSE") {
-        console.error(
-          `Unable to bind to ${requestedHost}:${port}; address already in use. ` +
-            `Try changing the port or stopping the conflicting process.`
-        );
-      } else {
-        console.error("Server failed to start:", err);
-      }
+      console.error("Server failed to start:", err);
       process.exit(1);
     }
     console.log("Server listening on %s", addr);

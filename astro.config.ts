@@ -1,19 +1,17 @@
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import path from "node:path";
 import node from "@astrojs/node";
+import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import { baremuxPath } from "@mercuryworkshop/bare-mux/node";
-// @ts-expect-error shut
 import { epoxyPath } from "@mercuryworkshop/epoxy-transport";
-// @ts-expect-error shut
 import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import compress from "@playform/compress";
-import { uvPath } from "@titaniumnetwork-dev/ultraviolet";
 import { defineConfig } from "astro/config";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import INConfig from "./config";
 
-const integrations = [tailwind({ applyBaseStyles: false })];
+const integrations = [react(), tailwind({ applyBaseStyles: false })];
 
 if (INConfig.server?.compress !== false) {
   integrations.push(
@@ -23,11 +21,11 @@ if (INConfig.server?.compress !== false) {
       Image: false,
       JavaScript: true,
       SVG: true,
+      Logger: 0,
     }),
   );
 }
 
-// https://astro.build/config
 export default defineConfig({
   output: "server",
   adapter: node({
@@ -48,8 +46,20 @@ export default defineConfig({
     ],
   },
   vite: {
+    logLevel: "warn",
     define: {
-      __COMMIT_DATE__: JSON.stringify(execSync("git show --no-patch --format=%ci").toString().trim()),
+      __COMMIT_DATE__: JSON.stringify(
+        (() => {
+          try {
+            return execFileSync("git", ["show", "--no-patch", "--format=%ci"])
+              .toString()
+              .trim()
+              .replace(/[<>"'&]/g, "");
+          } catch {
+            return new Date().toISOString();
+          }
+        })(),
+      ),
     },
     resolve: {
       alias: {
@@ -76,12 +86,6 @@ export default defineConfig({
             dest: "assets/bundled",
             overwrite: false,
             rename: (name) => `bm-${name}.js`,
-          },
-          {
-            src: `${uvPath}/**/*.js`.replace(/\\/g, "/"),
-            dest: "assets/bundled",
-            overwrite: false,
-            rename: (name) => `${name.replace("uv", "v").replace(/[aeiou]/gi, "")}.js`,
           },
         ],
       }),
