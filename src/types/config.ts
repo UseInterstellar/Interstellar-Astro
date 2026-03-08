@@ -2,6 +2,10 @@
 export interface Config {
   // Server configuration
   server?: {
+    // The host/address to bind the HTTP server to
+    // Default: "0.0.0.0" (all interfaces)
+    host?: string;
+
     // The port to run the HTTP server on
     // Default: 8080
     port?: number;
