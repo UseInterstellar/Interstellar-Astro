@@ -1,15 +1,6 @@
-import { parse, HTMLElement, NodeType, type Node, type TextNode } from "node-html-parser";
+import { type HTMLElement, type Node, NodeType, parse, type TextNode } from "node-html-parser";
 
-const SKIP_TAGS = new Set([
-  "script",
-  "style",
-  "noscript",
-  "svg",
-  "template",
-  "textarea",
-  "code",
-  "pre",
-]);
+const SKIP_TAGS = new Set(["script", "style", "noscript", "svg", "template", "textarea", "code", "pre"]);
 const SKIP_TAGS_ARRAY = [...SKIP_TAGS];
 
 const ATTR_KEYS = ["aria-label", "alt"];
@@ -80,13 +71,7 @@ function walk(node: Node, key: number): void {
   if (tag === "meta") {
     const name = (el.getAttribute("name") || "").toLowerCase();
     const prop = (el.getAttribute("property") || "").toLowerCase();
-    const match =
-      name === "description" ||
-      name === "twitter:description" ||
-      name === "twitter:title" ||
-      prop === "og:description" ||
-      prop === "og:title" ||
-      prop === "og:site_name";
+    const match = name === "description" || name === "twitter:description" || name === "twitter:title" || prop === "og:description" || prop === "og:title" || prop === "og:site_name";
     if (match) {
       const content = el.getAttribute("content") || "";
       if (content && !isWhitespace(content)) {
