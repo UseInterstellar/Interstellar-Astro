@@ -16,6 +16,7 @@ import { build } from "astro";
 import Fastify from "fastify";
 import INConfig from "./config";
 import { ASSET_FOLDERS, generateMaps, getClientScript, type ObfuscationMaps, ROUTES, transformCss, transformHtml, transformJs } from "./src/lib/obfuscate";
+import { getTextCanvasClientScript, transformTextInHtml } from "./src/lib/text-canvas";
 
 let obfuscationMaps: ObfuscationMaps | null = null;
 
@@ -325,6 +326,7 @@ self.addEventListener("fetch", (event) => {
   if (obfuscationMaps) {
     const maps = obfuscationMaps;
     const routeScript = getClientScript(maps);
+    const textScript = getTextCanvasClientScript(maps.textKey);
 
     const transformMiddleware = (_req: IncomingMessage, res: ServerResponse, next: () => void) => {
       const originalWriteHead = res.writeHead.bind(res);
@@ -436,7 +438,8 @@ self.addEventListener("fetch", (event) => {
 
           if (contentType === "html") {
             content = transformHtml(content, maps);
-            content = content.replace(/<\/head>/i, `${routeScript}</head>`);
+            content = transformTextInHtml(content, maps.textKey);
+            content = content.replace(/<\/head>/i, `${routeScript}${textScript}</head>`);
           } else if (contentType === "css") {
             content = transformCss(content, maps);
           } else if (contentType === "js") {

@@ -19,6 +19,7 @@ export interface ObfuscationMaps {
   assets: Record<string, string>;
   reverseAssets: Record<string, string>;
   version: string;
+  textKey: number;
 }
 
 function genRandom(length: number, used: Set<string>): string {
@@ -75,7 +76,8 @@ export function generateMaps(): ObfuscationMaps {
   }
 
   const version = crypto.randomBytes(8).toString("hex");
-  return { routes, reverseRoutes, code, assets, reverseAssets, version };
+  const textKey = (crypto.randomBytes(1)[0] | 1) & 0xff;
+  return { routes, reverseRoutes, code, assets, reverseAssets, version, textKey };
 }
 
 export function transformHtml(html: string, maps: ObfuscationMaps): string {
